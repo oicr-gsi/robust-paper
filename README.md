@@ -11,7 +11,6 @@ As a relatively young field, bioinformatics is full of newly developed software.
 Efforts such as [ELIXIR tools and data registry](http://dx.doi.org/10.1093/nar/gkv1116) and the [Bioinformatics Links Directory](https://bioinformatics.ca/links_directory/) [(ref)](10.1093/nar/gks632)
 have made efforts towards cataloguing the available software. 
 As of May 2016, ELIXIR lists 2500 software entries and the Bioinformatics.ca lists 1700.
-
 For many data types, there is no 'right' way to perform analysis as yet. 
 As an example, although short read sequencers are ten years old, the leading 
 sequencing companies regularly update their instruments and chemistry to push 
@@ -34,12 +33,32 @@ be lead author on a few papers and leave their advisor's lab for a
 post-doctoral, academic or industry position with much-deserved acclaim.
 
 Our story really starts after that student leaves the lab. Every student and 
-research associate with a few years of experience feels a tremor of fear when 
-their advisor says "Use <graduated student>'s code to analyze your data". 
+research associate with a few years of experience feels a tremour of fear when 
+their advisor says "Use \<graduated student\>'s code to analyze your data". 
 In most cases, the software will be undocumented, have a number of 
 eccentricities, and likely will not work without substantial modification. 
-It is a time sink, and the follow-up student will shake their fist and curse 
-the graduated student's name.
+The student or employee will shake their fist and curse the graduated student's
+name. She then has two choices: hack it to make it work or invest time into 
+making the software robust.
+
+Robust software can be installed on systems outside the original institution and
+works for users than the original author. Its input and output data have a 
+defined format. It has a minimum set of documentation that describes what its 
+dependencies are, how to install it, and what the options are. Finally, it is 
+amenable to testing by external software and is versioned.  Whether the aim is 
+as simple as sharing the code with collaborators or as complex as using the 
+software in a production analysis environment, increasing the robustness of your 
+software decreases headaches all around.
+
+These rules are for anyone who is placed in the position of making 
+bioinformatics software robust and generally usable. We do not recommend specific
+languages, libraries, packages, documentation styles or operating systems. We 
+also do not advise these rules be applied to *every* coding effort. The vast 
+majority of code produced in the marathon of a graduate thesis is 'throw-away' 
+code that it used once to answer a specific question related to a specific 
+dataset. However, once that little script is dragged out three or four times 
+for slightly different purposes, it may be time to apply some robustness rules.
+
 
 FIXME: explain the problem.
 
