@@ -12,7 +12,7 @@ Efforts such as [ELIXIR tools and data registry](http://dx.doi.org/10.1093/nar/g
 have made efforts towards cataloguing the available software. 
 As of May 2016, ELIXIR lists 2500 software entries and the Bioinformatics.ca lists 1700.
 For many data types, there is no 'right' way to perform analysis as yet. 
-As an example, although short read sequencers are ten years old, the leading 
+For example, although short read sequencers are ten years old, the leading 
 sequencing companies regularly update their instruments and chemistry to push 
 the boundaries of the possible ever higher[references: illumina HiseqX, 10X genomics, nanopore sequencing]. 
 New sequencing initiatives are exploring the human microbiome, the depths of 
@@ -50,20 +50,26 @@ as simple as sharing the code with collaborators or as complex as using the
 software in a production analysis environment, increasing the robustness of your 
 software decreases headaches all around.
 
-These rules are for anyone who is placed in the position of making 
-bioinformatics software robust and generally usable. We do not recommend specific
-languages, libraries, packages, documentation styles or operating systems. We 
-also do not advise these rules be applied to *every* coding effort. The vast 
-majority of code produced in the marathon of a graduate thesis is 'throw-away' 
-code that it used once to answer a specific question related to a specific 
-dataset. However, once that little script is dragged out three or four times 
-for slightly different purposes, it may be time to apply some robustness rules.
+These rules are for anyone who is placed in the position of making
+bioinformatics software robust and generally usable. We do not recommend
+specific languages, libraries, packages, documentation styles or operating
+systems. We *do* presume that you are using version control such as Git,
+Subversion or Mercurial, although these rules can be applied without it. These
+rules apply to both private and open-source software.  We also do not advise
+these rules be applied to *every* coding effort. The vast majority of code
+produced in the marathon of a graduate thesis is 'throw-away' code that it used
+once to answer a specific question related to a specific dataset. However, once
+that little script is dragged out three or four times for slightly different
+purposes, it may be time to apply ten simple rules for robust software.
 
+Throughout this document we will be using a small software package called
+[debarcer](https://github.com/oicr-gsi/debarcer) to illustrate the rules of
+robust software.
 
 FIXME: explain the problem.
 
-* The difference between software running and being usable.
-  * "Works for me on my machine" vs. "works for other people on a cluster I've 
+* The difference between software running and being usable.  "Works for me on my
+* machine" vs. "works for other people on a cluster I've 
     never met".
 * The "right" answer is to create a package on e.g. CPAN with full documentation
   and a set of regression tests.
@@ -74,13 +80,62 @@ How to tell if the software is working:
 * Test in a 'vanilla' environment, such as another user's computer or a dummy 
   account with none of the settings of the original developer.
 * Test with different sizes of data:
-  ridiculously small, small, medium, and large.
-  The software should run on all sizes given some parameter tweaking,
-  or fail with a sensible error message if the data is too big.
+  ridiculously small, small, medium, and large.  The software should run on all
+sizes given some parameter tweaking, or fail with a sensible error message if
+the data is too big.
 * Compare results from multiple iterations that have the same parameters and 
   inputs.(See rule #8.)
 
-## 1. Have a README that explains in a few lines what the software does and what its dependencies are.
+## 1. Have a README that explains in a few lines what the software does and what
+its dependencies are.
+
+The README is the first stop for any potential users interested in your
+software. At a minimum, it needs to provide or point to everything a new user
+needs to get started, where they can turn to for help, and which licenses apply
+to the software package.
+
+**Explain what the software does:** At the beginning of the README, explain what
+the software does in one or two sentences. The description does not need to be
+long or detailed. There's nothing more frustrating than spending the time to
+download and install some software only to find out that it doesn't do what you
+thought it did.
+
+    Debarcer (De-Barcoding and Error Correction) is a package for working with
+    next-gen sequencing data that contains molecular barcodes.
+
+**List required dependencies:** Often, software depends on very specific
+versions of libraries, modules, or operating systems. This is entirely
+reasonable as long as it is properly documented.  Often, multiple libraries
+exist with the same or very similar names, so either provide the commands
+necessary to download the dependencies or link to the software homepage. Include
+the version number for each dependency. Especially if you use older versions,
+include links where the packages can be downloaded. Package managers like apt,
+pip and homebrew stop offering older packages after a few years. [IS THIS TRUE
+OF PIP AND HOMEBREW?]
+
+If your dependency is to an internal package that is not available on the
+internet, you have several options depending on the sensitivity of the code in
+question. If it is plain text, you can add it directly to you repository with
+appropriate attribution. If the dependency is a binary, we recommend using a
+[binary repository
+manager](https://en.wikipedia.org/wiki/Binary_repository_manager) such as
+Artifactory or ProGet. These managers keep versioned copies of software at
+constant URLs so they can be downloaded as long as the manager continues to run.
+As a last resort, you can place it at an internal location on shared disk,
+remove all write permissions, and link to it from your README, although this
+method is heavily discouraged because of the potential for the directory to go
+missing because of factors outside the developer's control.
+
+
+; how to install; what type of input it accepts; what type of output it
+produces; attributions; and licensing.
+
+
+Exhaustive details regarding parameters and usage are not usually necessary in a
+README if they are present in usage (#2), although a working example using test
+data (per #9) is always appreciated.
+
+# 
 
 * This is readable *before* the software is installed (or even downloaded).
 * Should also include (or better yet, point to) the license for the software,
