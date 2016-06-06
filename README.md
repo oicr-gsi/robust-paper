@@ -92,7 +92,9 @@ its dependencies are.
 The README is the first stop for any potential users interested in your
 software. At a minimum, it needs to provide or point to everything a new user
 needs to get started, where they can turn to for help, and which licenses apply
-to the software package.
+to the software package. Exhaustive details regarding parameters and usage are
+not usually necessary in a README if they are present in usage (#2), although a
+working example using test data (per #9) is always appreciated.
 
 **Explain what the software does:** At the beginning of the README, explain what
 the software does in one or two sentences. The description does not need to be
@@ -126,16 +128,42 @@ remove all write permissions, and link to it from your README, although this
 method is heavily discouraged because of the potential for the directory to go
 missing because of factors outside the developer's control.
 
+**Installation instructions:** If the software needs to be compiled or
+installed, list those instructions in the readme. New users may not be familiar
+with your build system, even if it is `make`. Also mention here if you
+recommend they use a pre-compiled binary instead through a system such as pip
+or apt.
 
-; how to install; what type of input it accepts; what type of output it
-produces; attributions; and licensing.
+**Input and output files**: All possible input and output files should be
+listed in this section. Do the files conform to a particular industry standard,
+an extension of an existing format, or is it your own format? If using a
+standard format, link to the specification and version. If you extend the
+standard or have your own format, define it here explicitly, listing all the
+required fields and acceptable values. (You get bonus points if you include a
+script to convert between standard format and your file format). If there is no
+rigorous format (such as with log files), show an example file, or the first
+few lines, and explain what the sections mean.
+
+Input files and their formats are included in most documentation. However, the
+definitions of the output files are often missing. In addition to the expected
+output, software will often produce intermediate files, auxilliary files, and
+log files. We believe *all* output files should be listed in the README. Log
+and auxilliary files are often full of valuable information that can be mined
+for the user's specific purpose. Even if the files are considered
+self-explanatory. Sometimes your users will need to answer a question of the
+format, "Does X tell you the percentage of reads trimmed to remove adapter
+sequences?" and you can check the documentation and confidently say "yes, it is
+in the log file".
 
 
-Exhaustive details regarding parameters and usage are not usually necessary in a
-README if they are present in usage (#2), although a working example using test
-data (per #9) is always appreciated.
-
-# 
+**Attributions and licensing:** Attributions are how you credit your main
+contributors; licenses are how you want others to use and credit your software.
+Both are important in your README. Leave no question in anyone's mind about
+whether your software can be used commercially, how much modification is
+permitted, and how other software needs to attribute to you. If your software
+is not open source, include a statement here. Attributions can also contain a
+list of 'expert' users that can be contacted if new users have problems with
+the software. (for better or for worse) 
 
 * This is readable *before* the software is installed (or even downloaded).
 * Should also include (or better yet, point to) the license for the software,
