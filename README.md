@@ -5,86 +5,84 @@
 
 > ## Abstract
 >
-> FIXME: abstract
+> **FIXME: abstract**
 
-As a relatively young field, bioinformatics is full of newly developed software. [EXAMPLES HERE] 
-Efforts such as [ELIXIR tools and data registry](http://dx.doi.org/10.1093/nar/gkv1116) and the [Bioinformatics Links Directory](https://bioinformatics.ca/links_directory/) [(ref)](10.1093/nar/gks632)
-have made efforts towards cataloguing the available software. 
+## Introduction
+
+As a relatively young field, bioinformatics is full of newly developed software.
+**FIXME: EXAMPLES HERE**
+Efforts such as [the ELIXIR tools and data registry][elixir-registry]
+and the [Bioinformatics Links Directory][bioinfo-links-dir]
+[(ref)][bioinfo-links-dir-ref]
+have made efforts towards cataloguing the available software.
 As of May 2016, ELIXIR lists 2500 software entries and the Bioinformatics.ca lists 1700.
-For many data types, there is no 'right' way to perform analysis as yet. 
-For example, although short read sequencers are ten years old, the leading 
-sequencing companies regularly update their instruments and chemistry to push 
-the boundaries of the possible ever higher[references: illumina HiseqX, 10X genomics, nanopore sequencing]. 
-New sequencing initiatives are exploring the human microbiome, the depths of 
-the ocean, and even the outer reaches of space. For many of these new data 
-types, we have not reached the boundaries of what is possible. We are also 
-sequencing data in quantities never before seen. The 1000 Genomes project seems 
-quaint next to the UK's 100k project and Human Longevity's pledge to 
-sequence 100 000 genomes per year by the end of 2016[(ref)](http://www.darkdaily.com/worlds-two-largest-whole-genome-sequencing-programs-give-pathologists-and-clinical-laboratory-managers-an-intriguing-look-at-new-diagnostic-opportunities-0502#axzz49tdSMDXq). 
-PULL MORE STATS FROM [ICGCMED PAPER](http://icgcmed.org/files/ICGCmed_White_Paper_April_2016.pdf). 
-As of release 21, the International Cancer Genome Consortium has sequenced 
-15 000 individuals and the data are publicly available [(ref)](https://dcc.icgc.org).
+For many data types, there is no 'right' way to perform analysis as yet.
+For example, although short read sequencers are ten years old, the leading
+sequencing companies regularly update their instruments and chemistry to push
+the boundaries of the possible ever higher
+**FIXME: illumina HiseqX, 10X genomics, nanopore sequencing**.
+New sequencing initiatives are exploring the human microbiome, the depths of
+the ocean, and even the outer reaches of space. For many of these new data
+types, we have not reached the boundaries of what is possible. We are also
+sequencing data in quantities never before seen. The 1000 Genomes project seems
+quaint next to the UK's 100k project and Human Longevity's pledge to
+[sequence 100,000 genomes per year by the end of 2016][sequence-100k].
+As of release 21, the International Cancer Genome Consortium has sequenced
+15 000 individuals and the data are [publicly available[icgc].
+**FIXME: PULL MORE STATS FROM [ICGCMED PAPER][icgcmed-white-paper]**.
 
-This is a very exciting time for bioinformatics. As a direct result, many 
-trainee projects produce code and software. This software supports their 
-thesis project or post-doctoral research, runs on the data gathered by the 
-student's lab, and produces excellent results in their hands. The trainee will 
-be lead author on a few papers and leave their advisor's lab for a 
-post-doctoral, academic or industry position with much-deserved acclaim.
+This is a very exciting time for bioinformatics. As a direct result, many
+trainee projects produce code and software to support their
+thesis project or post-doctoral research.  This software runs on the data gathered by the
+student's lab, and produces excellent results in their hands.
 
-Our story really starts after that student leaves the lab. Every student and 
-research associate with a few years of experience feels a tremour of fear when 
-their advisor says "Use \<graduated student\>'s code to analyze your data". 
-In most cases, the software will be undocumented, have a number of 
-eccentricities, and likely will not work without substantial modification. 
-The student or employee will shake their fist and curse the graduated student's
-name. She then has two choices: hack it to make it work or invest time into 
-making the software robust.
+But what happens after that student leaves that lab?  Everyone
+with a few years of experience feels a tremor of fear when told,
+"Use \<graduated student\>'s code to analyze your data".
+In most cases, that software will be undocumented and work in unexpected ways
+(if it works at all without substantial modification).
+In most cases,
+the new user winds up shaking their fist and cursing the graduated student's
+name.  She then has two choices: hack the existing code to make it work for her,
+or start over.
 
-Robust software can be installed on systems outside the original institution and
-works for users than the original author. Its input and output data have a 
-defined format. It has a minimum set of documentation that describes what its 
-dependencies are, how to install it, and what the options are. Finally, it is 
-amenable to testing by external software and is versioned.  Whether the aim is 
-as simple as sharing the code with collaborators or as complex as using the 
-software in a production analysis environment, increasing the robustness of your 
-software decreases headaches all around.
+The root cause of this problem is that most of the software
+researchers produce isn't *robust*.  The difference between running
+and being robust is the difference between "works for me on my
+machine" and "works for other people on a cluster I've never used".
+In particular, robust software:
 
-These rules are for anyone who is placed in the position of making
-bioinformatics software robust and generally usable. We do not recommend
-specific languages, libraries, packages, documentation styles or operating
-systems. We *do* presume that you are using version control such as Git,
-Subversion or Mercurial, although these rules can be applied without it. These
-rules apply to both private and open-source software.  We also do not advise
-these rules be applied to *every* coding effort. The vast majority of code
-produced in the marathon of a graduate thesis is 'throw-away' code that it used
-once to answer a specific question related to a specific dataset. However, once
-that little script is dragged out three or four times for slightly different
-purposes, it may be time to apply ten simple rules for robust software.
+*   Is kept under version control.
+*   Can be installed on systems outside the original institution
+*   Works for users other than the original author
+*   Has well-defined input and output formats
+*   Has documentation that describes what its dependencies are,
+    how to install it,
+    and what the options are.
+*   Comes with enough tests to show that it actually runs.
 
-Throughout this document we will be using a small software package called
-[debarcer](https://github.com/oicr-gsi/debarcer) to illustrate the rules of
-robust software.
+These are all necessary steps toward creating a reusable library that
+can be shared through a site like CPAN or CRAN, and apply to both
+closed-source and open-source software.  They do not depend on
+specific languages, libraries, packages, documentation styles, or
+operating systems.  Whether the aim is as simple as sharing the code
+with collaborators or as complex as using the software in a production
+analysis environment, increasing the robustness of your software
+decreases headaches all around.
 
-FIXME: explain the problem.
+Note: we do not recommend that these rules be applied to *every*
+coding effort. The vast majority of code produced in the marathon of a
+graduate thesis is "throw-away" code that is used once to answer a
+specific question related to a specific dataset. However, once that
+little script is dragged out three or four times for slightly
+different purposes, it may be time to apply ten simple rules for
+robust software.  As the saying goes, not everything worth doing is
+worth doing right away.
 
-* The difference between software running and being usable.  "Works for me on my
-* machine" vs. "works for other people on a cluster I've 
-    never met".
-* The "right" answer is to create a package on e.g. CPAN with full documentation
-  and a set of regression tests.
-  * But not everything worth doing is worth doing right.
-
-How to tell if the software is working:
-
-* Test in a 'vanilla' environment, such as another user's computer or a dummy 
-  account with none of the settings of the original developer.
-* Test with different sizes of data:
-  ridiculously small, small, medium, and large.  The software should run on all
-sizes given some parameter tweaking, or fail with a sensible error message if
-the data is too big.
-* Compare results from multiple iterations that have the same parameters and 
-  inputs.(See rule #8.)
+Throughout this document we will be using a small software package
+called [debarcer][debarcer] to illustrate
+the rules of robust software.  We are grateful to its author, Paul
+Krzyzanowski, for many insightful discussions.
 
 ## 1. Have a README that explains in a few lines what the software does and what
 its dependencies are.
@@ -119,8 +117,7 @@ If your dependency is to an internal package that is not available on the
 internet, you have several options depending on the sensitivity of the code in
 question. If it is plain text, you can add it directly to you repository with
 appropriate attribution. If the dependency is a binary, we recommend using a
-[binary repository
-manager](https://en.wikipedia.org/wiki/Binary_repository_manager) such as
+[binary repository manager][binary-repo-manager] such as
 Artifactory or ProGet. These managers keep versioned copies of software at
 constant URLs so they can be downloaded as long as the manager continues to run.
 As a last resort, you can place it at an internal location on shared disk,
@@ -163,17 +160,17 @@ whether your software can be used commercially, how much modification is
 permitted, and how other software needs to attribute to you. If your software
 is not open source, include a statement here. Attributions can also contain a
 list of 'expert' users that can be contacted if new users have problems with
-the software. (for better or for worse) 
+the software. (for better or for worse)
 
 * This is readable *before* the software is installed (or even downloaded).
 * Should also include (or better yet, point to) the license for the software,
   so that (potential) users will know what they're allowed to do.
-* FIXME: example from real software: https://github.com/dib-lab/khmer/blob/master/README.rst
+* **FIXME: example from real software: https://github.com/dib-lab/khmer/blob/master/README.rst**
 
 ## 2. Print usage information when launching from the command line that explains the software's features.
 
 * And tell users where to find more information.
-* FIXME: example from real software (some package you think does this well)
+* **FIXME: example from real software (some package you think does this well)**
 
 ## 3. Do not require root or other special privileges.
 
@@ -187,21 +184,21 @@ the software. (for better or for worse)
 
 ## 4. Allow configuration of all major parameters from the command lines, including input files, thresholds, memory required, and other parameters.
 
-* Configuration files are nice, but awkward to create on the fly when the tool 
+* Configuration files are nice, but awkward to create on the fly when the tool
   is being run from shell scripts etc.
 * GVW: I usually tell people to
-  * read relatively constant values from a ~/.packagerc file or the like so 
+  * read relatively constant values from a ~/.packagerc file or the like so
     that they don't have to be specified every time
   * echo parameters to output to support reproducibility
   * and will defer to you because you've done this a lot more
 
 ## 5. Eliminate hard-coded paths.
 
-* Allow the user to set the name and location for the output files or results as 
+* Allow the user to set the name and location for the output files or results as
   command-line parameters
   * Common offenders: reference datasets, output directories.
-* Corollary: do not require navigating to a particular directory to work, or 
-  operate on files only in the current working directory without allowing an 
+* Corollary: do not require navigating to a particular directory to work, or
+  operate on files only in the current working directory without allowing an
   override.
   * "Where I have to be" is just another hard-coded path.
 
@@ -209,13 +206,13 @@ the software. (for better or for worse)
 
 * Common offenders: samtools, Picard tools, tabix.
 * Those tools may not be installed, or may not be on the path.
-* Some leniency here for Bash, R, Python, Java, Perl, and other tools that are 
+* Some leniency here for Bash, R, Python, Java, Perl, and other tools that are
   included by default in Linux distributions.
   * But note: this may make software harder to use on Windows
 
 ## 7. Do not rely on the pre-installation of non-standard packages or libraries, unless clearly defined in docs.
 
-* Common offenders include a lot of Perl, R, and Python libraries, and 
+* Common offenders include a lot of Perl, R, and Python libraries, and
   user-local scripts.
 
 ## 8. Produce identical results when given identical inputs.
@@ -224,7 +221,7 @@ the software. (for better or for worse)
 * And people won't be able to debug problems without it either.
 * Common offender: random number generators
   * So require their seed as a parameter.
-  * Or if the seed is set internally (e.g., using clock time), echo it to the 
+  * Or if the seed is set internally (e.g., using clock time), echo it to the
     output for re-use later.
 
 ## 9. Include a small test set that can be run to ensure the software is actually working.
@@ -238,3 +235,25 @@ the software. (for better or for worse)
 * Make it easy for users to figure out which version they actually have.
 * Semantic versioning (and remember to change it on each release).
 * Make the version number discoverable (e.g., echo it in usage).
+
+## Conclusion
+
+How to tell if the software is working:
+
+*   Test in a 'vanilla' environment, such as another user's computer or a dummy
+    account with none of the settings of the original developer.
+*   Test with different sizes of data:
+    ridiculously small, small, medium, and large.  The software should run on all
+    sizes given some parameter tweaking, or fail with a sensible error message if
+    the data is too big.
+*   Compare results from multiple iterations that have the same parameters and
+    inputs.(See rule #8.)
+
+[binary-repo-manager]: https://en.wikipedia.org/wiki/Binary_repository_manager
+[bioinfo-links-dir]: https://bioinformatics.ca/links_directory/
+[bioinfo-links-dir-ref]: http://dx.doi.org/10.1093/nar/gks632
+[debarcer]: https://github.com/oicr-gsi/debarcer
+[elixir-registry]: http://dx.doi.org/10.1093/nar/gkv1116
+[icgc]: https://dcc.icgc.org
+[icgcmed-white-paper]: http://icgcmed.org/files/ICGCmed_White_Paper_April_2016.pdf
+[sequence-100k]: http://www.darkdaily.com/worlds-two-largest-whole-genome-sequencing-programs-give-pathologists-and-clinical-laboratory-managers-an-intriguing-look-at-new-diagnostic-opportunities-0502#axzz49tdSMDXq
