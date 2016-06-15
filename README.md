@@ -57,8 +57,7 @@ In particular, robust software:
 *   Works for users other than the original author
 *   Has well-defined input and output formats
 *   Has documentation that describes what its dependencies are,
-    how to install it,
-    and what the options are.
+    how to install it, and what the options are.
 *   Comes with enough tests to show that it actually runs.
 
 These are all necessary steps toward creating a reusable library that
@@ -168,6 +167,116 @@ the software. (for better or for worse)
 * **FIXME: example from real software: https://github.com/dib-lab/khmer/blob/master/README.rst**
 
 ## 2. Print usage information when launching from the command line that explains the software's features.
+
+Users who simply use your software after installation may not have
+access your well-crafted README. The usage information provides a first line of
+help. 
+
+Ideally, usage is a terse, informative command-line help message that guides
+the user in the correct use of your software. Note that I say "terse": usage
+that extends for multiple screens, especially when printed to standard error
+instead of standard out, is a nuisance. Usage gives you all of the information
+necessary to run the software. It is usually invoked either by running the
+software without any arguments; running the software with incorrect arguments;
+or by explicitly choosing a help or usage option.
+
+Some examples of good usage:
+
+```
+$ mkdir --help
+Usage: mkdir [OPTION]... DIRECTORY...
+Create the DIRECTORY(ies), if they do not already exist.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -m, --mode=MODE   set file mode (as in chmod), not a=rwx - umask
+  -p, --parents     no error if existing, make parent directories as needed
+  -v, --verbose     print a message for each created directory
+  -Z, --context=CTX  set the SELinux security context of each created
+                      directory to CTX
+      --help     display this help and exit
+      --version  output version information and exit
+
+Report mkdir bugs to bug-coreutils@gnu.org
+GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
+General help using GNU software: <http://www.gnu.org/gethelp/>
+For complete documentation, run: info coreutils 'mkdir invocation'
+
+$ R --help
+
+Usage: R [options] [< infile] [> outfile]
+   or: R CMD command [arguments]
+
+Start R, a system for statistical computation and graphics, with the
+specified options, or invoke an R tool via the 'R CMD' interface.
+
+Options:
+  -h, --help            Print short help message and exit
+  --version             Print version info and exit
+  --encoding=ENC        Specify encoding to be used for stdin
+  ...			...
+
+Please use 'R CMD command --help' to obtain further information about
+the usage of 'command'.
+
+...
+
+Report bugs at bugs.r-project.org
+
+
+$ svn --help
+usage: svn <subcommand> [options] [args]
+Subversion command-line client, version 1.8.8.
+Type 'svn help <subcommand>' for help on a specific subcommand.
+Type 'svn --version' to see the program version and RA modules
+  or 'svn --version --quiet' to see just the version number.
+
+Most subcommands take file and/or directory arguments, recursing
+on the directories.  If no arguments are supplied to such a
+command, it recurses on the current directory (inclusive) by default.
+
+Available subcommands:
+   add
+   blame (praise, annotate, ann)
+   cat
+   changelist (cl)
+   checkout (co)
+   ...
+
+Subversion is a tool for version control.
+For additional information, see http://subversion.apache.org/
+```
+
+There is no standard format for usage statements, but good ones have several
+key aspects:
+
+**The syntax for running the program**: Defines the relative location of
+optional and required flags and arguments for execution. Include the name of
+the program, the relative location of any flags, and the required arguments.
+Arguments in [square brackets] tend to be optional. Multiple periods (e.g.
+"[OPTION]...") indicate that more than one can be provided.
+
+**A text description of its purpose**: Similar to the README, the description
+reminds users of the software's primary function.
+
+**Most commonly used flags, a description of each flag, and the default
+value**: Not all flags need to appear in the usage, but the most commonly used
+ones should be listed here. Users will rely on this for quick reference when
+working with your software.
+
+**Where to find more information**: Whether an email address, web site or man
+page, there should be an indication where the user can go to find more
+information about the software. 
+
+**Printed to standard out** : This is debateable, but the author(s) prefer
+their usage printed to standard out so that it can be piped into `less` or
+`grep`ed through.
+
+**Exit with an appropriate exit code**: When usage is invoked through providing
+incorrect parameters, exit with a non-zero code. However, when help is
+explicitly requested, the software should not exit with an error.
+Occasionally, requesting help is used to verify that a dependency is available.
+
+
 
 * And tell users where to find more information.
 * **FIXME: example from real software (some package you think does this well)**
