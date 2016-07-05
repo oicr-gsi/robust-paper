@@ -151,7 +151,6 @@ format, "Does X tell you the percentage of reads trimmed to remove adapter
 sequences?" and you can check the documentation and confidently say "yes, it is
 in the log file".
 
-
 **Attributions and licensing:** Attributions are how you credit your main
 contributors; licenses are how you want others to use and credit your software.
 Both are important in your README. Leave no question in anyone's mind about
@@ -168,17 +167,20 @@ the software. (for better or for worse)
 
 ## 2. Print usage information when launching from the command line that explains the software's features.
 
-Users who simply use your software after installation may not have
-access your well-crafted README. The usage information provides a first line of
-help. 
+Users who run your software after installation may not have access
+your well-crafted README (or may not have bothered to read it).  Usage
+information provides their first line of help.
 
 Ideally, usage is a terse, informative command-line help message that guides
-the user in the correct use of your software. Note that I say "terse": usage
+the user in the correct use of your software. Terseness is important: usage
 that extends for multiple screens, especially when printed to standard error
-instead of standard out, is a nuisance. Usage gives you all of the information
-necessary to run the software. It is usually invoked either by running the
-software without any arguments; running the software with incorrect arguments;
-or by explicitly choosing a help or usage option.
+instead of standard output (where it can easily be paged), is a nuisance, and
+is as unlikely to be read as the README file.
+
+Usage should provide all of the information necessary to run the
+software. It is usually invoked either by running the software without
+any arguments; running the software with incorrect arguments; or by
+explicitly choosing a help or usage option.
 
 Some examples of good usage:
 
@@ -200,7 +202,9 @@ Report mkdir bugs to bug-coreutils@gnu.org
 GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
 General help using GNU software: <http://www.gnu.org/gethelp/>
 For complete documentation, run: info coreutils 'mkdir invocation'
+```
 
+```
 $ R --help
 
 Usage: R [options] [< infile] [> outfile]
@@ -221,8 +225,9 @@ the usage of 'command'.
 ...
 
 Report bugs at bugs.r-project.org
+```
 
-
+```
 $ svn --help
 usage: svn <subcommand> [options] [args]
 Subversion command-line client, version 1.8.8.
@@ -246,12 +251,12 @@ Subversion is a tool for version control.
 For additional information, see http://subversion.apache.org/
 ```
 
-There is no standard format for usage statements, but good ones have several
-key aspects:
+There is no standard format for usage statements, but good ones share several
+features:
 
-**The syntax for running the program**: Defines the relative location of
-optional and required flags and arguments for execution. Include the name of
-the program, the relative location of any flags, and the required arguments.
+**The syntax for running the program**: This defines the relative location of
+optional and required flags and arguments for execution, and includes the name of
+the program.
 Arguments in [square brackets] tend to be optional. Multiple periods (e.g.
 "[OPTION]...") indicate that more than one can be provided.
 
@@ -263,33 +268,52 @@ value**: Not all flags need to appear in the usage, but the most commonly used
 ones should be listed here. Users will rely on this for quick reference when
 working with your software.
 
-**Where to find more information**: Whether an email address, web site or man
+**Where to find more information**: Whether an email address, web site or manual
 page, there should be an indication where the user can go to find more
 information about the software. 
 
-**Printed to standard out** : This is debateable, but the author(s) prefer
-their usage printed to standard out so that it can be piped into `less` or
-`grep`ed through.
+**Printed to standard output** : So that it can be piped into `less`,
+searched with `grep`, or compared to the previous version's help with `diff`.
 
-**Exit with an appropriate exit code**: When usage is invoked through providing
-incorrect parameters, exit with a non-zero code. However, when help is
-explicitly requested, the software should not exit with an error.
-Occasionally, requesting help is used to verify that a dependency is available.
-
-
-
-* And tell users where to find more information.
-* **FIXME: example from real software (some package you think does this well)**
+**Exit with an appropriate exit code**: When usage is invoked by
+providing incorrect parameters, the program should exit with a
+non-zero code to indicate an error.  However, when help is explicitly
+requested, the software should not exit with an error, because
+requesting help is sometimes used to verify that a dependency is
+available.
 
 ## 3. Do not require root or other special privileges.
 
-* Because:
-  * want to be able to try it out before installing system-wide on a cluster
-  * don't want to pollute the system's own space
-  * doing anything with root is risky...
-* So allow for local install (e.g., under user's home directory in ~/packagename)
-  * May mean modifying path...
-  * ...which must be done carefully, but isn't as risky as doing things as root
+Root (also known as "superuser" or "admin") is a special account on a
+computer that has (among other things) the power to modify or delete
+system files and user accounts.  Conversely, files and directories
+owned by root usually *cannot* be modifed by normal users.
+
+Installing or running a program with root privileges is often
+convenient, since doing so automatically bypasses all those pesky
+safety checks that might otherwise get in the user's way.  However,
+those checks are there for a reason: scientific software packages may
+not intentionally be malware, but one small bug or over-eager
+file-matching expression can certainly make them behave as if they
+were.  Outside of very unusual circumstances, packages should
+therefore not require root privileges to set up or use.
+
+Another reason for this rule is that users may want to try out a new
+package before installing it system-wide on a cluster.  Requiring root
+privileges will frustrate such efforts, and thereby reduce uptake of
+the package.  Requiring that software be installed under its own user
+account (e.g., that `packagename` be made a user, and all of the
+package's software be installed in that "user's" space) is similarly
+limiting, and also makes side-by-side installation of multiple
+versions of the package more difficult.
+
+Developers should therefore allow packages to be installed in an
+arbitrary location, e.g., under a user's home directory in
+`~/packagename`, or in directories with standard names like `bin`,
+`lib`, and `man` under a chosen directory.  If the first option is
+chosen, the user may need to modify her search path to include the
+package's executables and libraries, but this can (more or less) be
+automated, and is much less risky than setting things up as root.
 
 ## 4. Allow configuration of all major parameters from the command lines, including input files, thresholds, memory required, and other parameters.
 
