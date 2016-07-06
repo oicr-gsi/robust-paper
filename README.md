@@ -303,13 +303,36 @@ Occasionally, requesting help is used to verify that a dependency is available.
 
 ## 5. Eliminate hard-coded paths.
 
-* Allow the user to set the name and location for the output files or results as
-  command-line parameters
-  * Common offenders: reference datasets, output directories.
-* Corollary: do not require navigating to a particular directory to work, or
-  operate on files only in the current working directory without allowing an
-  override.
-  * "Where I have to be" is just another hard-coded path.
+It's easy to write software that reads input from a file called
+`mydata.csv`, but also very limiting.  If a colleague asks you to
+process her data, you must either overwrite your data file (which is
+risky) or edit your code to read `otherdata.csv` (which is also risky,
+because there's every likelihood you'll forget to change the filename
+back, or will change three uses of the filename but not a fourth).
+
+Hard-coding filenames in a program also makes the software harder to
+run in other environments.  If your package is installed on a cluster,
+for example, the user's data will almost certainly *not* be in the
+same directory as the software, and the folder `C:\users\yourname\`
+will probably not even exist.
+
+For these reasons, users should be able to set the names and locations
+of input and  output files as command-line parameters.  This rule
+applies to reference data sets as well as the user's own data: if a
+user wants to try a new gene identification algorithm using a
+different set of genes as a training set, she should not have to edit
+the software to do so.
+
+A corollary to this rule is that a package should not require users to
+navigate to a particular directory to do their work.  "Where I have to
+be" is just another hard-coded path.
+
+In order to save typing, it is often convenient to allow users to
+specify an input or output *directory*, and then require that there be
+files with particular names in that directory.  This practice, which
+is sometimes called "convention over configuration", is used by many
+software frameworks, such as WordPress and Ruby on Rails, and often
+strikes a good balance between adaptability and consistency.
 
 ## 6. Do not rely on launching software from the command line or by "shelling out" from a script.
 
