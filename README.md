@@ -335,9 +335,28 @@ Occasionally, requesting help is used to verify that a dependency is available.
 
 ## 9. Include a small test set that can be run to ensure the software is actually working.
 
-* This is *not* to check that the software is working correctly (though that would be nice), just that it will actually run.
-* Also serves as working example of how to run software (in case embedded documentation has fallen out of sync).
-* Provide a single script called `runtests.sh` or the like, rather than documenting test cases and requiring people to type (or copy/paste)
+Every package should come with a small test script for users to run
+after installation.  Its purpose is *not* to check that the software
+is working correctly (although that is extremely helpful), but rather
+to ensure that it will work at all.  This test script can also serve
+as a working example of how to run the software, which is valuable in
+case its documentation has fallen out of sync with recent changes to
+the code itself.
+
+In order to be useful, this test script must be easy to find and run.
+A single file in the project's root directory named `runtests.sh` or
+something equally obvious is a much better solution than documenting
+test cases and requiring people to copy and paste them into the shell.
+
+Equally, the test script's output must be easy to interpret.  Screens
+full of correlation coefficients do not qualify: instead, the script's
+output should be something like one line per test, with the test's
+name and its pass/fail status, followed by a single summary line
+saying how many tests were run and how many passed or failed.  If many
+or all tests fail because of missing dependencies, that fact should be
+displayed once, clearly, rather than once per test, so that users have
+a clear idea of what they need to fix and how much work it's likely to
+take.
 
 ## 10. Give the software a meaningful version number.
 
