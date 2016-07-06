@@ -319,10 +319,38 @@ Occasionally, requesting help is used to verify that a dependency is available.
   included by default in Linux distributions.
   * But note: this may make software harder to use on Windows
 
-## 7. Do not rely on the pre-installation of non-standard packages or libraries, unless clearly defined in docs.
+## 7. Do not rely on the pre-installation of non-standard packages or libraries unless clearly stated in the documentaton.
 
-* Common offenders include a lot of Perl, R, and Python libraries, and
-  user-local scripts.
+Every package someone has to install before being able to use yours is
+a possible (some would say "likely") source of frustration for some
+potential user.  On the other hand, research software developers
+should re-use existing software wherever possible.  To strike a
+balance between these two, developers should document *all* of the
+packages that theirs depends on, preferably in a machine-readable
+form.  For example, it is common for Python projects to include a file
+called `requirements.txt` that lists the names of required libraries,
+along with version ranges:
+
+~~~
+requests>=2.0
+pygithub>=1.26,<=1.27
+python-social-auth>=0.2.19,<0.3
+~~~
+
+This file can be read by a package manager, which can check that the
+required software is available, and install it if it is not.  Similar
+mechanisms exist for Perl, R, and other languages.
+
+A common way to break this rule is to depend on scripts and tools that
+are installed on the computers the original developer is using, but
+which aren't otherwise packaged and available.  In many cases, the
+author of a package may not realize that some tool was built locally,
+and doesn't exist elsewhere.  At present, the only sure way to
+discover such unknown dependencies is to install on a system
+administered by someone else and see what breaks.  In future, as use
+of lightweight virtualization containers like Docker becomes more
+widespread, it may become common to test installation on a virtual
+machine.
 
 ## 8. Produce identical results when given identical inputs.
 
