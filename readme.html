@@ -1,0 +1,126 @@
+<h1 id="ten-simple-rules-for-making-research-software-more-robust">Ten Simple Rules for Making Research Software More Robust</h1>
+<ul>
+<li>Morgan Taschuk (OICR)</li>
+<li>Greg Wilson (Software Carpentry)</li>
+</ul>
+<blockquote>
+<h2>Abstract</h2>
+<p><strong>FIXME: abstract</strong></p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p>As a relatively young field, bioinformatics is full of newly developed software. <strong>FIXME: EXAMPLES HERE</strong> Efforts such as <a href="http://dx.doi.org/10.1093/nar/gkv1116">the ELIXIR tools and data registry</a> and the <a href="https://bioinformatics.ca/links_directory/">Bioinformatics Links Directory</a> <a href="http://dx.doi.org/10.1093/nar/gks632">(ref)</a> have made efforts towards cataloguing it: as of May 2016, the former has 2500 entries and the latter 1700, and those numbers are constantly growing as both trainees and experienced practitioners produce new software to support their research.</p>
+<p>Typically, this software is initially developed by one person, and may produce excellent results in their hands. But what happens after that student leaves that lab and someone else wants to use it? Everyone with a few years of experience feels a tremor of fear when told, &quot;Use &lt;graduated student&gt;'s code to analyze your data&quot;. Often, that software will be undocumented and work in unexpected ways (if it works at all without substantial modification). Equally often, the potential new user winds up shaking their fist and cursing the author's name. She then has two choices: hack the existing code to make it work for her, or start over.</p>
+<p>The root cause of this problem is that most of the software researchers produce isn't <em>robust</em>. The difference between running and being robust is the difference between &quot;works for me on my machine&quot; and &quot;works for other people on a cluster I've never used&quot;. In particular, robust software:</p>
+<ul>
+<li>Is kept under version control.</li>
+<li>Can be installed on systems outside the original institution</li>
+<li>Works for users other than the original author</li>
+<li>Has well-defined input and output formats</li>
+<li>Has documentation that describes what its dependencies are, how to install it, and what the options are.</li>
+<li>Comes with enough tests to show that it actually runs.</li>
+</ul>
+<p>These are all necessary steps toward creating a reusable library that can be shared through a site like CPAN or CRAN, and apply to both closed-source and open-source software. They do not depend on specific languages, libraries, packages, documentation styles, or operating systems. Whether the aim is as simple as sharing the code with collaborators or as complex as using the software in a production analysis environment, increasing the robustness of your software decreases headaches all around.</p>
+<p>Note: we do not recommend that these rules be applied to <em>every</em> coding effort. The vast majority of code produced in the marathon of a graduate thesis is &quot;throw-away&quot; code that is used once to answer a specific question related to a specific dataset. However, once that little script is dragged out three or four times for slightly different purposes, it may be time to apply ten simple rules for robust software. As the saying goes, not everything worth doing is worth doing right away.</p>
+<h2 id="have-a-readme-that-explains-in-a-few-lines-what-the-software-does-and-what-its-dependencies-are.">1. Have a README that explains in a few lines what the software does and what its dependencies are.</h2>
+<p>The README is the first stop for any potential users interested in your software. At a minimum, it needs to provide or point to everything a new user needs to get started, where they can turn to for help, and which licenses apply to the software package. Exhaustive details regarding parameters and usage are not usually necessary in a README if they are present in usage (#2), although a working example using test data (per #9) is always appreciated.</p>
+<p><strong>Explain what the software does:</strong> At the beginning of the README, explain what the software does in one or two sentences. The description does not need to be long or detailed. There's nothing more frustrating than spending the time to download and install some software only to find out that it doesn't do what you thought it did.</p>
+<pre><code>Debarcer (De-Barcoding and Error Correction) is a package for working with
+next-gen sequencing data that contains molecular barcodes.</code></pre>
+<p><strong>List required dependencies:</strong> Often, software depends on very specific versions of libraries, modules, or operating systems. This is entirely reasonable as long as it is properly documented. Often, multiple libraries exist with the same or very similar names, so either provide the commands necessary to download the dependencies or link to the software homepage. Include the version number for each dependency. Especially if you use older versions, include links where the packages can be downloaded. Package managers like apt, pip and homebrew stop offering older packages after a few years. [IS THIS TRUE OF PIP AND HOMEBREW?]</p>
+<p>If your dependency is to an internal package that is not available on the internet, you have several options depending on the sensitivity of the code in question. If it is plain text, you can add it directly to you repository with appropriate attribution. If the dependency is a binary, we recommend using a <a href="https://en.wikipedia.org/wiki/Binary_repository_manager">binary repository manager</a> such as Artifactory or ProGet. These managers keep versioned copies of software at constant URLs so they can be downloaded as long as the manager continues to run. As a last resort, you can place it at an internal location on shared disk, remove all write permissions, and link to it from your README, although this method is heavily discouraged because of the potential for the directory to go missing because of factors outside the developer's control.</p>
+<p><strong>Installation instructions:</strong> If the software needs to be compiled or installed, list those instructions in the readme. New users may not be familiar with your build system, even if it is <code>make</code>. Also mention here if you recommend they use a pre-compiled binary instead through a system such as pip or apt.</p>
+<p><strong>Input and output files</strong>: All possible input and output files should be listed in this section. Do the files conform to a particular industry standard, an extension of an existing format, or is it your own format? If using a standard format, link to the specification and version. If you extend the standard or have your own format, define it here explicitly, listing all the required fields and acceptable values. (You get bonus points if you include a script to convert between standard format and your file format). If there is no rigorous format (such as with log files), show an example file, or the first few lines, and explain what the sections mean.</p>
+<p>Input files and their formats are included in most documentation. However, the definitions of the output files are often missing. In addition to the expected output, software will often produce intermediate files, auxilliary files, and log files. We believe <em>all</em> output files should be listed in the README. Log and auxilliary files are often full of valuable information that can be mined for the user's specific purpose. Even if the files are considered self-explanatory. Sometimes your users will need to answer a question of the format, &quot;Does X tell you the percentage of reads trimmed to remove adapter sequences?&quot; and you can check the documentation and confidently say &quot;yes, it is in the log file&quot;.</p>
+<p><strong>Attributions and licensing:</strong> Attributions are how you credit your main contributors; licenses are how you want others to use and credit your software. Both are important in your README. Leave no question in anyone's mind about whether your software can be used commercially, how much modification is permitted, and how other software needs to attribute to you. If your software is not open source, include a statement here. Attributions can also contain a list of 'expert' users that can be contacted if new users have problems with the software. (for better or for worse)</p>
+<ul>
+<li>This is readable <em>before</em> the software is installed (or even downloaded).</li>
+<li>Should also include (or better yet, point to) the license for the software, so that (potential) users will know what they're allowed to do.</li>
+<li><strong>FIXME: example from real software: https://github.com/dib-lab/khmer/blob/master/README.rst</strong></li>
+</ul>
+<h2 id="print-usage-information-when-launching-from-the-command-line-that-explains-the-softwares-features.">2. Print usage information when launching from the command line that explains the software's features.</h2>
+<p>Users who run your software after installation may not have access your well-crafted README (or may not have bothered to read it). Usage information provides their first line of help.</p>
+<p>Ideally, usage is a terse, informative command-line help message that guides the user in the correct use of your software. Terseness is important: usage that extends for multiple screens, especially when printed to standard error instead of standard output (where it can easily be paged), is a nuisance, and is as unlikely to be read as the README file.</p>
+<p>Usage should provide all of the information necessary to run the software. It is usually invoked either by running the software without any arguments; running the software with incorrect arguments; or by explicitly choosing a help or usage option.</p>
+<p>An example of good usage is the Unix <code>mkdir</code> command, which makes new directories:</p>
+<pre><code>$ mkdir --help
+Usage: mkdir [OPTION]... DIRECTORY...
+Create the DIRECTORY(ies), if they do not already exist.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -m, --mode=MODE   set file mode (as in chmod), not a=rwx - umask
+  -p, --parents     no error if existing, make parent directories as needed
+  -v, --verbose     print a message for each created directory
+  -Z, --context=CTX  set the SELinux security context of each created
+                      directory to CTX
+      --help     display this help and exit
+      --version  output version information and exit
+
+Report mkdir bugs to bug-coreutils@gnu.org
+GNU coreutils home page: &lt;http://www.gnu.org/software/coreutils/&gt;
+General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt;
+For complete documentation, run: info coreutils &#39;mkdir invocation&#39;</code></pre>
+<p>There is no standard format for usage statements, but good ones share several features:</p>
+<p><strong>The syntax for running the program</strong>: This defines the relative location of optional and required flags and arguments for execution, and includes the name of the program. Arguments in [square brackets] tend to be optional. Multiple periods (e.g. &quot;[OPTION]...&quot;) indicate that more than one can be provided.</p>
+<p><strong>A text description of its purpose</strong>: Similar to the README, the description reminds users of the software's primary function.</p>
+<p><strong>Most commonly used flags, a description of each flag, and the default value</strong>: Not all flags need to appear in the usage, but the most commonly used ones should be listed here. Users will rely on this for quick reference when working with your software.</p>
+<p><strong>Where to find more information</strong>: Whether an email address, web site or manual page, there should be an indication where the user can go to find more information about the software.</p>
+<p><strong>Printed to standard output</strong> : So that it can be piped into <code>less</code>, searched with <code>grep</code>, or compared to the previous version's help with <code>diff</code>.</p>
+<p><strong>Exit with an appropriate exit code</strong>: When usage is invoked by providing incorrect parameters, the program should exit with a non-zero code to indicate an error. However, when help is explicitly requested, the software should not exit with an error, because requesting help is sometimes used to verify that a dependency is available.</p>
+<h2 id="do-not-require-root-or-other-special-privileges.">3. Do not require root or other special privileges.</h2>
+<p>Root (also known as &quot;superuser&quot; or &quot;admin&quot;) is a special account on a computer that has (among other things) the power to modify or delete system files and user accounts. Conversely, files and directories owned by root usually <em>cannot</em> be modifed by normal users.</p>
+<p>Installing or running a program with root privileges is often convenient, since doing so automatically bypasses all those pesky safety checks that might otherwise get in the user's way. However, those checks are there for a reason: scientific software packages may not intentionally be malware, but one small bug or over-eager file-matching expression can certainly make them behave as if they were. Outside of very unusual circumstances, packages should therefore not require root privileges to set up or use.</p>
+<p>Another reason for this rule is that users may want to try out a new package before installing it system-wide on a cluster. Requiring root privileges will frustrate such efforts, and thereby reduce uptake of the package. Requiring that software be installed under its own user account (e.g., that <code>packagename</code> be made a user, and all of the package's software be installed in that &quot;user's&quot; space) is similarly limiting, and also makes side-by-side installation of multiple versions of the package more difficult.</p>
+<p>Developers should therefore allow packages to be installed in an arbitrary location, e.g., under a user's home directory in <code>~/packagename</code>, or in directories with standard names like <code>bin</code>, <code>lib</code>, and <code>man</code> under a chosen directory. If the first option is chosen, the user may need to modify her search path to include the package's executables and libraries, but this can (more or less) be automated, and is much less risky than setting things up as root.</p>
+<h2 id="allow-configuration-of-all-major-parameters-from-the-command-lines-including-input-files-thresholds-memory-required-and-other-parameters.">4. Allow configuration of all major parameters from the command lines, including input files, thresholds, memory required, and other parameters.</h2>
+<ul>
+<li>Configuration files are nice, but awkward to create on the fly when the tool is being run from shell scripts etc.</li>
+<li>GVW: I usually tell people to</li>
+<li>read relatively constant values from a ~/.packagerc file or the like so that they don't have to be specified every time</li>
+<li>echo parameters to output to support reproducibility</li>
+<li>and will defer to you because you've done this a lot more</li>
+</ul>
+<h2 id="eliminate-hard-coded-paths.">5. Eliminate hard-coded paths.</h2>
+<p>It's easy to write software that reads input from a file called <code>mydata.csv</code>, but also very limiting. If a colleague asks you to process her data, you must either overwrite your data file (which is risky) or edit your code to read <code>otherdata.csv</code> (which is also risky, because there's every likelihood you'll forget to change the filename back, or will change three uses of the filename but not a fourth).</p>
+<p>Hard-coding filenames in a program also makes the software harder to run in other environments. If your package is installed on a cluster, for example, the user's data will almost certainly <em>not</em> be in the same directory as the software, and the folder <code>C:\users\yourname\</code> will probably not even exist.</p>
+<p>For these reasons, users should be able to set the names and locations of input and output files as command-line parameters. This rule applies to reference data sets as well as the user's own data: if a user wants to try a new gene identification algorithm using a different set of genes as a training set, she should not have to edit the software to do so.</p>
+<p>A corollary to this rule is that a package should not require users to navigate to a particular directory to do their work. &quot;Where I have to be&quot; is just another hard-coded path.</p>
+<p>In order to save typing, it is often convenient to allow users to specify an input or output <em>directory</em>, and then require that there be files with particular names in that directory. This practice, which is sometimes called &quot;convention over configuration&quot;, is used by many software frameworks, such as WordPress and Ruby on Rails, and often strikes a good balance between adaptability and consistency.</p>
+<h2 id="do-not-rely-on-launching-software-from-the-command-line-or-by-shelling-out-from-a-script.">6. Do not rely on launching software from the command line or by &quot;shelling out&quot; from a script.</h2>
+<ul>
+<li>Common offenders: samtools, Picard tools, tabix.</li>
+<li>Those tools may not be installed, or may not be on the path.</li>
+<li>Some leniency here for Bash, R, Python, Java, Perl, and other tools that are included by default in Linux distributions.</li>
+<li>But note: this may make software harder to use on Windows</li>
+</ul>
+<h2 id="do-not-rely-on-the-pre-installation-of-non-standard-packages-or-libraries-unless-clearly-stated-in-the-documentaton.">7. Do not rely on the pre-installation of non-standard packages or libraries unless clearly stated in the documentaton.</h2>
+<p>Every package someone has to install before being able to use yours is a possible (some would say &quot;likely&quot;) source of frustration for some potential user. On the other hand, research software developers should re-use existing software wherever possible. To strike a balance between these two, developers should document <em>all</em> of the packages that theirs depends on, preferably in a machine-readable form. For example, it is common for Python projects to include a file called <code>requirements.txt</code> that lists the names of required libraries, along with version ranges:</p>
+<pre><code>requests&gt;=2.0
+pygithub&gt;=1.26,&lt;=1.27
+python-social-auth&gt;=0.2.19,&lt;0.3</code></pre>
+<p>This file can be read by a package manager, which can check that the required software is available, and install it if it is not. Similar mechanisms exist for Perl, R, and other languages.</p>
+<p>A common way to break this rule is to depend on scripts and tools that are installed on the computers the original developer is using, but which aren't otherwise packaged and available. In many cases, the author of a package may not realize that some tool was built locally, and doesn't exist elsewhere. At present, the only sure way to discover such unknown dependencies is to install on a system administered by someone else and see what breaks. In future, as use of lightweight virtualization containers like Docker becomes more widespread, it may become common to test installation on a virtual machine.</p>
+<h2 id="produce-identical-results-when-given-identical-inputs.">8. Produce identical results when given identical inputs.</h2>
+<ul>
+<li>The test set isn't useful without this.</li>
+<li>And people won't be able to debug problems without it either.</li>
+<li>Common offender: random number generators</li>
+<li>So require their seed as a parameter.</li>
+<li>Or if the seed is set internally (e.g., using clock time), echo it to the output for re-use later.</li>
+</ul>
+<h2 id="include-a-small-test-set-that-can-be-run-to-ensure-the-software-is-actually-working.">9. Include a small test set that can be run to ensure the software is actually working.</h2>
+<p>Every package should come with a small test script for users to run after installation. Its purpose is <em>not</em> to check that the software is working correctly (although that is extremely helpful), but rather to ensure that it will work at all. This test script can also serve as a working example of how to run the software, which is valuable in case its documentation has fallen out of sync with recent changes to the code itself.</p>
+<p>In order to be useful, this test script must be easy to find and run. A single file in the project's root directory named <code>runtests.sh</code> or something equally obvious is a much better solution than documenting test cases and requiring people to copy and paste them into the shell.</p>
+<p>Equally, the test script's output must be easy to interpret. Screens full of correlation coefficients do not qualify: instead, the script's output should be something like one line per test, with the test's name and its pass/fail status, followed by a single summary line saying how many tests were run and how many passed or failed. If many or all tests fail because of missing dependencies, that fact should be displayed once, clearly, rather than once per test, so that users have a clear idea of what they need to fix and how much work it's likely to take.</p>
+<h2 id="give-the-software-a-meaningful-version-number.">10. Give the software a meaningful version number.</h2>
+<ul>
+<li>Make it easy for users to figure out which version they actually have.</li>
+<li>Semantic versioning (and remember to change it on each release).</li>
+<li>Make the version number discoverable (e.g., echo it in usage).</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>How to tell if the software is working:</p>
+<ul>
+<li>Test in a 'vanilla' environment, such as another user's computer or a dummy account with none of the settings of the original developer.</li>
+<li>Test with different sizes of data: ridiculously small, small, medium, and large. The software should run on all sizes given some parameter tweaking, or fail with a sensible error message if the data is too big.</li>
+<li>Compare results from multiple iterations that have the same parameters and inputs.(See rule #8.)</li>
+</ul>

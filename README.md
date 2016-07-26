@@ -1,7 +1,7 @@
-#Ten Simple Rules for Making Research Software More Robust
+# Ten Simple Rules for Making Research Software More Robust
 
 * Morgan Taschuk (OICR)
-* Greg Wilson (Software Carpentry/OICR)
+* Greg Wilson (Software Carpentry)
 
 > ## Abstract
 >
@@ -14,42 +14,29 @@ As a relatively young field, bioinformatics is full of newly developed software.
 Efforts such as [the ELIXIR tools and data registry][elixir-registry]
 and the [Bioinformatics Links Directory][bioinfo-links-dir]
 [(ref)][bioinfo-links-dir-ref]
-have made efforts towards cataloguing the available software.
-As of May 2016, ELIXIR lists 2500 software entries and the Bioinformatics.ca lists 1700.
-For many data types, there is no 'right' way to perform analysis as yet.
-For example, although short read sequencers are ten years old, the leading
-sequencing companies regularly update their instruments and chemistry to push
-the boundaries of the possible ever higher
-**FIXME: illumina HiseqX, 10X genomics, nanopore sequencing**.
-New sequencing initiatives are exploring the human microbiome, the depths of
-the ocean, and even the outer reaches of space. For many of these new data
-types, we have not reached the boundaries of what is possible. We are also
-sequencing data in quantities never before seen. The 1000 Genomes project seems
-quaint next to the UK's 100k project and Human Longevity's pledge to
-[sequence 100,000 genomes per year by the end of 2016][sequence-100k].
-As of release 21, the International Cancer Genome Consortium has sequenced
-15 000 individuals and the data are [publicly available[icgc].
-**FIXME: PULL MORE STATS FROM [ICGCMED PAPER][icgcmed-white-paper]**.
+have made efforts towards cataloguing it:
+as of May 2016, the former has 2500 entries and the latter 1700,
+and those numbers are constantly growing
+as both trainees and experienced practitioners produce new software
+to support their research.
 
-This is a very exciting time for bioinformatics. As a direct result, many
-trainee projects produce code and software to support their
-thesis project or post-doctoral research.  This software runs on the data gathered by the
-student's lab, and produces excellent results in their hands.
-
-But what happens after that student leaves that lab?  Everyone
-with a few years of experience feels a tremor of fear when told,
+Typically, this software is initially developed by one person,
+and may produce excellent results in their hands.
+But what happens after that student leaves that lab and someone else wants to use it?
+Everyone with a few years of experience feels a tremor of fear when told,
 "Use \<graduated student\>'s code to analyze your data".
-In most cases, that software will be undocumented and work in unexpected ways
+Often, that software will be undocumented and work in unexpected ways
 (if it works at all without substantial modification).
-In most cases,
-the new user winds up shaking their fist and cursing the graduated student's
-name.  She then has two choices: hack the existing code to make it work for her,
+Equally often,
+the potential new user winds up shaking their fist and cursing the author's name.
+She then has two choices:
+hack the existing code to make it work for her,
 or start over.
 
-The root cause of this problem is that most of the software
-researchers produce isn't *robust*.  The difference between running
-and being robust is the difference between "works for me on my
-machine" and "works for other people on a cluster I've never used".
+The root cause of this problem is that most of the software researchers produce isn't *robust*.
+The difference between running and being robust
+is the difference between "works for me on my machine"
+and "works for other people on a cluster I've never used".
 In particular, robust software:
 
 *   Is kept under version control.
@@ -78,13 +65,7 @@ different purposes, it may be time to apply ten simple rules for
 robust software.  As the saying goes, not everything worth doing is
 worth doing right away.
 
-Throughout this document we will be using a small software package
-called [debarcer][debarcer] to illustrate
-the rules of robust software.  We are grateful to its author, Paul
-Krzyzanowski, for many insightful discussions.
-
-## 1. Have a README that explains in a few lines what the software does and what
-its dependencies are.
+## 1. Have a README that explains in a few lines what the software does and what its dependencies are.
 
 The README is the first stop for any potential users interested in your
 software. At a minimum, it needs to provide or point to everything a new user
@@ -182,7 +163,8 @@ software. It is usually invoked either by running the software without
 any arguments; running the software with incorrect arguments; or by
 explicitly choosing a help or usage option.
 
-Some examples of good usage:
+An example of good usage is the Unix `mkdir` command,
+which makes new directories:
 
 ```
 $ mkdir --help
@@ -202,53 +184,6 @@ Report mkdir bugs to bug-coreutils@gnu.org
 GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
 General help using GNU software: <http://www.gnu.org/gethelp/>
 For complete documentation, run: info coreutils 'mkdir invocation'
-```
-
-```
-$ R --help
-
-Usage: R [options] [< infile] [> outfile]
-   or: R CMD command [arguments]
-
-Start R, a system for statistical computation and graphics, with the
-specified options, or invoke an R tool via the 'R CMD' interface.
-
-Options:
-  -h, --help            Print short help message and exit
-  --version             Print version info and exit
-  --encoding=ENC        Specify encoding to be used for stdin
-  ...			...
-
-Please use 'R CMD command --help' to obtain further information about
-the usage of 'command'.
-
-...
-
-Report bugs at bugs.r-project.org
-```
-
-```
-$ svn --help
-usage: svn <subcommand> [options] [args]
-Subversion command-line client, version 1.8.8.
-Type 'svn help <subcommand>' for help on a specific subcommand.
-Type 'svn --version' to see the program version and RA modules
-  or 'svn --version --quiet' to see just the version number.
-
-Most subcommands take file and/or directory arguments, recursing
-on the directories.  If no arguments are supplied to such a
-command, it recurses on the current directory (inclusive) by default.
-
-Available subcommands:
-   add
-   blame (praise, annotate, ann)
-   cat
-   changelist (cl)
-   checkout (co)
-   ...
-
-Subversion is a tool for version control.
-For additional information, see http://subversion.apache.org/
 ```
 
 There is no standard format for usage statements, but good ones share several
@@ -455,7 +390,6 @@ How to tell if the software is working:
 [binary-repo-manager]: https://en.wikipedia.org/wiki/Binary_repository_manager
 [bioinfo-links-dir]: https://bioinformatics.ca/links_directory/
 [bioinfo-links-dir-ref]: http://dx.doi.org/10.1093/nar/gks632
-[debarcer]: https://github.com/oicr-gsi/debarcer
 [elixir-registry]: http://dx.doi.org/10.1093/nar/gkv1116
 [icgc]: https://dcc.icgc.org
 [icgcmed-white-paper]: http://icgcmed.org/files/ICGCmed_White_Paper_April_2016.pdf
