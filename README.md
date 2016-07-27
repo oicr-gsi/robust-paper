@@ -239,7 +239,7 @@ privileges will frustrate such efforts, and thereby reduce uptake of
 the package.  Requiring that software be installed under its own user
 account (e.g., that `packagename` be made a user, and all of the
 package's software be installed in that "user's" space) is similarly
-limiting, and also makes side-by-side installation of multiple
+limiting, and makes side-by-side installation of multiple
 versions of the package more difficult.
 
 Developers should therefore allow packages to be installed in an
@@ -250,15 +250,57 @@ chosen, the user may need to modify her search path to include the
 package's executables and libraries, but this can (more or less) be
 automated, and is much less risky than setting things up as root.
 
-## 4. Allow configuration of all major parameters from the command lines, including input files, thresholds, memory required, and other parameters.
+## 4. Allow configuration of all useful parameters from the command line
 
-* Configuration files are nice, but awkward to create on the fly when the tool
-  is being run from shell scripts etc.
-* GVW: I usually tell people to
-  * read relatively constant values from a ~/.packagerc file or the like so
-    that they don't have to be specified every time
-  * echo parameters to output to support reproducibility
-  * and will defer to you because you've done this a lot more
+You know what they say about assumptions*. As soon as you make one assumption
+about how a software should work, a use case will come along that will require
+you to change the assumption. 
+
+Every useful parameter should be configurable on the command line. Useful
+parameters are those that a user will need to modify to suit their computer,
+dataset or application. Providing parameters on the command line increases the
+flexibility and usability of the program. You may have determined early on that
+0.58 is an optimal seed for your original dataset, but that doesn't mean that is
+the best seed for every case. Being able to change parameters on the fly to
+determine if and how they change the results is important as your software gains
+more users, facilitating exploratory analysis and parameter sweeping. Keep in
+mind that if a parameter can be adjusted, users will want to be able to turn off
+the feature entirely to have a baseline comparison.
+
+The list of useful parameters is software-specific and so cannot be provided
+here, but here is a short list of common useful parameters.
+
+* Input and reference files/directories
+* Output files/directories
+* Filtering
+* Tuning (e.g. alphas and gammas)
+* Seeds
+* Any alternatives that you've built-in, e.g. compress results, use a different
+  calculation, verbose output, etc.
+
+When the software starts, it should echo all parameters and software versions
+to standard out or a log file alongside the results. This feature supports
+greater reproducibility because any result can be replicated with only the
+previous output files as reference.
+
+You can set reasonable default values to reduce the length of the execution
+command as long as any parameters given on the command line override those
+values. Configuration files should be used in preference to hardcoding the
+defaults directly. Only values that are unlikely to change between runs belong
+in the config file, such as dependencies, servers, version numbers, network
+drives, and any other defaults for your lab or institutions. Configuration files
+can be in a standard location, e.g. `.packagerc` in the user's home directory or
+provided on the command line as an additional argument. 
+
+We caution against
+overusing configuration files. When a user needs to locate, open, change and
+save a file in order to change a parameter, the import of the change seems
+larger and discourages experimentation. Since all parameters should be echoed in
+the results, config files must be cleaned up after execution completes or they
+occupy valuable disk space. Use a default configuration file and specify all
+other parameters on the command line.
+
+\* They make fools out of you and me.
 
 ## 5. Eliminate hard-coded paths.
 
