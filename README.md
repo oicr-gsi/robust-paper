@@ -278,10 +278,10 @@ here, but here is a short list of common useful parameters.
 * Any alternatives that you've built-in, e.g. compress results, use a different
 * calculation, verbose output, etc.
 
-When the software starts, it should echo all parameters and software versions to
-standard out or a log file. This feature supports greater reproducibility
-because any result can be replicated with only the previous output files as
-reference.
+When the software starts, it should echo all parameters and software versions
+to standard out or a log file alongside the results. This feature supports
+greater reproducibility because any result can be replicated with only the
+previous output files as reference.
 
 You can set reasonable default values to reduce the length of the execution
 command as long as any parameters given on the command line override those
@@ -290,7 +290,9 @@ defaults directly. Only values that are unlikely to change between runs belong
 in the config file, such as dependencies, servers, version numbers, network
 drives, and any other defaults for your lab or institutions. Configuration files
 can be in a standard location, e.g. `.packagerc` in the user's home directory or
-provided on the command line as an additional argument. We caution against
+provided on the command line as an additional argument. 
+
+We caution against
 overusing configuration files. When a user needs to locate, open, change and
 save a file in order to change a parameter, the import of the change seems
 larger and discourages experimentation. Since all parameters should be echoed in
