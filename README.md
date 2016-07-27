@@ -1,4 +1,4 @@
-# Ten Simple Rules for Making Research Software More Robust
+#Ten Simple Rules for Making Research Software More Robust
 
 * Morgan Taschuk (OICR)
 * Greg Wilson (Software Carpentry)
@@ -412,9 +412,40 @@ take.
 
 ## 10. Give the software a meaningful version number.
 
-* Make it easy for users to figure out which version they actually have.
-* Semantic versioning (and remember to change it on each release).
-* Make the version number discoverable (e.g., echo it in usage).
+Most software has a version number composed of a decimal number that increments
+as new versions are released. There are many different ways to construct and
+interpret the version, but most importantly for us, a particular software
+version run with the same parameters should give identical results no matter
+when it's run. Results include correct output as well as any errors, whether
+they arise from incorrect input or are bugs. Every time you release your
+software, i.e. distribute it to someone other than yourself and/or the
+development team, you should increment your version number. 
+
+[Semantic versioning][sem-versioning] is one of the most common types of
+versioning for open-source software. Version numbers take the form of
+_MAJOR.MINOR[.PATCH]_, e.g. 0.2.6-RC1. The major and minor numbers versions are
+almost always provided. Changes in the major version number herald significant
+changes in the software that are not backwards compatible, such as changing or
+removing features or altering the primary functions of the software. Increasing
+the minor version represents incremental improvements in the software like
+adding new features. Following the minor version number can be an arbitrary
+number of project-specific versions, including patches, builds and qualifiers.
+Common qualifiers include `-SNAPSHOT`, for applications that are not yet stable
+or released, and `-RC` for release candidate prior to official release.
+
+The version of your software should be easily available, both when supplying
+`--version` or `-v` on the command line as well as in the results. The software
+version should be printed to the same location as all of the other parameters
+(see Rule 4).
+
+Old versions of your software should be available to ensure that results are
+reproducible into the far future. A number of mechanisms exist for controlled
+release that range from as simple as adding an appropriate commit message or
+tag to version control, to official releases alongside code on Sourceforge,
+Bitbutcket or Github, to depositing into a repository like apt, yum, homebrew,
+CPAN, etc. Choose the method that best suits the number and expertise of users
+you anticipate.
+
 
 ## Conclusion
 
@@ -428,6 +459,8 @@ How to tell if the software is working:
     the data is too big.
 *   Compare results from multiple iterations that have the same parameters and
     inputs.(See rule #8.)
+*   Consider a container - but most of these rules still apply
+
 
 [binary-repo-manager]: https://en.wikipedia.org/wiki/Binary_repository_manager
 [bioinfo-links-dir]: https://bioinformatics.ca/links_directory/
@@ -436,3 +469,4 @@ How to tell if the software is working:
 [icgc]: https://dcc.icgc.org
 [icgcmed-white-paper]: http://icgcmed.org/files/ICGCmed_White_Paper_April_2016.pdf
 [sequence-100k]: http://www.darkdaily.com/worlds-two-largest-whole-genome-sequencing-programs-give-pathologists-and-clinical-laboratory-managers-an-intriguing-look-at-new-diagnostic-opportunities-0502#axzz49tdSMDXq
+[sem-versioning]: http://semver.org/
