@@ -276,7 +276,7 @@ here, but here is a short list of common useful parameters.
 * Tuning (e.g. alphas and gammas)
 * Seeds
 * Any alternatives that you've built-in, e.g. compress results, use a different
-* calculation, verbose output, etc.
+  calculation, verbose output, etc.
 
 When the software starts, it should echo all parameters and software versions
 to standard out or a log file alongside the results. This feature supports
