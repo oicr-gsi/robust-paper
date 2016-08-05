@@ -378,12 +378,27 @@ machine.
 
 ## 8. Produce identical results when given identical inputs.
 
-* The test set isn't useful without this.
-* And people won't be able to debug problems without it either.
-* Common offender: random number generators
-  * So require their seed as a parameter.
-  * Or if the seed is set internally (e.g., using clock time), echo it to the
-    output for re-use later.
+Given a set of parameters and a dataset, the package should produce the same
+results every time it is run.
+
+Many bioinformatics applications rely on randomized algorithms to improve
+performance or runtimes. As a consequence, results can change between runs, even
+when provided with the same data and parameters. By its nature, this randomness
+renders strict reproducibility impossible. Debugging is more difficult. If even
+the small test set (#9) produces different results, new users may not know if
+the software is working properly and erode confidence in the application.
+Upgrades often involve comparing the results between versions, and even small
+changes can confuse whether results are comparable. And especially when
+producing results for publications, grants or diagnoses, any analysis should be
+absolutely reproducible.
+
+Given the size of biological data, it is unreasonable to suggest that random
+algorithms be removed. However, most programs use a pseudo-random number
+generator(PRNG), which use a starting seed and an equation to approximate random
+numbers. Setting the seed to a consistent value removes randomness between runs.
+By optionally providing the seed as an input parameter, any algorithm
+becomes deterministic. If the seed is set internally (e.g., using clock time),
+echo it to the output for re-use later.
 
 ## 9. Include a small test set that can be run to ensure the software is actually working.
 
