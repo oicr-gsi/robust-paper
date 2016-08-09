@@ -335,13 +335,45 @@ is sometimes called "convention over configuration", is used by many
 software frameworks, such as WordPress and Ruby on Rails, and often
 strikes a good balance between adaptability and consistency.
 
-## 6. Do not rely on launching software from the command line or by "shelling out" from a script.
+## 6. Reuse software (without tears)
 
-* Common offenders: samtools, Picard tools, tabix.
-* Those tools may not be installed, or may not be on the path.
-* Some leniency here for Bash, R, Python, Java, Perl, and other tools that are
-  included by default in Linux distributions.
-  * But note: this may make software harder to use on Windows
+In the spirit of code reuse and interoperability, developers often want to use
+software written by others. The tool could be standard for the task at hand or
+do exactly what is necessary. With a few lines, a call is made out to the other
+program, the results are incorporated into the primary script. Using popular
+projects reduces the amount of code that needs to be maintained and adds the
+strength of vetted software to the final program.
+
+Unfortunately, the interface between two software packages can be a source of
+considerable frustration. Support requests descend into debugging errors
+produced by the other project. 
+
+The way that the second program is invoked can throw up errors. For example, the
+program may not be in the user's path, or it may be an older or newer version
+and produce results differen than expected. Windows users will be frustrated if
+you invoke bash or sh explictly or use shell-specific conventions like '\*'
+expansion. It is unlikely that all of your users will all be on the operating
+system and version as you. Even Linux-standard functions available vary slightly
+between installs. For example: GNU `sort` is available on almost every \*nix
+distribution, but sorts differently depending on locale.
+
+We fully support the reuse of software between projects and have some
+suggestions to reduce the aforementioned pains. First, ensure the appropriate
+software and version is available. Either allow the user to configure the exact
+path to the package, distribute the program with the dependent software, or
+download it during installation using a dependency management system.
+Regardless, check whether the program is executable and what version is running.
+Be sure to remind users in the documentation what the compatible versions are.
+
+Second, to ensure support on as many different operating systems as possible,
+use native functions for starting other processes, such as Java's Runtime.exec
+call, Python's subprocess module, and Perl's system command, and be sure to
+capture and report the standard error output of the subprocess to facilitate
+debugging.
+
+Finally, make sure that you really need the call-out. If you are executing GNU
+sort instead of figuring out how to sort lists in Python, it may not be worth
+the tears of reuse.
 
 ## 7. Do not rely on the pre-installation of non-standard packages or libraries unless clearly stated in the documentaton.
 
@@ -355,11 +387,11 @@ form.  For example, it is common for Python projects to include a file
 called `requirements.txt` that lists the names of required libraries,
 along with version ranges:
 
-~~~
+```
 requests>=2.0
 pygithub>=1.26,<=1.27
 python-social-auth>=0.2.19,<0.3
-~~~
+```
 
 This file can be read by a package manager, which can check that the
 required software is available, and install it if it is not.  Similar
