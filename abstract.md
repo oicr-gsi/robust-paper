@@ -1,4 +1,4 @@
-## Making research software more robust
+# Making research software more robust
 Morgan Taschuk and Greg Wilson
 
 
@@ -36,6 +36,6 @@ reuse by the scientific community.
 
 
 
-[vms] : http://dx.doi.org/10.1109/MCSE.2012.62
-[engineering] : http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4601517/
-[big-biology]: http://www.nature.com/nbt/journal/v33/n7/full/nbt.3240.html
+- [vms] : http://dx.doi.org/10.1109/MCSE.2012.62
+- [engineering] : http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4601517/
+- [big-biology]: http://www.nature.com/nbt/journal/v33/n7/full/nbt.3240.html
