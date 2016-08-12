@@ -12,5 +12,3 @@ Software produced for research, even published software, suffers from a number o
 The paper is written in LaTeX and can be built using `make`;
 
     make pdf
-
-
