@@ -6,7 +6,7 @@ Bioinformatics software is often written by a
 single person who is both developer and scientist, intent on producing insightful, novel 
 results for their own projects. 
 Other people may want to use their methods, but much of academic software is written 
-in an ad hoc, exploratory stype that is incompatible with reuse. Often, the end user will
+in an ad hoc, exploratory style that is incompatible with reuse. Often, the end user will
 need to spend a considerable amount of time either reading code or in
 communication with the original developer(s) in order to get the software running. More times than we like to admit,
 we will simply give up on the software and either write our own or find
