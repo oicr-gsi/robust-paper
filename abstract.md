@@ -32,6 +32,6 @@ reuse by the scientific community.
 
 
 
-- [1]: http://dx.doi.org/10.1109/MCSE.2012.62
-- [2]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4601517/
-- [3]: http://www.nature.com/nbt/journal/v33/n7/full/nbt.3240.html
+- [1]: Howe, B. _Computing in Science & Engineering_ 14:4, 36-41 http://dx.doi.org/10.1109/MCSE.2012.62 (2012). 
+- [2]: Lawlor, B. & Walsh, P. _Bioengineered_ 6:4, 193-203 http://dx.doi.org/10.1080/21655979.2015.1050162 (2015). 
+- [3]: Prins, P. et al. _Nature Biotech._ 33:7 686-687 http://dx.doi.org/10.1038/nbt.3240 (2015). 
