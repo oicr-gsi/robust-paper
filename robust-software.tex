@@ -32,7 +32,11 @@ $\ast$ Corresponding author.
 
 \begin{quote}
 \begin{center}\textbf{Abstract}\end{center}
-\fixme{GW}{Write abstract}
+Software produced for research---even published software---suffers from a number of common problems
+that make it difficult or impossible to run outside the original institution
+or even the primary developer's computer.
+We present ten simple rules to make software robust enough to run anywhere
+and delight your users and collaborators.
 \end{quote}
 
 \section*{Introduction}
@@ -52,55 +56,56 @@ software to support their research.
 Typically, this software is developed by one person and 
 produces excellent results in their hands. But what happens after the
 student leaves someone else from their group wants to use the program? Everyone with
-a few years of experience feels a tremor of fear when told, ``Use
-Graduated Student's code to analyze your
-data''. Often, that software will be undocumented and work in unexpected
-ways, if it works at all, relying on nonexistent paths or resources, tuned for
-the dataset, or simply an older version than was used in the paper.
-The poor student or staff member then has two choices: hack the existing code
-to make it work for her, or start over.
+a few years of experience feels a tremor of fear when told to use
+a graduated student's code to analyze their data.
+Often, that software will be undocumented and work in unexpected
+ways (if it works at all).  It will often rely on nonexistent paths or resources,
+be tuned for a single dataset,
+or simply be an older version than was used in published papers.
+Its new user is often faced with two unpalatable options:
+hack the existing code to make it work, or start over.
 
-The root cause of this problem is that most of the software researchers
-produce isn't \emph{robust}. The difference between running and being
+The root cause of this problem is that most research software
+isn't \emph{robust}. The difference between running and being
 robust is the difference between ``works for me on my machine'' and
 ``works for other people on a cluster I've never used''. In particular,
 robust software:
 
 \begin{itemize}
 \item
-  Works for users other than the original author
+  works for users other than the original author;
 \item
-  Is kept under version control.
+  is kept under version control;
 \item
-  Can be installed on more than one computer or account with relative ease
+  can be installed on more than one computer or account with relative ease;
 \item
-  Has well-defined input and output formats
+  has well-defined input and output formats;
 \item
-  Has documentation that describes what its dependencies are, how to
-  install it, and what the options are.
+  has documentation that describes what its dependencies are, how to
+  install it, and what the options are; and
 \item
-  Comes with enough tests to show that it actually runs.
+  comes with enough tests to show that it actually runs.
 \end{itemize}
 
-These rules need not be applied to \emph{every} coding effort. The vast majority of
-code produced in the marathon of a graduate thesis is used once to answer a
-specific question related to a specific dataset. Scientific endeavours often
-require speed and rapid iteration over a question, not thoughtful software
-engineering and thorough documentation. A README is of no use if you are the
-sole user of your code. As the saying goes, not everything worth doing is worth
-doing right away. However, once your script is dusted off and run three or four
-times for slightly different purposes, when it comes time to publish your
-methods, to leave a project, or to pass it on to someone else, it may be time
-to apply ten simple rules for robust software.
+These rules need not be applied to \emph{every} coding effort:
+as the saying goes, not everything worth doing is worth doing right (or right away).
+Code  that is used once to answer a specific question related to a specific dataset
+doesn't require comprehensive documentation,
+and the only sensible way to test it may well be to run it on the dataset in question.
+However, if a script is dusted off and run three or four
+times for slightly different purposes,
+crucial to a publication,
+or being passed on to someone else,
+it may be time to apply ten simple rules for robust software.
 
-These simple rules are also necessary steps toward creating a reusable library that
-can be shared through a site like CPAN or CRAN. They can apply to both
-closed-source and open-source software.  They are generic and can be applied to all
-languages, libraries, packages, documentation styles, and
-operating systems.  Whether the aim is as simple as sharing the code
-with collaborators or as complex as using the software in a production
-analysis environment, increasing the robustness of your software
-decreases headaches all around.
+These simple rules are also necessary steps toward creating a reusable
+library that can be shared through a site like CPAN or CRAN.  They are
+generic and can be applied to all languages, libraries, packages,
+documentation styles, and operating systems for both closed-source and
+open-source sofwtare.  Whether the aim is as simple as sharing the
+code with collaborators or as complex as using the software in a
+production analysis environment, increasing the robustness of your
+software decreases headaches all around.
 
 \section{Have a README that explains in a few lines what the software does and what its dependencies are.}
 
@@ -156,27 +161,28 @@ Input files and their formats are included in most documentation, but
 intermediate, auxilliary and log files are often missing. 
 \emph{All} files should be listed in the README, even those considered self-explanatory. Log
 files are often full of valuable information that can be
-mined for the user's specific purpose. Sometimes your users will need to answer a question of
-the format, ``Does Software tell you the percentage of reads trimmed to remove
-adapter sequences?'' and they can check the README and confidently
-say ``yes, it is in the log file''.
+mined for the user's specific purpose. If your users might need to know,
+``Does this program report the percentage of reads trimmed to remove
+adapter sequences?'' they should be able to check the README and confidently
+say, ``Yes, it is in the log file''.
 
 \textbf{Attributions and licensing:} Attributions are how you credit
 your main contributors; licenses are how you want others to use and
-credit your software. By putting it in the README, it is readable \emph{before}
+credit your software. By putting them in the README, it is readable \emph{before}
 the software is installed (or even downloaded).
 Leave no
 question in anyone's mind about whether your software can be used
 commercially, how much modification is permitted, and how other software
 needs to credit you. If your software is not open source, state that clearly.
-Attributions can also contain a list of `expert' users
-that can be contacted if new users have problems with the software. (for
-better or for worse)
+Attributions can also contain a list of ``expert'' users
+that can be contacted if new users have problems with the software.
 
-\begin{itemize}
-\item
-  \fixme{GW}{example from real software:\\ https://github.com/dib-lab/khmer/blob/master/README.rst}
-\end{itemize}
+The README file for \withurl{khmer}{https://github.com/dib-lab/khmer/blob/master/README.rst}
+is a good model:
+it explains the software's purpose,
+tells readers where to get help,
+and includes links to a CITATION file (explaining how to cite the project)
+and the license.
 
 \section{Print usage information when launching from the command line that explains the software's features.}
 
@@ -249,6 +255,60 @@ providing incorrect arguments, the program should exit with a non-zero
 code to indicate an error. However, when help is explicitly requested,
 the software should not exit with an error.
 
+\section{Give the software a meaningful version number.}
+
+Most software has a version number composed of a decimal number that
+increments as new versions are released. There are many different ways
+to construct and interpret the version, but most importantly for us, a
+particular software version run with the same parameters should give
+identical results no matter when it's run. Results include both correct
+output as well as any errors.
+Every time you release your software, i.e.~distribute it to
+someone other than yourself and/or the development team, you should
+increment your version number.
+
+\withurl{Semantic versioning}{http://semver.org/} is one of the most common
+types of versioning for open-source software. Version numbers take the
+form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g.~0.2.6. The major and
+minor numbers versions are almost always provided. Changes in the major
+version number herald significant changes in the software that are not
+backwards compatible, such as changing or removing features or altering
+the primary functions of the software. Increasing the minor version
+represents incremental improvements in the software, like adding new
+features. Following the minor version number can be an arbitrary number
+of project-specific identifiers, including patches, builds and qualifiers.
+Common qualifiers include \texttt{alpha}, \texttt{beta}, and \texttt{SNAPSHOT},
+for applications that are
+not yet stable or released, and \texttt{-RC} for release candidates prior
+to official release.
+
+The version of your software should be easily available, both when
+supplying \texttt{-\/-version} or \texttt{-v} on the command line as
+well as in the results. The software version should be printed to the
+same location as all of the other parameters (see Rule 4).
+
+Old versions of your software should be available to ensure that results
+are reproducible into the far future. A number of mechanisms exist for
+controlled release that range from as simple as adding an appropriate
+commit message or tag to version control, to official releases alongside
+code on Sourceforge, Bitbutcket or Github, to depositing into a
+repository like apt, yum, homebrew, CPAN, etc. Choose the method that
+best suits the number and expertise of users you anticipate.
+
+\section{Make older versions available.}
+
+Software evolves, but not all software evolves at the same pace.
+While more consistent command-line arguments
+or more flexible handling of output directories
+may make a program better in general,
+it can simultaneously make work for someone
+who integrated the old version into their own workflow a year or two ago,
+and won't see any benefits from upgrading.
+Programs' authors should therefore ensure that every version they have released
+continues to be available.
+
+\fixme{MT}{Can you please flesh this out?}
+
 \section{Do not require root or other special privileges.}
 
 Root (also known as ``superuser'' or ``admin'') is a special account on
@@ -282,6 +342,118 @@ directory. If the first option is chosen, the user may need to modify
 her search path to include the package's executables and libraries, but
 this can (more or less) be automated, and is much less risky than
 setting things up as root.
+
+\section{Reuse software (within reason).}
+
+In the spirit of code reuse and interoperability, developers often want
+to reuse software written by others. 
+With a few lines, a call
+is made out to the other program, the results are incorporated into the
+primary script. Using popular projects reduces the amount of code that
+needs to be maintained and adds the strength of vetted software to the
+final program.
+
+Unfortunately, the interface between two software packages can be a
+source of considerable frustration. Support requests descend into
+debugging errors produced by the other project.
+
+In addition, every package someone has to install
+before being able to use yours is a
+possible (some would say ``likely'') source of frustration for some
+potential user. On the other hand, research software developers should
+re-use existing software wherever possible.
+
+To strike a balance between
+these two, developers should
+\textbf{document \emph{all} of the packages that theirs depends on, preferably in a machine-readable form}.
+For example, it is common for Python projects to include a file called
+\texttt{requirements.txt} that lists the names of required libraries,
+along with version ranges:
+
+\begin{verbatim}
+requests>=2.0
+pygithub>=1.26,<=1.27
+python-social-auth>=0.2.19,<0.3
+\end{verbatim}
+
+This file can be read by a package manager, which can check that the
+required software is available, and install it if it is not. Similar
+mechanisms exist for Perl, R, and other languages.
+
+Conversely, developers should
+\textbf{avoid depending on scripts and tools which are not available as packages},
+even (or especially) if they are installed on the computers the original developer is using.
+In many cases, a program's author may not realize that some tool was built locally, and
+doesn't exist elsewhere. At present, the only sure way to discover such
+unknown dependencies is to install on a system administered by someone
+else and see what breaks. As use of lightweight
+virtualization containers like Docker becomes more widespread, it may
+become common to test installation on a virtual machine.
+
+The way that the second program is invoked can throw up errors.
+The program may not be in the user's path, or it may be an
+older or newer version and produce results different than expected.
+Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
+use shell-specific conventions like `*' expansion.
+Even Linux-standard functions available vary slightly between
+installs. For example, GNU \texttt{sort} is available on almost every
+*nix distribution, but sorts differently depending on locale.
+
+Despite these caveats,
+we fully support the reuse of software between projects provided
+three additional guidelines are adhered to. First, 
+\textbf{make sure that you really need the auxiliary program}. If you are
+executing GNU sort instead of figuring out how to sort lists in Python,
+it may not be worth the pain of integration.
+
+Second, \textbf{ensure the appropriate software and version is available}.
+Either allow the user to
+configure the exact path to the package, distribute the program with the
+dependent software, or download it during installation using a
+dependency management system. Regardless, check whether the program is
+executable and what version is running. Be sure to remind users in the
+documentation what the compatible versions are.
+
+Finally, to ensure support on as many different operating systems as
+possible, \textbf{use native functions for starting other processes}, such as
+Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
+command, and be sure to capture and report the standard error output of
+the subprocess to facilitate debugging.
+
+\section{Eliminate hard-coded paths.}
+
+It's easy to write software that reads input from a file called
+\texttt{mydata.csv}, but also very limiting. If a colleague asks you to
+process her data, you must either overwrite your data file (which is
+risky) or edit your code to read \texttt{otherdata.csv} (which is also
+risky, because there's every likelihood you'll forget to change the
+filename back, or will change three uses of the filename but not a
+fourth).
+
+Hard-coding file paths in a program also makes the software harder to run
+in other environments. If your package is installed on a cluster, for
+example, the user's data will almost certainly \emph{not} be in the same
+directory as the software, and the folder
+\texttt{C:\textbackslash{}users\textbackslash{}yourname\textbackslash{}}
+will probably not even exist.
+
+For these reasons, users should be able to set the names and locations
+of input and output files as command-line parameters. This rule applies
+to reference data sets as well as the user's own data: if a user wants
+to try a new gene identification algorithm using a different set of
+genes as a training set, she should not have to edit the software to do
+so.
+
+A corollary to this rule is that a package should not require users to
+navigate to a particular directory to do their work. ``Where I have to
+be'' is just another hard-coded path.
+
+In order to save typing, it is often convenient to allow users to
+specify an input or output \emph{directory}, and then require that there
+be files with particular names in that directory. This practice, which
+is sometimes called ``convention over configuration'', is used by many
+software frameworks, such as WordPress and Ruby on Rails, and often
+strikes a good balance between adaptability and consistency.
 
 \section{Allow configuration of all useful parameters from the command line.}
 
@@ -341,116 +513,28 @@ cleaned up after execution completes or they occupy valuable disk space.
 Use a default configuration file and specify all other parameter values on the
 command line.
 
-\section{Eliminate hard-coded paths.}
+\section{Include a small test set that can be run to ensure the software is actually working.}
 
-It's easy to write software that reads input from a file called
-\texttt{mydata.csv}, but also very limiting. If a colleague asks you to
-process her data, you must either overwrite your data file (which is
-risky) or edit your code to read \texttt{otherdata.csv} (which is also
-risky, because there's every likelihood you'll forget to change the
-filename back, or will change three uses of the filename but not a
-fourth).
+Every package should come with a small test script for users to run
+after installation. Its purpose is \emph{not} to check that the software
+is working correctly (although that is extremely helpful), but rather to
+ensure that it will work at all. This test script can also serve as a
+working example of how to run the software.
 
-Hard-coding file paths in a program also makes the software harder to run
-in other environments. If your package is installed on a cluster, for
-example, the user's data will almost certainly \emph{not} be in the same
-directory as the software, and the folder
-\texttt{C:\textbackslash{}users\textbackslash{}yourname\textbackslash{}}
-will probably not even exist.
+In order to be useful, this test script must be easy to find and run. A
+single file in the project's root directory named \texttt{runtests.sh}
+or something equally obvious is a much better solution than documenting
+test cases and requiring people to copy and paste them into the shell.
 
-For these reasons, users should be able to set the names and locations
-of input and output files as command-line parameters. This rule applies
-to reference data sets as well as the user's own data: if a user wants
-to try a new gene identification algorithm using a different set of
-genes as a training set, she should not have to edit the software to do
-so.
-
-A corollary to this rule is that a package should not require users to
-navigate to a particular directory to do their work. ``Where I have to
-be'' is just another hard-coded path.
-
-In order to save typing, it is often convenient to allow users to
-specify an input or output \emph{directory}, and then require that there
-be files with particular names in that directory. This practice, which
-is sometimes called ``convention over configuration'', is used by many
-software frameworks, such as WordPress and Ruby on Rails, and often
-strikes a good balance between adaptability and consistency.
-
-\section{Reuse software (without tears).}
-
-In the spirit of code reuse and interoperability, developers often want
-to reuse software written by others. 
-With a few lines, a call
-is made out to the other program, the results are incorporated into the
-primary script. Using popular projects reduces the amount of code that
-needs to be maintained and adds the strength of vetted software to the
-final program.
-
-Unfortunately, the interface between two software packages can be a
-source of considerable frustration. Support requests descend into
-debugging errors produced by the other project.
-
-The way that the second program is invoked can throw up errors.
-The program may not be in the user's path, or it may be an
-older or newer version and produce results different than expected.
-Windows users will be frustrated if you invoke bash or sh explictly or
-use shell-specific conventions like `*' expansion.
-Even Linux-standard functions available vary slightly between
-installs. For example: GNU \texttt{sort} is available on almost every
-*nix distribution, but sorts differently depending on locale.
-
-We fully support the reuse of software between projects and have some
-suggestions to reduce the aforementioned pains. First, 
-make sure that you really need the call-out. If you are
-executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration.
-
-
-Second, ensure the
-appropriate software and version is available. Either allow the user to
-configure the exact path to the package, distribute the program with the
-dependent software, or download it during installation using a
-dependency management system. Regardless, check whether the program is
-executable and what version is running. Be sure to remind users in the
-documentation what the compatible versions are.
-
-Finally, to ensure support on as many different operating systems as
-possible, use native functions for starting other processes, such as
-Java's Runtime.exec call, Python's subprocess module, and Perl's system
-command, and be sure to capture and report the standard error output of
-the subprocess to facilitate debugging.
-
-\section{Do not rely on the pre-installation of non-standard packages or libraries unless clearly stated in the documentaton.}
-
-Every package someone has to install before being able to use yours is a
-possible (some would say ``likely'') source of frustration for some
-potential user. On the other hand, research software developers should
-re-use existing software wherever possible. To strike a balance between
-these two, developers should document \emph{all} of the packages that
-theirs depends on, preferably in a machine-readable form. For example,
-it is common for Python projects to include a file called
-\texttt{requirements.txt} that lists the names of required libraries,
-along with version ranges:
-
-\begin{verbatim}
-requests>=2.0
-pygithub>=1.26,<=1.27
-python-social-auth>=0.2.19,<0.3
-\end{verbatim}
-
-This file can be read by a package manager, which can check that the
-required software is available, and install it if it is not. Similar
-mechanisms exist for Perl, R, and other languages.
-
-A common way to break this rule is to depend on scripts and tools that
-are installed on the computers the original developer is using, but
-which aren't otherwise packaged and available. In many cases, the author
-of a package may not realize that some tool was built locally, and
-doesn't exist elsewhere. At present, the only sure way to discover such
-unknown dependencies is to install on a system administered by someone
-else and see what breaks. In future, as use of lightweight
-virtualization containers like Docker becomes more widespread, it may
-become common to test installation on a virtual machine.
+Equally, the test script's output must be easy to interpret. Screens
+full of correlation coefficients do not qualify: instead, the script's
+output should be simple to understand for non-experts,
+such as one line per test, with the test's name
+and its pass/fail status, followed by a single summary line saying how
+many tests were run and how many passed or failed. If many or all tests
+fail because of missing dependencies, that fact should be displayed
+once, clearly, rather than once per test, so that users have a clear
+idea of what they need to fix and how much work it's likely to take.
 
 \section{Produce identical results when given identical inputs.}
 
@@ -477,67 +561,6 @@ removes randomness between runs. Allow the user to optionally provide
 the seed as an input parameter, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later.
-
-\section{Include a small test set that can be run to ensure the software is actually working.}
-
-Every package should come with a small test script for users to run
-after installation. Its purpose is \emph{not} to check that the software
-is working correctly (although that is extremely helpful), but rather to
-ensure that it will work at all. This test script can also serve as a
-working example of how to run the software.
-
-In order to be useful, this test script must be easy to find and run. A
-single file in the project's root directory named \texttt{runtests.sh}
-or something equally obvious is a much better solution than documenting
-test cases and requiring people to copy and paste them into the shell.
-
-Equally, the test script's output must be easy to interpret. Screens
-full of correlation coefficients do not qualify: instead, the script's
-output should be simple to understand for non-experts, such as one line per test, with the test's name
-and its pass/fail status, followed by a single summary line saying how
-many tests were run and how many passed or failed. If many or all tests
-fail because of missing dependencies, that fact should be displayed
-once, clearly, rather than once per test, so that users have a clear
-idea of what they need to fix and how much work it's likely to take.
-
-\section{Give the software a meaningful version number.}
-
-Most software has a version number composed of a decimal number that
-increments as new versions are released. There are many different ways
-to construct and interpret the version, but most importantly for us, a
-particular software version run with the same parameters should give
-identical results no matter when it's run. Results include both correct
-output as well as any errors.
-Every time you release your software, i.e.~distribute it to
-someone other than yourself and/or the development team, you should
-increment your version number.
-
-\withurl{Semantic versioning}{http://semver.org/} is one of the most common
-types of versioning for open-source software. Version numbers take the
-form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g.~0.2.6. The major and
-minor numbers versions are almost always provided. Changes in the major
-version number herald significant changes in the software that are not
-backwards compatible, such as changing or removing features or altering
-the primary functions of the software. Increasing the minor version
-represents incremental improvements in the software, like adding new
-features. Following the minor version number can be an arbitrary number
-of project-specific identifiers, including patches, builds and qualifiers.
-Common qualifiers include \texttt{alpha}, \texttt{beta}, and \texttt{SNAPSHOT}, for applications that are
-not yet stable or released, and \texttt{-RC} for release candidates prior
-to official release.
-
-The version of your software should be easily available, both when
-supplying \texttt{-\/-version} or \texttt{-v} on the command line as
-well as in the results. The software version should be printed to the
-same location as all of the other parameters (see Rule 4).
-
-Old versions of your software should be available to ensure that results
-are reproducible into the far future. A number of mechanisms exist for
-controlled release that range from as simple as adding an appropriate
-commit message or tag to version control, to official releases alongside
-code on Sourceforge, Bitbutcket or Github, to depositing into a
-repository like apt, yum, homebrew, CPAN, etc. Choose the method that
-best suits the number and expertise of users you anticipate.
 
 \section*{Conclusion}
 
