@@ -15,8 +15,8 @@ creating reproducible results, to the pace of scientific research, and to
 creating bioinformatics communities that build on each other's work.
 
 This familiar problem has spawned a range of solutions, from virtual machines
-and containerization[(1)][vms], to more training for bioinformaticians
-[(2)][engineering], to reform of scientific reward [(3)][big-biology]. All of
+and containerization[1], to more training for bioinformaticians
+[2], to reform of scientific reward [3]. All of
 these solutions require time and money, and none directly contribute to
 scientific advancement. What can the front-line bioinformatician do right now
 to create robust code suitable for reproducible publication, to encourage
@@ -36,6 +36,6 @@ reuse by the scientific community.
 
 
 
-- [vms] : http://dx.doi.org/10.1109/MCSE.2012.62
-- [engineering] : http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4601517/
-- [big-biology]: http://www.nature.com/nbt/journal/v33/n7/full/nbt.3240.html
+- [1]: http://dx.doi.org/10.1109/MCSE.2012.62
+- [2]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4601517/
+- [3]: http://www.nature.com/nbt/journal/v33/n7/full/nbt.3240.html
