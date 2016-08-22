@@ -15,10 +15,8 @@
 \begin{document}
 
 \begin{flushleft}
-{\Large
-\textbf{Ten Simple Rules for Making Research Software More Robust}
-}
-
+{\large\textbf{Ten Simple Rules for Making Research Software More Robust}}
+\\
 {Morgan~Taschuk}$^{1,\ast}$,
 {Greg~Wilson}$^{2}$
 \\
@@ -32,11 +30,13 @@ $\ast$ Corresponding author.
 
 \begin{quote}
 \begin{center}\textbf{Abstract}\end{center}
-Software produced for research---even published software---suffers from a number of common problems
-that make it difficult or impossible to run outside the original institution
-or even the primary developer's computer.
-We present ten simple rules to make software robust enough to run anywhere
-and delight your users and collaborators.
+Software produced for research,
+published and otherwise,
+suffers from a number of common problems
+that make it difficult or impossible to run outside the original institution,
+or even off the primary developer's computer.
+We present ten simple rules to make such software robust enough to run anywhere
+and thereby delight your users and collaborators.
 \end{quote}
 
 \section*{Introduction}
@@ -263,13 +263,13 @@ to construct and interpret the version, but most importantly for us, a
 particular software version run with the same parameters should give
 identical results no matter when it's run. Results include both correct
 output as well as any errors.
-Every time you release your software, i.e.~distribute it to
+Every time you release your software, i.e., distribute it to
 someone other than yourself and/or the development team, you should
 increment your version number.
 
 \withurl{Semantic versioning}{http://semver.org/} is one of the most common
 types of versioning for open-source software. Version numbers take the
-form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g.~0.2.6. The major and
+form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g., 0.2.6. The major and
 minor numbers versions are almost always provided. Changes in the major
 version number herald significant changes in the software that are not
 backwards compatible, such as changing or removing features or altering
@@ -307,41 +307,16 @@ and won't see any benefits from upgrading.
 Programs' authors should therefore ensure that every version they have released
 continues to be available.
 
-\fixme{MT}{Can you please flesh this out?}
-
-\section{Do not require root or other special privileges.}
-
-Root (also known as ``superuser'' or ``admin'') is a special account on
-a computer that has (among other things) the power to modify or delete
-system files and user accounts. Conversely, files and directories owned
-by root usually cannot be modifed by normal users.
-
-Installing or running a program with root privileges is often
-convenient, since doing so automatically bypasses all those pesky safety
-checks that might otherwise get in the user's way. However, those checks
-are there for a reason: scientific software packages may not
-intentionally be malware, but one small bug or over-eager file-matching
-expression can certainly make them behave as if they were. Outside of
-very unusual circumstances, packages should therefore not require root
-privileges to set up or use.
-
-Another reason for this rule is that users may want to try out a new
-package before installing it system-wide on a cluster. Requiring root
-privileges will frustrate such efforts, and thereby reduce uptake of the
-package. Requiring that software be installed under its own user account
-(e.g., that \texttt{packagename} be made a user, and all of the
-package's software be installed in that ``user's'' space) is similarly
-limiting, and makes side-by-side installation of multiple versions of
-the package more difficult.
-
-Developers should therefore allow packages to be installed in an
-arbitrary location, e.g., under a user's home directory in
-\texttt{\textasciitilde{}/packagename}, or in directories with standard
-names like \texttt{bin}, \texttt{lib}, and \texttt{man} under a chosen
-directory. If the first option is chosen, the user may need to modify
-her search path to include the package's executables and libraries, but
-this can (more or less) be automated, and is much less risky than
-setting things up as root.
+The most common way to do this is to include the version number in the
+name of the released package, and to link to those old versions from
+the project's home page or downloads page.
+For example,
+as of the time of writing,
+the downloads page for the Python programming language includes links to
+Versions 3.5.2, 3.5.1, 3.5.0, 3.4.5, 3.4.4, 2.7.12, and 2.7.11,
+along with a link to an archive page of even older versions.
+Such archives are most useful if these packages document their dependencies,
+which we discuss in the next section.
 
 \section{Reuse software (within reason).}
 
@@ -420,6 +395,40 @@ Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
 command, and be sure to capture and report the standard error output of
 the subprocess to facilitate debugging.
 
+\section{Do not require root or other special privileges.}
+
+Root (also known as ``superuser'' or ``admin'') is a special account on
+a computer that has (among other things) the power to modify or delete
+system files and user accounts. Conversely, files and directories owned
+by root usually cannot be modifed by normal users.
+
+Installing or running a program with root privileges is often
+convenient, since doing so automatically bypasses all those pesky safety
+checks that might otherwise get in the user's way. However, those checks
+are there for a reason: scientific software packages may not
+intentionally be malware, but one small bug or over-eager file-matching
+expression can certainly make them behave as if they were. Outside of
+very unusual circumstances, packages should therefore not require root
+privileges to set up or use.
+
+Another reason for this rule is that users may want to try out a new
+package before installing it system-wide on a cluster. Requiring root
+privileges will frustrate such efforts, and thereby reduce uptake of the
+package. Requiring that software be installed under its own user account
+(e.g., that \texttt{packagename} be made a user, and all of the
+package's software be installed in that ``user's'' space) is similarly
+limiting, and makes side-by-side installation of multiple versions of
+the package more difficult.
+
+Developers should therefore allow packages to be installed in an
+arbitrary location, e.g., under a user's home directory in
+\texttt{\textasciitilde{}/packagename}, or in directories with standard
+names like \texttt{bin}, \texttt{lib}, and \texttt{man} under a chosen
+directory. If the first option is chosen, the user may need to modify
+her search path to include the package's executables and libraries, but
+this can (more or less) be automated, and is much less risky than
+setting things up as root.
+
 \section{Eliminate hard-coded paths.}
 
 It's easy to write software that reads input from a file called
@@ -460,23 +469,16 @@ strikes a good balance between adaptability and consistency.
 Useful parameters are those values that a user will need to modify to suit
 their computer, dataset or application. 
 The full list of useful parameters is software-specific and so cannot be
-detailed here, but here is a short list:
-
-\begin{itemize}
-\item
-  Input and reference files/directories
-\item
-  Output files/directories
-\item
-  Filtering
-\item
-  Tuning (e.g.~alphas and gammas)
-\item
-  Seeds
-\item
-  Any alternatives that you've built-in, e.g.~compress results, use a
-  different calculation, verbose output, etc.
-\end{itemize}
+detailed here, but a short list includes
+input and reference files and directories,
+output files and directories,
+filtering,
+tuning,
+random number generation seeds,
+and
+any alternatives that you've built-in,
+e.g.,
+compress results, use a different calculation, verbose output, etc.
 
 Providing parameters on the
 command line increases the flexibility and usability of the program. You
@@ -564,23 +566,14 @@ using clock time), echo it to the output for re-use later.
 
 \section*{Conclusion}
 
-\fixme{GW}{How to tell if the software is working:}
-
-\begin{itemize}
-\item
-  Test in a `vanilla' environment, such as another user's computer or a
-  dummy account with none of the settings of the original developer.
-\item
-  Test with different sizes of data: ridiculously small, small, medium,
-  and large. The software should run on all sizes given some parameter
-  tweaking, or fail with a sensible error message if the data is too
-  big.
-\item
-  Compare results from multiple iterations that have the same parameters
-  and inputs.(See rule \#8.)
-\item
-  Consider a container - but most of these rules still apply
-\end{itemize}
+There has been extended discussion over the past few years of the
+sustainability of research software, but this question is meaningless
+in isolation: any piece of software can be sustained if its users are
+willing to put in enough effort.  The real equation is the ratio
+between the skill and effort available, and the ease with which
+software can be installed, understood, used, maintained, and extended.
+Following the ten rules we outline here reduce the denominator, and
+thereby enable researchers to build on each other's work more easily.
 
 \bibliography{robust-software}
 
