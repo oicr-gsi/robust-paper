@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Have a README that explains in a few lines what the software does and what its dependencies are.}{}% 1
+\BOOKMARK [1][-]{section.2}{Print usage information when launching from the command line that explains the software's features.}{}% 2
+\BOOKMARK [1][-]{section.3}{Give the software a meaningful version number.}{}% 3
+\BOOKMARK [1][-]{section.4}{Make older versions available.}{}% 4
+\BOOKMARK [1][-]{section.5}{Reuse software \(within reason\).}{}% 5
+\BOOKMARK [1][-]{section.6}{Do not require root or other special privileges.}{}% 6
+\BOOKMARK [1][-]{section.7}{Eliminate hard-coded paths.}{}% 7
+\BOOKMARK [1][-]{section.8}{Allow configuration of all useful parameters from the command line.}{}% 8
+\BOOKMARK [1][-]{section.9}{Include a small test set that can be run to ensure the software is actually working.}{}% 9
+\BOOKMARK [1][-]{section.10}{Produce identical results when given identical inputs.}{}% 10
