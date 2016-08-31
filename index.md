@@ -26,7 +26,7 @@ FIXME: Write non-technical paragraph for the general public.
 
 Typically, scientific software is developed and used by a single person,
 usually a graduate student or postdoc, and produces excellent results in
-their hands [prins2015]. But what happens when someone else wants to use
+their hands [[prins2015](#prins2015)]. But what happens when someone else wants to use
 their software? Everyone with a few years of experience feels a tremor
 of fear when told to use a graduated student’s code to analyze their
 data. Often, that software will be undocumented and work in unexpected
@@ -35,46 +35,46 @@ resources, be tuned for a single dataset, or simply be an older version
 than was used in published papers. The new user is then faced with two
 unpalatable options: hack the existing code to make it work, or start
 over. Being unable to replicate results is so common that one
-publication refers to it as “a rite of passage” [baker2016].
+publication refers to it as “a rite of passage” [[baker2016](#baker2016)].
 
 The root cause of this problem is that most research software isn’t
 *robust*. The difference between running and being robust is the
 difference between “works for me on my machine” and “works for other
 people on a cluster I’ve never used”. With a lack of robustness also
 comes a lack of reproducibility and many duplicated efforts, slowing the
-pace of research [prabhu2011] [lawlor2015]. Bioinformatics is full of
+pace of research [[prabhu2011](#prabhu2011)] [[lawlor2015](#lawlor2015)]. Bioinformatics is full of
 such efforts, catalogued by efforts such as the ELIXIR tools and data
-registry [ison2016] and the Bioinformatics Links Directory [brazas2012]. In
+registry [[ison2016](#ison2016)] and the Bioinformatics Links Directory [[brazas2012](#brazas2012)]. In
 the Bioinformatics Links Directory as of 2016, there are 84 different
 multiple sequence aligners, 141 tools to analyze transcript expression,
 and 182 pathway and interaction resources.
 
 This problem is not unique to bioinformatics, or even to
-computing [baker2016]. Best practices in software engineering specifically
+computing [[baker2016](#baker2016)]. Best practices in software engineering specifically
 aim to increase software robustness. However, most bioinformaticians
 come from related disciplines and are trained on-the-job or otherwise
-informally [prins2015] [atwood2015]. Even the existing programs and
+informally [[prins2015](#prins2015)] [[atwood2015](#atwood2015)]. Even the existing programs and
 initiatives rarely have the time to cover engineering topics in-depth,
-especially since the field is so broad and rapidly developing [atwood2015]
-[lawlor2015]. Regardless of whether or not the skills and knowledge are
+especially since the field is so broad and rapidly developing [[atwood2015](#atwood2015)]
+[[lawlor2015](#lawlor2015)]. Regardless of whether or not the skills and knowledge are
 taught, developing robust software is not directly rewarded in science
-and funding is difficult to come by [prins2015]. Some proposed solutions
+and funding is difficult to come by [[prins2015](#prins2015)]. Some proposed solutions
 to this problem, in addition to restructuring educational programs,
-include hiring dedicated software engineers [lawlor2015] [sanders2008],
-partnering with private sector or grassroots organizations [prins2015]
-[ison2016], or using specific technical tools like containerization or
-cloud computing [afgan2016] [howe2012]. Each of these requires time and,
+include hiring dedicated software engineers [[lawlor2015](#lawlor2015)] [[sanders2008](#sanders2008)],
+partnering with private sector or grassroots organizations [[prins2015](#prins2015)]
+[[ison2016](#ison2016)], or using specific technical tools like containerization or
+cloud computing [[afgan2016](#afgan2016)] [[howe2012](#howe2012)]. Each of these requires time and,
 in some cases, institutional change.
 
 You don’t need to be a full-time programmer to write robust software. In
 fact, some of the best, most reliable pieces of software in many
-scientific communities are written by researchers [prabhu2011]
-[sanders2008]. The most widely-used software packages tend to adopt
+scientific communities are written by researchers [[prabhu2011](#prabhu2011)]
+[[sanders2008](#sanders2008)]. The most widely-used software packages tend to adopt
 strong software engineering approaches, have high standards of
 reproducibility, good testing practices, and inter-institutional
 collaborations that grow into strong user bases. In the bioinformatics
-community, Bioconductor and Galaxy follow this path [gentleman2004]
-[afgan2016].
+community, Bioconductor and Galaxy follow this path [[gentleman2004](#gentleman2004)]
+[[afgan2016](#afgan2016)].
 
 That said, not *every* coding effort requires such rigor: as the saying
 goes, not everything worth doing is worth doing right (or right away).
@@ -82,8 +82,8 @@ Code that is used once to answer a specific question related to a
 specific dataset doesn’t require comprehensive documentation or flexible
 configuration, and the only sensible way to test it may well be to run
 it on the dataset in question. Exploratory analysis is an iterative
-process that is developed quick and revised often [lawlor2015]
-[sanders2008]. However, if a script is dusted off and run three or four
+process that is developed quick and revised often [[lawlor2015](#lawlor2015)]
+[[sanders2008](#sanders2008)]. However, if a script is dusted off and run three or four
 times for slightly different purposes, is crucial to a publication or a
 lab, or being passed on to someone else, it may be time to make your
 software more robust. In particular, robust software:
@@ -222,8 +222,8 @@ several features:
 **The syntax for running the program**: This includes the name of the
 program and defines the relative location of optional and required
 flags, arguments and values for execution. Arguments in
-<span>[</span>square brackets<span>]</span> are usually optional. An
-ellipsis (…e.g. “<span>[</span>OPTION<span>]</span>…”) indicates that
+[square brackets] are usually optional. An
+ellipsis (…e.g. “[OPTION]…”) indicates that
 more than one value can be provided.
 
 **Description**: Similar to the README, the description reminds users of
@@ -259,7 +259,7 @@ development team, you should increment your version number.
 
 [Semantic versioning][^3] is one of the most
 common types of versioning for open-source software. Version numbers
-take the form of *MAJOR.MINOR<span>[</span>.PATCH<span>]</span>*, e.g.,
+take the form of *MAJOR.MINOR[.PATCH]*, e.g.,
 0.2.6. The major and minor numbers versions are almost always provided.
 Changes in the major version number herald significant changes in the
 software that are not backwards compatible, such as changing or removing
@@ -551,48 +551,59 @@ researchers to build on each other’s work more easily.
 D, Čech M, et al. The Galaxy platform for accessible, reproducible and
 collaborative biomedical analyses: 2016 update. Nucleic Acids
 Research.  2016; 44(W1):W3–W10. doi:10.1093/nar/gkw343.
+<a name="afgan2016" />
 
 **atwood2015**: Atwood TK, Bongcam-Rudloff E, Brazas ME, Corpas M,
 Gaudet P, Lewitter F, et al. GOBLET: The Global Organisation for
 Bioinformatics Learning, Education and Training. PLoS Computational
 Biology.  2015; doi:10.1371/journal.pcbi.1004143.
+<a name="atwood2015" />
 
 **baker2016**: Baker M. 1,500 scientists lift the lid on
 reproducibility. Nature.  2016;
 533(7604):452–454. doi:10.1038/533452a.
+<a name="baker2016" />
 
 **brazas2012**: Brazas MD, Yim D, Yeung W, Ouellette BFF. A decade of
 web server updates at the bioinformatics links directory:
 2003-–2012. Nucleic Acids Research. 2012; doi:10.1093/nar/gks632.
+<a name="brazas2012" />
 
 **gentleman2004**: Gentleman RC, Carey VJ, Bates DM, Bolstad B,
 Dettling M, Dudoit S, et al. Bioconductor: open software development
 for computational biology and bioinformatics. Genome Biology. 2004;
 5(10):1–16.  doi:10.1186/gb-2004-5-10-r80.
+<a name="gentleman2004" />
 
 **howe2012**: Howe B. Virtual Appliances, Cloud Computing, and
 Reproducible Research.  Computing in Science Engineering. 2012;
 14(4):36–41.  doi:10.1109/MCSE.2012.62.
+<a name="howe2012" />
 
 **ison2016**: Ison J, Rapacki K, Ménager H, Kalaš M, Rydza E, Chmura
 P, et al. Tools and data services registry: a community effort to
 document bioinformatics resources. Nucleic Acids
 Research. 2016; 44(D1):D38–D47.  doi:10.1093/nar/gkv1116.
+<a name="ison2016" />
 
 **lawlor2015**: Lawlor B, Walsh P. Engineering bioinformatics:
 building reliability, performance and productivity into bioinformatics
 software.  Bioengineered. 2015; 6(4).
 doi:10.1080/21655979.2015.1050162.
+<a name="lawlor2015" />
 
 **prabhu2011**: Prabhu P, Jablin TB, Raman A, Zhang Y, Huang J, Kim H,
 et al. A Survey of the Practice of Computational Science. In: State of
 the Practice Reports. SC ’11. New York, NY, USA: ACM;
 2011. p. 19:1–19:12.
+<a name="prabhu2011" />
 
 **prins2015**: Prins P, de Ligt J, Tarasov A, Jansen RC, Cuppen E,
 Bourne PE. Toward effective software solutions for big biology. Nature
 Biotechnology.  2015; 33(7):686–687. doi:10.1038/nbt.3240.
+<a name="prins2015" />
 
 **sanders2008**: Sanders R, Kelly D. Dealing with Risk in Scientific
 Software Development. Software, IEEE. 2008; 25(4):21–28.
 doi:10.1109/ms.2008.84.
+<a name="sanders2008" />
