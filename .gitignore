@@ -1,6 +1,11 @@
-*~
 *.aux
+*.bak
 *.bbl
 *.blg
 *.dvi
 *.log
+*.out
+*~
+.DS_Store
+.Rproj.user
+_site
