@@ -9,6 +9,9 @@ Morgan Taschuk<sup>1</sup>, Greg Wilson<sup>2</sup>
 
 2) Software Carpentry Foundation / gvwilson@software-carpentry.org
 
+> **We would be very grateful for feedback of all kinds:
+> please [email comments to the authors](mailto:gvwilson@software-carpentry.org;morgan.taschuk@oicr.on.ca).**
+
 **Abstract**
 
 Software produced for research, published and otherwise, suffers from a
