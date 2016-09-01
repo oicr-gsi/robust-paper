@@ -12,3 +12,7 @@ Software produced for research, even published software, suffers from a number o
 The paper is written in LaTeX and can be built using `make`;
 
     make pdf
+ 
+## Contact
+ 
+Please send any feedback to the authors by <a href="gvwilson@software-carpentry.org;morgan.taschuk@oicr.on.ca">email</a> or Twitter [@gvwilson](https://twitter.com/gvwilson) [@morgantaschuk](https://twitter.com/morgantaschuk). 
