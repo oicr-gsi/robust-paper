@@ -132,6 +132,103 @@ We present ten simple rules to make such software robust enough to run anywhere,
 and inspire confidence in your reproducibility,
 and thereby delight your users and collaborators.
 
+\section*{Notes}
+
+\begin{itemize}
+
+\item
+Mention that these rules are necessary but not sufficient for software that needs to interact with services
+such as database and web servers.
+Such software is often stopped and started under automatic control,
+may need to authenticate,
+etc.,
+all of which are out of scope of this paper.
+
+\item
+Mention that reusing software introduces dependencies,
+which can bring its own special pain.
+
+\item
+``Write documentation'' is not one of our ten rules.
+Explain in the conclusion that we think this is really important,
+but it's not the software per se.
+We also don't think people are unlikely do it during normal development,
+and we don't want to recommend practices that people won't actually adopt.
+
+\item
+Find somewhere to say, ``Check that all input values are in a reasonable range,
+choose reasonable defaults where possible,
+and no defaults at all otherwise.''
+
+\item
+Explain somewhere that there's an 11th rule for compiled languages:
+use standard build tools like Make
+rather than home-brewed scripts.
+
+\item
+Remind people that a program should print its version number in all of its output,
+particularly debugging traces.
+
+\item
+Recommend that people \emph{always} install dependencies, even on their own machine,
+using their equivalent of \texttt{requirements.txt}
+so that they're sure it works.
+
+\item
+Point out that even minor changes to code can cause minor changes in output
+because of floating-point issues,
+which means that getting exactly the same output for the same input and parameters
+probably won't work during development
+(but should still be a goal for people who've deployed).
+
+\item
+Point out that having tests of any kind makes it simpler for outsiders to contribute.
+
+\item
+When we tell people not to require root privileges,
+we should point out that testing in a virtual machine is a good way to check for this.
+
+\item
+References:
+  \begin{itemize}
+  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-2-15
+  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-3-31
+  \item https://tspace.library.utoronto.ca/handle/1807/73111
+  \end{itemize}
+
+\item
+Cite http://hmmer.org/ as an example of scientific software done right.
+
+\item
+Suggest that people put all the checking and validation up front,
+so that if the program is going to crash it does so right away
+(rather than in the middle of the night after 18 hours of runtime).
+
+\item
+Should we tell people to create several single-purpose tools
+rather than One Script to Rule Them All?
+
+\item
+Should we tone down the ``tremor of fear'' remark?
+
+\item
+``Keep in mind that if a parameter can be adjusted,
+users will want to be able to turn off the feature entirely to have a baseline comparison.''
+What's the relationship here between parameter and feature?
+
+\item
+Honor local conventions,
+e.g.,
+use \texttt{TMPDIR} for temporary files.
+(The problem is,
+where are all of these written down?)
+
+\item
+Combine versioning and making previous versions available into a single point
+in order to free up space for something else to be rule 10?
+
+\end{itemize}
+
 \section*{Author Summary}
 
 \fixme{GW}{Write non-technical paragraph for the general public.}
@@ -141,7 +238,7 @@ and thereby delight your users and collaborators.
 \section*{Introduction}
 
 Typically, scientific software is developed and used by a single person,
-usually a graduate student or postdoc, and produces excellent results in their
+usually a graduate student or postdoc, and produces intended results in their
 hands~\cite{prins2015}. 
 But what happens
 when someone else wants to use their software? Everyone with
@@ -172,8 +269,8 @@ This problem is not unique to bioinformatics, or even to computing~\cite{baker20
 Best practices in software engineering specifically aim to increase software
 robustness. However, most bioinformaticians come from related disciplines and
 are trained on-the-job or otherwise informally~\cite{prins2015,atwood2015}. Even
-the existing programs and initiatives rarely have the time to cover engineering
-topics in-depth, especially since the field is so broad and rapidly
+the existing programs and initiatives rarely have the time to cover software engineering
+in-depth, especially since the field is so broad and rapidly
 developing~\cite{atwood2015,lawlor2015}. Regardless of whether or not the skills
 and knowledge are taught, developing robust software is not directly rewarded
 in science and funding is difficult to come by~\cite{prins2015}. Some proposed
@@ -325,7 +422,7 @@ software. It is invoked either by running the software without
 any arguments; running the software with incorrect arguments; or by
 explicitly choosing a help or usage option.
 
-An example of good usage is the Unix \texttt{mkdir} command, which makes
+An example of good usage is GNU's \texttt{mkdir} command, which makes
 new directories:
 
 \begin{small}
@@ -413,14 +510,6 @@ supplying \texttt{-\/-version} or \texttt{-v} on the command line as
 well as in the results. The software version should be printed to the
 same location as all of the other parameters (see Rule 4).
 
-Old versions of your software should be available to ensure that results
-are reproducible into the far future. A number of mechanisms exist for
-controlled release that range from as simple as adding an appropriate
-commit message or tag to version control, to official releases alongside
-code on Sourceforge, Bitbutcket or Github, to depositing into a
-repository like apt, yum, homebrew, CPAN, etc. Choose the method that
-best suits the number and expertise of users you anticipate.
-
 \section{Make older versions available.}
 
 Software evolves, but not all software evolves at the same pace.
@@ -430,8 +519,15 @@ may make a program better in general,
 it can simultaneously make work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
-Programs' authors should therefore ensure that every version they have released
+A program's authors should therefore ensure that every version they have released
 continues to be available.
+
+A number of mechanisms exist for
+controlled release that range from as simple as adding an appropriate
+commit message or tag to version control, to official releases alongside
+code on Sourceforge, Bitbucket or GitHub, to depositing into a
+repository like apt, yum, homebrew, CPAN, etc. Choose the method that
+best suits the number and expertise of users you anticipate.
 
 The most common way to do this is to include the version number in the
 name of the released package, and to link to those old versions from
@@ -449,10 +545,9 @@ which we discuss in the next section.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others. 
 With a few lines, a call
-is made out to the other program, the results are incorporated into the
+is made out to the other program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
-needs to be maintained and adds the strength of vetted software to the
-final program.
+needs to be maintained and leverages the work done to check that software.
 
 Unfortunately, the interface between two software packages can be a
 source of considerable frustration. Support requests descend into
@@ -491,7 +586,7 @@ else and see what breaks. As use of lightweight
 virtualization containers like Docker becomes more widespread, it may
 become common to test installation on a virtual machine.
 
-The way that the second program is invoked can throw up errors.
+The way the second program is invoked can throw up errors.
 The program may not be in the user's path, or it may be an
 older or newer version and produce results different than expected.
 Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
@@ -518,8 +613,8 @@ documentation what the compatible versions are.
 Finally, to ensure support on as many different operating systems as
 possible, \textbf{use native functions for starting other processes}, such as
 Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
-command, and be sure to capture and report the standard error output of
-the subprocess to facilitate debugging.
+command, and be sure to capture and report the output of the subprocess's standard error
+to facilitate debugging.
 
 \section{Do not require root or other special privileges.}
 
@@ -669,7 +764,7 @@ idea of what they need to fix and how much work it's likely to take.
 Given a set of parameters and a dataset, the package should produce the
 same results every time it is run.
 
-Many bioinformatics applications rely on randomized algorithms to
+Many applications rely on randomized algorithms to
 improve performance or runtimes. As a consequence, results can change
 between runs, even when provided with the same data and parameters. By
 its nature, this randomness renders strict reproducibility impossible.
