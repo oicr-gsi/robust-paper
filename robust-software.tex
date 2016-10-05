@@ -145,26 +145,6 @@ References:
   \end{itemize}
 
 \item
-Cite http://hmmer.org/ as an example of scientific software done right.
-
-\item
-Suggest that people put all the checking and validation up front,
-so that if the program is going to crash it does so right away
-(rather than in the middle of the night after 18 hours of runtime).
-
-\item
-Should we tell people to create several single-purpose tools
-rather than One Script to Rule Them All?
-
-\item
-Should we tone down the ``tremor of fear'' remark?
-
-\item
-``Keep in mind that if a parameter can be adjusted,
-users will want to be able to turn off the feature entirely to have a baseline comparison.''
-What's the relationship here between parameter and feature?
-
-\item
 Honor local conventions,
 e.g.,
 use \texttt{TMPDIR} for temporary files.
@@ -179,7 +159,10 @@ in order to free up space for something else to be rule 10?
 
 \section*{Author Summary}
 
-\fixme{GW}{Write non-technical paragraph for the general public.}
+Many researchers have found out the hard way that there's a world of difference
+between ``works for me on my machine'' and ``works for other people on theirs''.
+Many common challenges can be avoided by following a few simple rules; doing so
+not only accelerates research, but also improves reproducibility.
 
 \linenumbers
 
@@ -190,7 +173,7 @@ usually a graduate student or postdoc, and produces intended results in their
 hands~\cite{prins2015}. 
 But what happens
 when someone else wants to use their software? Everyone with
-a few years of experience feels a tremor of fear when told to use
+a few years of experience feels a bit nervous when told to use
 a graduated student's code to analyze their data.
 Often, that software will be undocumented and work in unexpected
 ways (if it works at all).  It will often rely on nonexistent paths or resources,
