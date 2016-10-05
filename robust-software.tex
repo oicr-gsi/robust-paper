@@ -137,10 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Remind people that a program should print its version number in all of its output,
-particularly debugging traces.
-
-\item
 Recommend that people \emph{always} install dependencies, even on their own machine,
 using their equivalent of \texttt{requirements.txt}
 so that they're sure it works.
@@ -479,7 +475,10 @@ to official release.
 The version of your software should be easily available, both when
 supplying \texttt{-\/-version} or \texttt{-v} on the command line as
 well as in the results. The software version should be printed to the
-same location as all of the other parameters (see Rule 4).
+same location as all of the other parameters (see Rule 4).  It should
+also be included in all of the program's output, particularly debugging
+traces: if someone needs help, it's important that they be able to tell
+whoever's helping them which version of the software they're using.
 
 \section{Make older versions available.}
 
