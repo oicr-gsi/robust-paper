@@ -137,14 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Mention that these rules are necessary but not sufficient for software that needs to interact with services
-such as database and web servers.
-Such software is often stopped and started under automatic control,
-may need to authenticate,
-etc.,
-all of which are out of scope of this paper.
-
-\item
 Mention that reusing software introduces dependencies,
 which can bring its own special pain.
 
@@ -786,6 +778,13 @@ for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later.
 
 \section*{Conclusion}
+
+Any short list of rules for developing robust software will
+necessarily be incomplete.  For example, the rules we present above
+are necessary, but not sufficient, for software that needs to interact
+with services such as database and web servers.  Such software is
+often stopped and started under automatic control, may need to
+authenticate, etc., all of which are out of scope of this paper.
 
 There has been extended discussion over the past few years of the
 sustainability of research software, but this question is meaningless
