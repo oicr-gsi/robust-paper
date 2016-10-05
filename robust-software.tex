@@ -137,10 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-When we tell people not to require root privileges,
-we should point out that testing in a virtual machine is a good way to check for this.
-
-\item
 References:
   \begin{itemize}
   \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-2-15
@@ -610,6 +606,11 @@ directory. If the first option is chosen, the user may need to modify
 her search path to include the package's executables and libraries, but
 this can (more or less) be automated, and is much less risky than
 setting things up as root.
+
+Note:
+testing software installation has traditionally been regarded as difficult,
+since it necessarily alters the machine on which the test is conducted.
+Lightweight virtualization containers like Docker make this much easier as well.
 
 \section{Eliminate hard-coded paths.}
 
