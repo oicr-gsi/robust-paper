@@ -607,8 +607,8 @@ checks that might otherwise get in the user's way. However, those checks
 are there for a reason: scientific software packages may not
 intentionally be malware, but one small bug or over-eager file-matching
 expression can certainly make them behave as if they were. Outside of
-very unusual circumstances, packages should therefore not require root
-privileges to set up or use.
+very unusual circumstances,
+\textbf{packages should not require root privileges to set up or use}.
 
 Another reason for this rule is that users may want to try out a new
 package before installing it system-wide on a cluster. Requiring root
@@ -619,8 +619,9 @@ package's software be installed in that ``user's'' space) is similarly
 limiting, and makes side-by-side installation of multiple versions of
 the package more difficult.
 
-Developers should therefore allow packages to be installed in an
-arbitrary location, e.g., under a user's home directory in
+Developers should therefore
+\textbf{allow packages to be installed in an arbitrary location},
+e.g., under a user's home directory in
 \texttt{\textasciitilde{}/packagename}, or in directories with standard
 names like \texttt{bin}, \texttt{lib}, and \texttt{man} under a chosen
 directory. If the first option is chosen, the user may need to modify
@@ -645,16 +646,16 @@ directory as the software, and the folder
 \texttt{C:\textbackslash{}users\textbackslash{}yourname\textbackslash{}}
 will probably not even exist.
 
-For these reasons, users should be able to set the names and locations
-of input and output files as command-line parameters. This rule applies
-to reference data sets as well as the user's own data: if a user wants
-to try a new gene identification algorithm using a different set of
-genes as a training set, she should not have to edit the software to do
-so.
+For these reasons, users should be able to
+\textbf{set the names and locations of input and output files as command-line parameters}.
+This rule applies to reference data sets as well as the user's own
+data: if a user wants to try a new gene identification algorithm using
+a different set of genes as a training set, she should not have to
+edit the software to do so.
 
-A corollary to this rule is that a package should not require users to
-navigate to a particular directory to do their work. ``Where I have to
-be'' is just another hard-coded path.
+A corollary to this rule is
+\textbf{do not require users to navigate to a particular directory to do their work}.
+``Where I have to be'' is just another hard-coded path.
 
 In order to save typing, it is often convenient to allow users to
 specify an input or output \emph{directory}, and then require that there
