@@ -137,11 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Recommend that people \emph{always} install dependencies, even on their own machine,
-using their equivalent of \texttt{requirements.txt}
-so that they're sure it works.
-
-\item
 Point out that even minor changes to code can cause minor changes in output
 because of floating-point issues,
 which means that getting exactly the same output for the same input and parameters
@@ -546,7 +541,10 @@ python-social-auth>=0.2.19,<0.3
 
 This file can be read by a package manager, which can check that the
 required software is available, and install it if it is not. Similar
-mechanisms exist for Perl, R, and other languages.
+mechanisms exist for Perl, R, and other languages.  Whatever is used,
+we recommend that developers should \emph{always} install dependencies
+using this mechanism, especially on their personal machines, so that
+they're sure it works.
 
 Conversely, developers should
 \textbf{avoid depending on scripts and tools which are not available as packages},
