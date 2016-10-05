@@ -137,11 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Find somewhere to say, ``Check that all input values are in a reasonable range,
-choose reasonable defaults where possible,
-and no defaults at all otherwise.''
-
-\item
 Explain somewhere that there's an 11th rule for compiled languages:
 use standard build tools like Make
 rather than home-brewed scripts.
@@ -718,6 +713,16 @@ all parameters should be echoed in the results, config files should be
 cleaned up after execution completes or they occupy valuable disk space.
 Use a default configuration file and specify all other parameter values on the
 command line.
+
+Finally,
+if the software is configurable in any way,
+it should \textbf{check that all input values are in a reasonable range},
+\textbf{choose reasonable defaults where they exist},
+and \textbf{set no defaults at all when there aren't any reasonable ones}.
+Software should also \textbf{check that configuration values are reasonable at startup}:
+few things are as annoying as having a program announce after running for two hours
+that it isn't going to save its results
+because the requested directory doesn't exist.
 
 \section{Include a small test set that can be run to ensure the software is actually working.}
 
