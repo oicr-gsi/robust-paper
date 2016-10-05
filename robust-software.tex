@@ -137,11 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Explain somewhere that there's an 11th rule for compiled languages:
-use standard build tools like Make
-rather than home-brewed scripts.
-
-\item
 Remind people that a program should print its version number in all of its output,
 particularly debugging traces.
 
@@ -774,19 +769,33 @@ the seed as an input parameter, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later.
 
-\section*{Conclusion}
+\section*{What We Left Out}
 
 Any short list of rules for developing robust software will
-necessarily be incomplete.  For example, the rules we present above
-are necessary, but not sufficient, for software that needs to interact
-with services such as database and web servers.  Such software is
-often stopped and started under automatic control, may need to
-authenticate, etc., all of which are out of scope of this paper.
+necessarily be incomplete.  A few of our more significant omissions
+include:
 
-Another notable omission is documentation.
-We think it is very important for developers to do this,
-but our experience is that people are unlikely do it during normal development,
-and we don't want to recommend practices that people won't actually adopt.
+\begin{description}
+
+\item[\textbf{Services}] The rules we present above are necessary, but
+  not sufficient, for software that needs to interact with services
+  such as database and web servers.  Such software is often stopped
+  and started under automatic control, may need to authenticate, etc.,
+  all of which are out of scope of this paper.
+
+\item[\textbf{Documentation}] We think it is very important for
+  developers to document their work, but our experience is that people
+  are unlikely do it during normal development, and we don't want to
+  recommend practices that people won't actually adopt.
+
+\item[\textbf{Build Systems}] If the software depends on a build tool,
+  either because it is written in a compiled language or to manage
+  workflow, it should use a standard tool such as Make rather than
+  home-brewed scripts.
+
+\end{description}
+
+\section*{Conclusion}
 
 There has been extended discussion over the past few years of the
 sustainability of research software, but this question is meaningless
