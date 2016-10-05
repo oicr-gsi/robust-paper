@@ -137,13 +137,6 @@ and thereby delight your users and collaborators.
 \begin{itemize}
 
 \item
-Point out that even minor changes to code can cause minor changes in output
-because of floating-point issues,
-which means that getting exactly the same output for the same input and parameters
-probably won't work during development
-(but should still be a goal for people who've deployed).
-
-\item
 Point out that having tests of any kind makes it simpler for outsiders to contribute.
 
 \item
@@ -742,8 +735,13 @@ idea of what they need to fix and how much work it's likely to take.
 
 \section{Produce identical results when given identical inputs.}
 
-Given a set of parameters and a dataset, the package should produce the
-same results every time it is run.
+Given a set of parameters and a dataset, a particular version of a program
+should produce the same results every time it is run
+to aid testing, debugging, and reproducibility.
+Even minor changes to code can cause minor changes in output because of floating-point issues,
+which means that getting exactly the same output for the same input and parameters
+probably won't work during development,
+but it should still be a goal for people who have deployed a specific version.
 
 Many applications rely on randomized algorithms to
 improve performance or runtimes. As a consequence, results can change
