@@ -132,20 +132,48 @@ We present ten simple rules to make such software robust enough to run anywhere,
 and inspire confidence in your reproducibility,
 and thereby delight your users and collaborators.
 
+\section*{Notes}
+
+\begin{itemize}
+
+\item
+References:
+  \begin{itemize}
+  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-2-15
+  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-3-31
+  \item https://tspace.library.utoronto.ca/handle/1807/73111
+  \end{itemize}
+
+\item
+Honor local conventions,
+e.g.,
+use \texttt{TMPDIR} for temporary files.
+(The problem is,
+where are all of these written down?)
+
+\item
+Combine versioning and making previous versions available into a single point
+in order to free up space for something else to be rule 10?
+
+\end{itemize}
+
 \section*{Author Summary}
 
-\fixme{GW}{Write non-technical paragraph for the general public.}
+Many researchers have found out the hard way that there's a world of difference
+between ``works for me on my machine'' and ``works for other people on theirs''.
+Many common challenges can be avoided by following a few simple rules; doing so
+not only accelerates research, but also improves reproducibility.
 
 \linenumbers
 
 \section*{Introduction}
 
 Typically, scientific software is developed and used by a single person,
-usually a graduate student or postdoc, and produces excellent results in their
+usually a graduate student or postdoc, and produces intended results in their
 hands~\cite{prins2015}. 
 But what happens
 when someone else wants to use their software? Everyone with
-a few years of experience feels a tremor of fear when told to use
+a few years of experience feels a bit nervous when told to use
 a graduated student's code to analyze their data.
 Often, that software will be undocumented and work in unexpected
 ways (if it works at all).  It will often rely on nonexistent paths or resources,
@@ -172,8 +200,8 @@ This problem is not unique to bioinformatics, or even to computing~\cite{baker20
 Best practices in software engineering specifically aim to increase software
 robustness. However, most bioinformaticians come from related disciplines and
 are trained on-the-job or otherwise informally~\cite{prins2015,atwood2015}. Even
-the existing programs and initiatives rarely have the time to cover engineering
-topics in-depth, especially since the field is so broad and rapidly
+the existing programs and initiatives rarely have the time to cover software engineering
+in-depth, especially since the field is so broad and rapidly
 developing~\cite{atwood2015,lawlor2015}. Regardless of whether or not the skills
 and knowledge are taught, developing robust software is not directly rewarded
 in science and funding is difficult to come by~\cite{prins2015}. Some proposed
@@ -325,7 +353,7 @@ software. It is invoked either by running the software without
 any arguments; running the software with incorrect arguments; or by
 explicitly choosing a help or usage option.
 
-An example of good usage is the Unix \texttt{mkdir} command, which makes
+An example of good usage is GNU's \texttt{mkdir} command, which makes
 new directories:
 
 \begin{small}
@@ -411,15 +439,10 @@ to official release.
 The version of your software should be easily available, both when
 supplying \texttt{-\/-version} or \texttt{-v} on the command line as
 well as in the results. The software version should be printed to the
-same location as all of the other parameters (see Rule 4).
-
-Old versions of your software should be available to ensure that results
-are reproducible into the far future. A number of mechanisms exist for
-controlled release that range from as simple as adding an appropriate
-commit message or tag to version control, to official releases alongside
-code on Sourceforge, Bitbutcket or Github, to depositing into a
-repository like apt, yum, homebrew, CPAN, etc. Choose the method that
-best suits the number and expertise of users you anticipate.
+same location as all of the other parameters (see Rule 4).  It should
+also be included in all of the program's output, particularly debugging
+traces: if someone needs help, it's important that they be able to tell
+whoever's helping them which version of the software they're using.
 
 \section{Make older versions available.}
 
@@ -430,8 +453,15 @@ may make a program better in general,
 it can simultaneously make work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
-Programs' authors should therefore ensure that every version they have released
+A program's authors should therefore ensure that every version they have released
 continues to be available.
+
+A number of mechanisms exist for
+controlled release that range from as simple as adding an appropriate
+commit message or tag to version control, to official releases alongside
+code on Sourceforge, Bitbucket or GitHub, to depositing into a
+repository like apt, yum, homebrew, CPAN, etc. Choose the method that
+best suits the number and expertise of users you anticipate.
 
 The most common way to do this is to include the version number in the
 name of the released package, and to link to those old versions from
@@ -449,14 +479,15 @@ which we discuss in the next section.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others. 
 With a few lines, a call
-is made out to the other program, the results are incorporated into the
+is made out to the other program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
-needs to be maintained and adds the strength of vetted software to the
-final program.
+needs to be maintained and leverages the work done to check that software.
 
-Unfortunately, the interface between two software packages can be a
-source of considerable frustration. Support requests descend into
-debugging errors produced by the other project.
+Unfortunately, reusing software introduces dependencies, which can
+bring their own special pain.  The interface between two software
+packages can also be a source of considerable frustration: all too
+often, support requests descend into debugging errors produced by the
+other project.
 
 In addition, every package someone has to install
 before being able to use yours is a
@@ -479,7 +510,10 @@ python-social-auth>=0.2.19,<0.3
 
 This file can be read by a package manager, which can check that the
 required software is available, and install it if it is not. Similar
-mechanisms exist for Perl, R, and other languages.
+mechanisms exist for Perl, R, and other languages.  Whatever is used,
+we recommend that developers should \emph{always} install dependencies
+using this mechanism, especially on their personal machines, so that
+they're sure it works.
 
 Conversely, developers should
 \textbf{avoid depending on scripts and tools which are not available as packages},
@@ -491,7 +525,7 @@ else and see what breaks. As use of lightweight
 virtualization containers like Docker becomes more widespread, it may
 become common to test installation on a virtual machine.
 
-The way that the second program is invoked can throw up errors.
+The way the second program is invoked can throw up errors.
 The program may not be in the user's path, or it may be an
 older or newer version and produce results different than expected.
 Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
@@ -518,8 +552,8 @@ documentation what the compatible versions are.
 Finally, to ensure support on as many different operating systems as
 possible, \textbf{use native functions for starting other processes}, such as
 Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
-command, and be sure to capture and report the standard error output of
-the subprocess to facilitate debugging.
+command, and be sure to capture and report the output of the subprocess's standard error
+to facilitate debugging.
 
 \section{Do not require root or other special privileges.}
 
@@ -534,8 +568,8 @@ checks that might otherwise get in the user's way. However, those checks
 are there for a reason: scientific software packages may not
 intentionally be malware, but one small bug or over-eager file-matching
 expression can certainly make them behave as if they were. Outside of
-very unusual circumstances, packages should therefore not require root
-privileges to set up or use.
+very unusual circumstances,
+\textbf{packages should not require root privileges to set up or use}.
 
 Another reason for this rule is that users may want to try out a new
 package before installing it system-wide on a cluster. Requiring root
@@ -546,14 +580,20 @@ package's software be installed in that ``user's'' space) is similarly
 limiting, and makes side-by-side installation of multiple versions of
 the package more difficult.
 
-Developers should therefore allow packages to be installed in an
-arbitrary location, e.g., under a user's home directory in
+Developers should therefore
+\textbf{allow packages to be installed in an arbitrary location},
+e.g., under a user's home directory in
 \texttt{\textasciitilde{}/packagename}, or in directories with standard
 names like \texttt{bin}, \texttt{lib}, and \texttt{man} under a chosen
 directory. If the first option is chosen, the user may need to modify
 her search path to include the package's executables and libraries, but
 this can (more or less) be automated, and is much less risky than
 setting things up as root.
+
+Note:
+testing software installation has traditionally been regarded as difficult,
+since it necessarily alters the machine on which the test is conducted.
+Lightweight virtualization containers like Docker make this much easier as well.
 
 \section{Eliminate hard-coded paths.}
 
@@ -572,16 +612,16 @@ directory as the software, and the folder
 \texttt{C:\textbackslash{}users\textbackslash{}yourname\textbackslash{}}
 will probably not even exist.
 
-For these reasons, users should be able to set the names and locations
-of input and output files as command-line parameters. This rule applies
-to reference data sets as well as the user's own data: if a user wants
-to try a new gene identification algorithm using a different set of
-genes as a training set, she should not have to edit the software to do
-so.
+For these reasons, users should be able to
+\textbf{set the names and locations of input and output files as command-line parameters}.
+This rule applies to reference data sets as well as the user's own
+data: if a user wants to try a new gene identification algorithm using
+a different set of genes as a training set, she should not have to
+edit the software to do so.
 
-A corollary to this rule is that a package should not require users to
-navigate to a particular directory to do their work. ``Where I have to
-be'' is just another hard-coded path.
+A corollary to this rule is
+\textbf{do not require users to navigate to a particular directory to do their work}.
+``Where I have to be'' is just another hard-coded path.
 
 In order to save typing, it is often convenient to allow users to
 specify an input or output \emph{directory}, and then require that there
@@ -641,6 +681,16 @@ cleaned up after execution completes or they occupy valuable disk space.
 Use a default configuration file and specify all other parameter values on the
 command line.
 
+Finally,
+if the software is configurable in any way,
+it should \textbf{check that all input values are in a reasonable range},
+\textbf{choose reasonable defaults where they exist},
+and \textbf{set no defaults at all when there aren't any reasonable ones}.
+Software should also \textbf{check that configuration values are reasonable at startup}:
+few things are as annoying as having a program announce after running for two hours
+that it isn't going to save its results
+because the requested directory doesn't exist.
+
 \section{Include a small test set that can be run to ensure the software is actually working.}
 
 Every package should come with a small test script for users to run
@@ -664,12 +714,23 @@ fail because of missing dependencies, that fact should be displayed
 once, clearly, rather than once per test, so that users have a clear
 idea of what they need to fix and how much work it's likely to take.
 
+Finally,
+studies have found that the ease with which people can start making
+contributions is a strong predictor of whether they will or not~\cite{steinmacher2015}.
+By making it simpler for outsiders to contribute,
+a test suite of any kind also makes it more likely that they will.
+
 \section{Produce identical results when given identical inputs.}
 
-Given a set of parameters and a dataset, the package should produce the
-same results every time it is run.
+Given a set of parameters and a dataset, a particular version of a program
+should produce the same results every time it is run
+to aid testing, debugging, and reproducibility.
+Even minor changes to code can cause minor changes in output because of floating-point issues,
+which means that getting exactly the same output for the same input and parameters
+probably won't work during development,
+but it should still be a goal for people who have deployed a specific version.
 
-Many bioinformatics applications rely on randomized algorithms to
+Many applications rely on randomized algorithms to
 improve performance or runtimes. As a consequence, results can change
 between runs, even when provided with the same data and parameters. By
 its nature, this randomness renders strict reproducibility impossible.
@@ -689,6 +750,32 @@ removes randomness between runs. Allow the user to optionally provide
 the seed as an input parameter, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later.
+
+\section*{What We Left Out}
+
+Any short list of rules for developing robust software will
+necessarily be incomplete.  A few of our more significant omissions
+include:
+
+\begin{description}
+
+\item[\textbf{Services}] The rules we present above are necessary, but
+  not sufficient, for software that needs to interact with services
+  such as database and web servers.  Such software is often stopped
+  and started under automatic control, may need to authenticate, etc.,
+  all of which are out of scope of this paper.
+
+\item[\textbf{Documentation}] We think it is very important for
+  developers to document their work, but our experience is that people
+  are unlikely do it during normal development, and we don't want to
+  recommend practices that people won't actually adopt.
+
+\item[\textbf{Build Systems}] If the software depends on a build tool,
+  either because it is written in a compiled language or to manage
+  workflow, it should use a standard tool such as Make rather than
+  home-brewed scripts.
+
+\end{description}
 
 \section*{Conclusion}
 
