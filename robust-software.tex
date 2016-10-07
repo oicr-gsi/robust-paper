@@ -109,7 +109,7 @@
 \newline
 \\
 {Morgan~Taschuk}\textsuperscript{1,\ddag *},
-{Greg~Wilson}\textsuperscript{2}
+{Greg~Wilson}\textsuperscript{2,\ddag}
 \\
 \textbf{1} Ontario Institute for Cancer Research / morgan.taschuk@oicr.on.ca
 \\
@@ -169,12 +169,12 @@ not only accelerates research, but also improves reproducibility.
 \section*{Introduction}
 
 Typically, scientific software is developed and used by a single person,
-usually a graduate student or postdoc, and produces intended results in their
+usually a graduate student or postdoc, and produces the intended results in their
 hands~\cite{prins2015}. 
 But what happens
 when someone else wants to use their software? Everyone with
 a few years of experience feels a bit nervous when told to use
-a graduated student's code to analyze their data.
+another person's code to analyze their data.
 Often, that software will be undocumented and work in unexpected
 ways (if it works at all).  It will often rely on nonexistent paths or resources,
 be tuned for a single dataset,
@@ -190,17 +190,20 @@ robust is the difference between ``works for me on my machine'' and
 ``works for other people on a cluster I've never used''. With a lack of
 robustness also comes a lack of reproducibility and many duplicated efforts,
 slowing the pace of research~\cite{prabhu2011,lawlor2015}.
-Bioinformatics is full of such efforts, catalogued by efforts such as
+Bioinformatics is full of such efforts, catalogued by repositories such as
 the ELIXIR tools and data registry~\cite{ison2016}
 and the Bioinformatics Links Directory~\cite{brazas2012}. In the Bioinformatics
 Links Directory as of 2016, there are 84 different multiple sequence aligners, 141 tools
 to analyze transcript expression, and 182 pathway and interaction resources.
+Some of these tools are legitimate efforts to improve the state-of-the-art, but
+often they are difficult to install and run~\cite{stajich2002}, and are effectively abandoned
+after publication~\cite{nekrutenko2012}.
 
 This problem is not unique to bioinformatics, or even to computing~\cite{baker2016}. 
 Best practices in software engineering specifically aim to increase software
 robustness. However, most bioinformaticians come from related disciplines and
 are trained on-the-job or otherwise informally~\cite{prins2015,atwood2015}. Even
-the existing programs and initiatives rarely have the time to cover software engineering
+the existing training programs and initiatives rarely have the time to cover software engineering
 in-depth, especially since the field is so broad and rapidly
 developing~\cite{atwood2015,lawlor2015}. Regardless of whether or not the skills
 and knowledge are taught, developing robust software is not directly rewarded
@@ -221,8 +224,7 @@ practices, and inter-institutional collaborations that grow into strong user
 bases. In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
 
-That said, not \emph{every} coding effort requires such rigor:
-as the saying goes, not everything worth doing is worth doing right (or right away).
+That said, not \emph{every} coding effort needs to be engineered to last.
 Code that is used once to answer a specific question related to a specific dataset
 doesn't require comprehensive documentation or flexible configuration,
 and the only sensible way to test it may well be to run it on the dataset in
@@ -233,6 +235,7 @@ times for slightly different purposes,
 is crucial to a publication or a lab,
 or being passed on to someone else,
 it may be time to make your software more robust.
+
 In particular, robust software:
 
 \begin{itemize}
@@ -265,9 +268,8 @@ software decreases headaches all around.
 
 The README is the first stop for most new users.
 At a minimum, it needs to get a new user started and point them towards more
-help, if they need it.
-A working example using test data (per
-\#9) is always appreciated.
+help, if they need it. Numerous guidelines exist on how to write good
+READMEs\cite{Johnson1997,gnustandards}. We summarize the crucial points here.
 
 \textbf{Explain what the software does:} At the beginning of the README,
 explain what the software does in one or two sentences.
@@ -275,25 +277,15 @@ There's nothing more frustrating
 than spending the time to download and install some software only to
 find out that it doesn't do what you thought it did.
 
-\textbf{List required dependencies:} Often, software depends on very
-specific versions of libraries, modules, or operating systems. This is
-entirely reasonable as long as it is properly documented. Often,
-multiple libraries exist with the same or very similar names, so
-either provide the commands necessary to download the dependencies or
-link to the software homepage. Include the version number for each
-dependency.  
-
-If your dependency is not publicly available,
-you have several options to ensure your software remains useable.
-You can add plain-text or code directly to
-your repository with appropriate attribution. If the dependency is a binary, use a
-\withurl{binary repository manager}{https://en.wikipedia.org/wiki/Binary\_repository\_manager}
-such as Artifactory or ProGet. These managers keep versioned copies of
-software at constant URLs so they can be downloaded as long as the
-manager continues to run. If the dependency must remain closed, place it at an
-internal location on shared disk, remove all write permissions, and
-link to it from your README, although this method is 
-discouraged because of the potential for sharing and risks accidental removal.
+\textbf{List required dependencies:} Often, software depends on
+specific versions of libraries, modules, or operating systems. 
+This is
+entirely reasonable as long as it is properly documented. Include the name and
+version number for each dependency.  Several methods exist for acquiring
+required packages: either provide the commands necessary to download the
+dependencies; link to the software homepage; or (our preference) use a
+dependency manager. We address dependencies in more detail in rule
+\textcolor{red}{5}.
 
 \textbf{Installation instructions:} If the software needs to be compiled
 or installed, list those instructions in the README. Also
@@ -322,7 +314,7 @@ say, ``Yes, it is in the log file''.
 
 \textbf{Attributions and licensing:} Attributions are how you credit
 your main contributors; licenses are how you want others to use and
-credit your software. By putting them in the README, it is readable \emph{before}
+credit your software. READMEs are usualy available \emph{before}
 the software is installed (or even downloaded).
 Leave no
 question in anyone's mind about whether your software can be used
@@ -336,7 +328,7 @@ is a good model:
 it explains the software's purpose,
 tells readers where to get help,
 and includes links to a CITATION file (explaining how to cite the project)
-and the license.
+and the license file.
 
 \section{Print usage information when launching from the command line that explains the software's features.}
 
@@ -353,6 +345,8 @@ software. It is invoked either by running the software without
 any arguments; running the software with incorrect arguments; or by
 explicitly choosing a help or usage option.
 
+Almost all command-line applications use a combination of
+POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
 An example of good usage is GNU's \texttt{mkdir} command, which makes
 new directories:
 
@@ -377,9 +371,6 @@ General help using GNU software: <http://www.gnu.org/gethelp/>
 For complete documentation, run: info coreutils 'mkdir invocation'
 \end{verbatim}
 \end{small}
-
-There is no standard format for usage statements, but good ones share
-several features:
 
 \textbf{The syntax for running the program}: This includes the name of the
 program and defines the relative
@@ -409,22 +400,28 @@ providing incorrect arguments, the program should exit with a non-zero
 code to indicate an error. However, when help is explicitly requested,
 the software should not exit with an error.
 
-\section{Give the software a meaningful version number.}
+\section{Version your releases}
 
+Software evolves over time, with developers adding or removing features as need
+dictates. Making official releases stamps a particular set of features with a
+project-specific identifier so that version can be retrieved for later use. For
+example, if a paper is published, the software should be released at the same
+time so that the results can be reproduced. 
 Most software has a version number composed of a decimal number that
-increments as new versions are released. There are many different ways
+increments as new versions are released. 
+
+There are many different ways
 to construct and interpret the version, but most importantly for us, a
 particular software version run with the same parameters should give
 identical results no matter when it's run. Results include both correct
 output as well as any errors.
-Every time you release your software, i.e., distribute it to
-someone other than yourself and/or the development team, you should
-increment your version number.
+\textbf{Increment your version number every time you release your software to
+other people}.
 
 \withurl{Semantic versioning}{http://semver.org/} is one of the most common
 types of versioning for open-source software. Version numbers take the
-form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g., 0.2.6. The major and
-minor numbers versions are almost always provided. Changes in the major
+form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g., 0.2.6.
+Changes in the major
 version number herald significant changes in the software that are not
 backwards compatible, such as changing or removing features or altering
 the primary functions of the software. Increasing the minor version
@@ -434,45 +431,26 @@ of project-specific identifiers, including patches, builds and qualifiers.
 Common qualifiers include \texttt{alpha}, \texttt{beta}, and \texttt{SNAPSHOT},
 for applications that are
 not yet stable or released, and \texttt{-RC} for release candidates prior
-to official release.
+to an official release.
 
-The version of your software should be easily available, both when
-supplying \texttt{-\/-version} or \texttt{-v} on the command line as
-well as in the results. The software version should be printed to the
-same location as all of the other parameters (see Rule 4).  It should
+The version of your software should be easily available.
+Supplying \texttt{-\/-version} or \texttt{-v} on the command line should print
+the software name and version number, and it should
 also be included in all of the program's output, particularly debugging
 traces: if someone needs help, it's important that they be able to tell
 whoever's helping them which version of the software they're using.
 
-\section{Make older versions available.}
-
-Software evolves, but not all software evolves at the same pace.
-While more consistent command-line arguments
-or more flexible handling of output directories
-may make a program better in general,
-it can simultaneously make work for someone
+While new releases may make a program better in general,
+they can simultaneously create work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
 A program's authors should therefore ensure that every version they have released
-continues to be available.
-
-A number of mechanisms exist for
+continues to be available. A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
 commit message or tag to version control, to official releases alongside
 code on Sourceforge, Bitbucket or GitHub, to depositing into a
 repository like apt, yum, homebrew, CPAN, etc. Choose the method that
 best suits the number and expertise of users you anticipate.
-
-The most common way to do this is to include the version number in the
-name of the released package, and to link to those old versions from
-the project's home page or downloads page.
-For example,
-as of the time of writing,
-the downloads page for the Python programming language includes links to
-Versions 3.5.2, 3.5.1, 3.5.0, 3.4.5, 3.4.4, 2.7.12, and 2.7.11,
-along with a link to an archive page of even older versions.
-Such archives are most useful if these packages document their dependencies,
-which we discuss in the next section.
 
 \section{Reuse software (within reason).}
 
@@ -481,19 +459,56 @@ to reuse software written by others.
 With a few lines, a call
 is made out to the other program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
-needs to be maintained and leverages the work done to check that software.
+needs to be maintained and leverages the work done by the other software.
 
 Unfortunately, reusing software introduces dependencies, which can
-bring their own special pain.  The interface between two software
+bring their own special pain. The interface between two software
 packages can also be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
-other project.
-
-In addition, every package someone has to install
+other project. In addition, every package someone has to install
 before being able to use yours is a
 possible (some would say ``likely'') source of frustration for some
-potential user. On the other hand, research software developers should
-re-use existing software wherever possible.
+potential user. The way the second program is invoked can throw up errors.
+The program may not be in the user's path, or it may be an
+older or newer version and produce results different than expected.
+Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
+use shell-specific conventions like `*' expansion.
+Even Linux-standard functions available vary slightly between
+installs. For example, GNU \texttt{sort} is available on almost every
+*nix distribution, but sorts differently depending on locale.
+
+Despite these problems, software developers in research should
+re-use existing software wherever possible and reasonable to avoid
+``reinventing the wheel''. We fully support the reuse of software between
+projects provided three additional guidelines are adhered to.
+
+First, 
+\textbf{make sure that you really need the auxiliary program}. If you are
+executing GNU sort instead of figuring out how to sort lists in Python,
+it may not be worth the pain of integration.
+
+Second, \textbf{ensure the appropriate software and version is available}.
+Early in execution, check whether the dependency is executable and whether the
+version is compatible.
+Either allow the user to
+configure the exact path to the package, distribute the program with the
+dependent software, or download it during installation using a
+dependency management system (see Rule \textcolor{red}{RULENO}). 
+
+Finally, to ensure support on as many different operating systems as
+possible, \textbf{use native functions for starting other processes}, such as
+Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
+command, and be sure to capture and report the output of the subprocess's standard error
+to facilitate debugging.
+
+\section{Use a build system and dependency manager.}
+
+
+
+If the software depends on a build tool, either because it is written in a
+compiled language or to manage a workflow, it should use a standard tool such
+as Make rather than home-brewed scripts.
+
 
 To strike a balance between
 these two, developers should
@@ -525,35 +540,6 @@ else and see what breaks. As use of lightweight
 virtualization containers like Docker becomes more widespread, it may
 become common to test installation on a virtual machine.
 
-The way the second program is invoked can throw up errors.
-The program may not be in the user's path, or it may be an
-older or newer version and produce results different than expected.
-Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
-use shell-specific conventions like `*' expansion.
-Even Linux-standard functions available vary slightly between
-installs. For example, GNU \texttt{sort} is available on almost every
-*nix distribution, but sorts differently depending on locale.
-
-Despite these caveats,
-we fully support the reuse of software between projects provided
-three additional guidelines are adhered to. First, 
-\textbf{make sure that you really need the auxiliary program}. If you are
-executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration.
-
-Second, \textbf{ensure the appropriate software and version is available}.
-Either allow the user to
-configure the exact path to the package, distribute the program with the
-dependent software, or download it during installation using a
-dependency management system. Regardless, check whether the program is
-executable and what version is running. Be sure to remind users in the
-documentation what the compatible versions are.
-
-Finally, to ensure support on as many different operating systems as
-possible, \textbf{use native functions for starting other processes}, such as
-Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
-command, and be sure to capture and report the output of the subprocess's standard error
-to facilitate debugging.
 
 \section{Do not require root or other special privileges.}
 
@@ -576,7 +562,8 @@ package before installing it system-wide on a cluster. Requiring root
 privileges will frustrate such efforts, and thereby reduce uptake of the
 package. Requiring that software be installed under its own user account
 (e.g., that \texttt{packagename} be made a user, and all of the
-package's software be installed in that ``user's'' space) is similarly
+package's software be installed in that ``user's'' space (see: Apache Tomcat))
+is similarly
 limiting, and makes side-by-side installation of multiple versions of
 the package more difficult.
 
@@ -590,10 +577,10 @@ her search path to include the package's executables and libraries, but
 this can (more or less) be automated, and is much less risky than
 setting things up as root.
 
-Note:
-testing software installation has traditionally been regarded as difficult,
+Testing the ability to install software has traditionally been regarded as difficult,
 since it necessarily alters the machine on which the test is conducted.
-Lightweight virtualization containers like Docker make this much easier as well.
+Lightweight virtualization containers like Docker make this much easier as
+well, or simply asking another person to try and build your software.
 
 \section{Eliminate hard-coded paths.}
 
@@ -633,9 +620,9 @@ strikes a good balance between adaptability and consistency.
 \section{Allow configuration of all useful parameters from the command line.}
 
 Useful parameters are those values that a user will need to modify to suit
-their computer, dataset or application. 
+their computer, dataset or application.
 The full list of useful parameters is software-specific and so cannot be
-detailed here, but a short list includes
+detailed here, but a short list includes providing
 input and reference files and directories,
 output files and directories,
 filtering,
@@ -646,18 +633,17 @@ any alternatives that you've built-in,
 e.g.,
 compress results, use a different calculation, verbose output, etc.
 
+\textbf{Allow the user to configure useful parameters on the command line.}
 Providing parameters on the
 command line increases the flexibility and usability of the program. You
 may have determined early in development that 0.58 is an optimal seed for your
 original dataset, but that doesn't mean that is the best seed for every
 case. Being able to change parameters on the fly to determine if and how
 they change the results is important as your software gains more users,
-facilitating exploratory analysis and parameter sweeping. Keep in mind
-that if a parameter can be adjusted, users will want to be able to turn
-off the feature entirely to have a baseline comparison.
+facilitating exploratory analysis and parameter sweeping. 
 
-When the software starts, it should echo all parameters and software
-versions to standard out or a log file alongside the results. This
+When the software starts, it should \textbf{echo all parameters and software
+versions to standard out or a log file alongside the results}. This
 feature supports greater reproducibility because any result can be
 replicated with only the previous output files as reference.
 
@@ -667,10 +653,6 @@ override those values. Configuration files should be used in preference
 to hardcoding the defaults directly. Configuration files can be in a standard
 location, e.g. \texttt{.packagerc} in the user's home directory or
 provided on the command line as an additional argument.
-
-We caution against overusing configuration files. When a user needs to
-locate, open, change and save a file in order to change a parameter, the
-import of the change seems larger and discourages experimentation. 
 Only values that are unlikely to
 change between runs belong in the config file, such as dependencies,
 servers, version numbers, network drives, and any other defaults for
@@ -678,7 +660,7 @@ your lab or institution.
 Since
 all parameters should be echoed in the results, config files should be
 cleaned up after execution completes or they occupy valuable disk space.
-Use a default configuration file and specify all other parameter values on the
+Use a default configuration file and specify all other parameters on the
 command line.
 
 Finally,
@@ -694,12 +676,14 @@ because the requested directory doesn't exist.
 \section{Include a small test set that can be run to ensure the software is actually working.}
 
 Every package should come with a small test script for users to run
-after installation. Its purpose is \emph{not} to check that the software
+after installation. Its purpose is not only to check that the software
 is working correctly (although that is extremely helpful), but rather to
 ensure that it will work at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, this test script must be easy to find and run. A
+In order to be useful, this test script must be easy to find and run. 
+Many build systems will also run unit tests if provided them at compile time.
+If the build system is not amenable to testing, a 
 single file in the project's root directory named \texttt{runtests.sh}
 or something equally obvious is a much better solution than documenting
 test cases and requiring people to copy and paste them into the shell.
@@ -718,7 +702,9 @@ Finally,
 studies have found that the ease with which people can start making
 contributions is a strong predictor of whether they will or not~\cite{steinmacher2015}.
 By making it simpler for outsiders to contribute,
-a test suite of any kind also makes it more likely that they will.
+a test suite of any kind also makes it more likely that they will, and software
+with collaborators stands a better chance of surviving in the busy field of
+scientific software.
 
 \section{Produce identical results when given identical inputs.}
 
@@ -733,8 +719,8 @@ but it should still be a goal for people who have deployed a specific version.
 Many applications rely on randomized algorithms to
 improve performance or runtimes. As a consequence, results can change
 between runs, even when provided with the same data and parameters. By
-its nature, this randomness renders strict reproducibility impossible.
-Debugging is more difficult. If even the small test set (\#9) produces
+its nature, this randomness renders strict reproducibility and therefore
+debugging more difficult. If even the small test set (\#9) produces
 different results, new users may not be able to tell whether the software is
 working properly. When comparing
 results between versions or after changing parameters, even small
@@ -746,10 +732,12 @@ Given the size of biological data, it is unreasonable to suggest that
 random algorithms be removed. However, most programs use a pseudo-random
 number generator, which uses a starting seed and an equation to
 approximate random numbers. Setting the seed to a consistent value
-removes randomness between runs. Allow the user to optionally provide
+can remove randomness between runs. Allow the user to optionally provide
 the seed as an input parameter, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
-using clock time), echo it to the output for re-use later.
+using clock time), echo it to the output for re-use later. 
+If setting the seed is not possible, make sure the acceptable tolerance is
+known and detailed in documentation and in the tests.
 
 \section*{What We Left Out}
 
@@ -768,13 +756,11 @@ include:
 \item[\textbf{Documentation}] We think it is very important for
   developers to document their work, but our experience is that people
   are unlikely do it during normal development, and we don't want to
-  recommend practices that people won't actually adopt.
+  recommend practices that people won't actually adopt. However, it is worth
+  noting that software that is widely used and contributed to has and enforces
+  the need for good documentation~\cite{gentleman2004}.
 
-\item[\textbf{Build Systems}] If the software depends on a build tool,
-  either because it is written in a compiled language or to manage
-  workflow, it should use a standard tool such as Make rather than
-  home-brewed scripts.
-
+\item[\textbf{Build Systems}] 
 \end{description}
 
 \section*{Conclusion}
