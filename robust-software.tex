@@ -268,7 +268,8 @@ software decreases headaches all around.
 
 The README is the first stop for most new users.
 At a minimum, it needs to get a new user started and point them towards more
-help, if they need it. Numerous guidelines exist on how to write good
+help, if they need it. 
+Numerous guidelines exist on how to write good
 READMEs\cite{Johnson1997,gnustandards}. We summarize the crucial points here.
 
 \textbf{Explain what the software does:} At the beginning of the README,
@@ -445,7 +446,8 @@ they can simultaneously create work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
 A program's authors should therefore ensure that every version they have released
-continues to be available. A number of mechanisms exist for
+continues to be available. 
+A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
 commit message or tag to version control, to official releases alongside
 code on Sourceforge, Bitbucket or GitHub, to depositing into a
@@ -462,10 +464,11 @@ primary script. Using popular projects reduces the amount of code that
 needs to be maintained and leverages the work done by the other software.
 
 Unfortunately, reusing software introduces dependencies, which can
-bring their own special pain. The interface between two software
+bring their own special pain.  The interface between two software
 packages can also be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
-other project. In addition, every package someone has to install
+other project. 
+In addition, every package someone has to install
 before being able to use yours is a
 possible (some would say ``likely'') source of frustration for some
 potential user. The way the second program is invoked can throw up errors.
@@ -562,7 +565,8 @@ package before installing it system-wide on a cluster. Requiring root
 privileges will frustrate such efforts, and thereby reduce uptake of the
 package. Requiring that software be installed under its own user account
 (e.g., that \texttt{packagename} be made a user, and all of the
-package's software be installed in that ``user's'' space (see: Apache Tomcat))
+package's software be installed in that ``user's'' space 
+(see: Apache Tomcat))
 is similarly
 limiting, and makes side-by-side installation of multiple versions of
 the package more difficult.
@@ -579,8 +583,8 @@ setting things up as root.
 
 Testing the ability to install software has traditionally been regarded as difficult,
 since it necessarily alters the machine on which the test is conducted.
-Lightweight virtualization containers like Docker make this much easier as
-well, or simply asking another person to try and build your software.
+Lightweight virtualization containers like Docker make this much easier as well, 
+or simply asking another person to try and build your software.
 
 \section{Eliminate hard-coded paths.}
 
@@ -620,7 +624,7 @@ strikes a good balance between adaptability and consistency.
 \section{Allow configuration of all useful parameters from the command line.}
 
 Useful parameters are those values that a user will need to modify to suit
-their computer, dataset or application.
+their computer, dataset or application. 
 The full list of useful parameters is software-specific and so cannot be
 detailed here, but a short list includes providing
 input and reference files and directories,
@@ -760,7 +764,6 @@ include:
   noting that software that is widely used and contributed to has and enforces
   the need for good documentation~\cite{gentleman2004}.
 
-\item[\textbf{Build Systems}] 
 \end{description}
 
 \section*{Conclusion}
