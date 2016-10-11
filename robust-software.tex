@@ -134,29 +134,6 @@ and thereby delight your users and collaborators.
 
 \section*{Notes}
 
-\begin{itemize}
-
-\item
-References:
-  \begin{itemize}
-  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-2-15
-  \item https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-3-31
-  \item https://tspace.library.utoronto.ca/handle/1807/73111
-  \end{itemize}
-
-\item
-Honor local conventions,
-e.g.,
-use \texttt{TMPDIR} for temporary files.
-(The problem is,
-where are all of these written down?)
-
-\item
-Combine versioning and making previous versions available into a single point
-in order to free up space for something else to be rule 10?
-
-\end{itemize}
-
 \section*{Author Summary}
 
 Many researchers have found out the hard way that there's a world of difference
@@ -187,16 +164,15 @@ passage"~\cite{baker2016}.
 The root cause of this problem is that most research software
 isn't \emph{robust}. The difference between running and being
 robust is the difference between ``works for me on my machine'' and
-``works for other people on a cluster I've never used''. With a lack of
-robustness also comes a lack of reproducibility and many duplicated efforts,
+``works for other people on a cluster I've never used''. The lack of
+robustness also leads to many duplicated efforts,
 slowing the pace of research~\cite{prabhu2011,lawlor2015}.
-Bioinformatics is full of such efforts, catalogued by repositories such as
-the ELIXIR tools and data registry~\cite{ison2016}
-and the Bioinformatics Links Directory~\cite{brazas2012}. In the Bioinformatics
+Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
+hundreds of tools to perform the same task. In the Bioinformatics
 Links Directory as of 2016, there are 84 different multiple sequence aligners, 141 tools
 to analyze transcript expression, and 182 pathway and interaction resources.
 Some of these tools are legitimate efforts to improve the state-of-the-art, but
-often they are difficult to install and run~\cite{stajich2002}, and are effectively abandoned
+often they are difficult to install and run~\cite{stajich2002,Seemann2013}, and are effectively abandoned
 after publication~\cite{nekrutenko2012}.
 
 This problem is not unique to bioinformatics, or even to computing~\cite{baker2016}. 
@@ -285,15 +261,14 @@ entirely reasonable as long as it is properly documented. Include the name and
 version number for each dependency.  Several methods exist for acquiring
 required packages: either provide the commands necessary to download the
 dependencies; link to the software homepage; or (our preference) use a
-dependency manager. We address dependencies in more detail in rule
-\textcolor{red}{5}.
+dependency manager. We address dependencies in more detail in rule 5.
 
-\textbf{Installation instructions:} If the software needs to be compiled
+\textbf{Provide compile/installation instructions:} If the software needs to be compiled
 or installed, list those instructions in the README. Also
 mention if you recommend they use a pre-compiled binary instead
 through a system such as pip, yum or apt.
 
-\textbf{Input and output files}: All possible input and output files
+\textbf{List input and output files}: All possible input and output files
 should be listed in this section. Do the files conform to a particular
 standard, an extension of an existing format, or is it your own
 format? If using a standard format, link to the specification and
@@ -305,7 +280,7 @@ a standard format and your file format). If there is no rigorous format
 and explain what the sections mean.
 
 Input files and their formats are included in most documentation, but
-intermediate, auxilliary and log files are often missing. 
+intermediate, auxiliary and log files are often missing.
 \emph{All} files should be listed in the README, even those considered self-explanatory. Log
 files are often full of valuable information that can be
 mined for the user's specific purpose. If your users might need to know,
@@ -313,9 +288,9 @@ mined for the user's specific purpose. If your users might need to know,
 adapter sequences?'' they should be able to check the README and confidently
 say, ``Yes, it is in the log file''.
 
-\textbf{Attributions and licensing:} Attributions are how you credit
+\textbf{State attributions and licensing:} Attributions are how you credit
 your main contributors; licenses are how you want others to use and
-credit your software. READMEs are usualy available \emph{before}
+credit your software. READMEs are usually available \emph{before}
 the software is installed (or even downloaded).
 Leave no
 question in anyone's mind about whether your software can be used
@@ -345,6 +320,7 @@ Usage should provide all of the information necessary to run the
 software. It is invoked either by running the software without
 any arguments; running the software with incorrect arguments; or by
 explicitly choosing a help or usage option.
+More standard command-line behaviours are detailed in \cite{Seemann2013}.
 
 Almost all command-line applications use a combination of
 POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
@@ -434,10 +410,10 @@ for applications that are
 not yet stable or released, and \texttt{-RC} for release candidates prior
 to an official release.
 
-The version of your software should be easily available.
-Supplying \texttt{-\/-version} or \texttt{-v} on the command line should print
+\textbf{The version of your software should be easily available by 
+supplying \texttt{-\/-version} or \texttt{-v} on the command line}. This command should print
 the software name and version number, and it should
-also be included in all of the program's output, particularly debugging
+also be \textbf{included in all of the program's output}, particularly debugging
 traces: if someone needs help, it's important that they be able to tell
 whoever's helping them which version of the software they're using.
 
@@ -445,12 +421,12 @@ While new releases may make a program better in general,
 they can simultaneously create work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
-A program's authors should therefore ensure that every version they have released
-continues to be available. 
+A program's authors should therefore \textbf{ensure that every released version
+continues to be available.}
 A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
 commit message or tag to version control, to official releases alongside
-code on Sourceforge, Bitbucket or GitHub, to depositing into a
+code on Bitbucket or GitHub, to depositing into a
 repository like apt, yum, homebrew, CPAN, etc. Choose the method that
 best suits the number and expertise of users you anticipate.
 
@@ -474,7 +450,7 @@ possible (some would say ``likely'') source of frustration for some
 potential user. The way the second program is invoked can throw up errors.
 The program may not be in the user's path, or it may be an
 older or newer version and produce results different than expected.
-Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explictly or
+Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explicitly or
 use shell-specific conventions like `*' expansion.
 Even Linux-standard functions available vary slightly between
 installs. For example, GNU \texttt{sort} is available on almost every
@@ -496,7 +472,7 @@ version is compatible.
 Either allow the user to
 configure the exact path to the package, distribute the program with the
 dependent software, or download it during installation using a
-dependency management system (see Rule \textcolor{red}{RULENO}). 
+dependency management system (see Rule 5). 
 
 Finally, to ensure support on as many different operating systems as
 possible, \textbf{use native functions for starting other processes}, such as
@@ -504,18 +480,25 @@ Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
 command, and be sure to capture and report the output of the subprocess's standard error
 to facilitate debugging.
 
-\section{Use a build system and dependency manager.}
+\section{Use a build utility and package manager.}
 
+In all but the simplest of scripts, \textbf{we highly recommend using a build
+automation utility to compile code and/or manage your software workflow}. The benefits of
+using a build utility like Make, Rake, Maven, Ant or MS Build vastly outweighs the
+drawbacks associated with the learning curve. Most importantly, a build system
+lets someone else build your software the same way you would. Most build
+utilities can also be configured to run tests during every build and
+re-generate documentation, and can be hooked into continuous integration,
+cutting releases, and deploying the software to other environments.
 
-
-If the software depends on a build tool, either because it is written in a
-compiled language or to manage a workflow, it should use a standard tool such
-as Make rather than home-brewed scripts.
-
-
-To strike a balance between
-these two, developers should
-\textbf{document \emph{all} of the packages that theirs depends on, preferably in a machine-readable form}.
+Build utilities rely on any dependencies being present in the environment for a
+successful build, and so developers should
+\textbf{document \emph{all} dependencies, preferably in a machine-readable form}.
+Package managers like apt and yum are available on most *nix systems, and
+application package managers exist for specific languages like Python (pip),
+Java (Maven/Gradle), and Ruby (RubyGems). These package managers can be used
+together with the build utility to ensure that dependencies are available at
+compile/run time.
 For example, it is common for Python projects to include a file called
 \texttt{requirements.txt} that lists the names of required libraries,
 along with version ranges:
@@ -526,23 +509,21 @@ pygithub>=1.26,<=1.27
 python-social-auth>=0.2.19,<0.3
 \end{verbatim}
 
-This file can be read by a package manager, which can check that the
-required software is available, and install it if it is not. Similar
-mechanisms exist for Perl, R, and other languages.  Whatever is used,
+This file can be read by pip package manager, which can check that the
+required software is available, and install it if it is not. 
+Whatever is used,
 we recommend that developers should \emph{always} install dependencies
 using this mechanism, especially on their personal machines, so that
 they're sure it works.
 
 Conversely, developers should
-\textbf{avoid depending on scripts and tools which are not available as packages},
-even (or especially) if they are installed on the computers the original developer is using.
+\textbf{avoid depending on scripts and tools which are not available as packages}.
 In many cases, a program's author may not realize that some tool was built locally, and
 doesn't exist elsewhere. At present, the only sure way to discover such
 unknown dependencies is to install on a system administered by someone
-else and see what breaks. As use of lightweight
-virtualization containers like Docker becomes more widespread, it may
-become common to test installation on a virtual machine.
-
+else and see what breaks. As use of virtualization containers becomes more
+widespread, software installation can also be tested on a virtual machine or
+container system like Docker.
 
 \section{Do not require root or other special privileges.}
 
@@ -584,7 +565,7 @@ setting things up as root.
 Testing the ability to install software has traditionally been regarded as difficult,
 since it necessarily alters the machine on which the test is conducted.
 Lightweight virtualization containers like Docker make this much easier as well, 
-or simply asking another person to try and build your software.
+or simply \textbf{ask another person to try and build your software}.
 
 \section{Eliminate hard-coded paths.}
 
@@ -637,43 +618,37 @@ any alternatives that you've built-in,
 e.g.,
 compress results, use a different calculation, verbose output, etc.
 
-\textbf{Allow the user to configure useful parameters on the command line.}
 Providing parameters on the
 command line increases the flexibility and usability of the program. You
 may have determined early in development that 0.58 is an optimal seed for your
 original dataset, but that doesn't mean that is the best seed for every
 case. Being able to change parameters on the fly to determine if and how
 they change the results is important as your software gains more users,
-facilitating exploratory analysis and parameter sweeping. 
-
-When the software starts, it should \textbf{echo all parameters and software
-versions to standard out or a log file alongside the results}. This
-feature supports greater reproducibility because any result can be
-replicated with only the previous output files as reference.
+facilitating exploratory analysis and parameter sweeping.
+\textbf{Choose reasonable defaults where they exist},
+and \textbf{set no defaults at all when there aren't any reasonable ones}.
 
 You can set reasonable default values
 as long as any command line arguments
 override those values. Configuration files should be used in preference
-to hardcoding the defaults directly. Configuration files can be in a standard
+to hard-coding the defaults directly. Configuration files can be in a standard
 location, e.g. \texttt{.packagerc} in the user's home directory or
 provided on the command line as an additional argument.
 Only values that are unlikely to
 change between runs belong in the config file, such as dependencies,
 servers, version numbers, network drives, and any other defaults for
 your lab or institution. 
-Since
-all parameters should be echoed in the results, config files should be
-cleaned up after execution completes or they occupy valuable disk space.
 Use a default configuration file and specify all other parameters on the
 command line.
 
+When the software starts, it should \textbf{echo all parameters and software
+versions to standard out or a log file alongside the results}. This
+feature supports greater reproducibility because any result can be
+replicated with only the previous output files as reference.
 Finally,
 if the software is configurable in any way,
-it should \textbf{check that all input values are in a reasonable range},
-\textbf{choose reasonable defaults where they exist},
-and \textbf{set no defaults at all when there aren't any reasonable ones}.
-Software should also \textbf{check that configuration values are reasonable at startup}:
-few things are as annoying as having a program announce after running for two hours
+it should \textbf{check that all input values are in a reasonable range at startup}. 
+Few things are as annoying as having a program announce after running for two hours
 that it isn't going to save its results
 because the requested directory doesn't exist.
 
@@ -685,14 +660,14 @@ is working correctly (although that is extremely helpful), but rather to
 ensure that it will work at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, this test script must be easy to find and run. 
+In order to be useful, \textbf{this test script must be easy to find and run}. 
 Many build systems will also run unit tests if provided them at compile time.
 If the build system is not amenable to testing, a 
 single file in the project's root directory named \texttt{runtests.sh}
 or something equally obvious is a much better solution than documenting
 test cases and requiring people to copy and paste them into the shell.
 
-Equally, the test script's output must be easy to interpret. Screens
+Equally, \textbf{the test script's output must be easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
 output should be simple to understand for non-experts,
 such as one line per test, with the test's name
@@ -702,8 +677,7 @@ fail because of missing dependencies, that fact should be displayed
 once, clearly, rather than once per test, so that users have a clear
 idea of what they need to fix and how much work it's likely to take.
 
-Finally,
-studies have found that the ease with which people can start making
+Studies have found that the ease with which people can start making
 contributions is a strong predictor of whether they will or not~\cite{steinmacher2015}.
 By making it simpler for outsiders to contribute,
 a test suite of any kind also makes it more likely that they will, and software
@@ -712,8 +686,8 @@ scientific software.
 
 \section{Produce identical results when given identical inputs.}
 
-Given a set of parameters and a dataset, a particular version of a program
-should produce the same results every time it is run
+Given a set of parameters and a dataset, \textbf{a particular version of a program
+should produce the same results every time it is run}
 to aid testing, debugging, and reproducibility.
 Even minor changes to code can cause minor changes in output because of floating-point issues,
 which means that getting exactly the same output for the same input and parameters
@@ -736,12 +710,12 @@ Given the size of biological data, it is unreasonable to suggest that
 random algorithms be removed. However, most programs use a pseudo-random
 number generator, which uses a starting seed and an equation to
 approximate random numbers. Setting the seed to a consistent value
-can remove randomness between runs. Allow the user to optionally provide
-the seed as an input parameter, thus rendering the program deterministic
+can remove randomness between runs. \textbf{Allow the user to optionally provide
+the random seed as an input parameter}, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later. 
-If setting the seed is not possible, make sure the acceptable tolerance is
-known and detailed in documentation and in the tests.
+If setting the seed is not possible, \textbf{make sure the acceptable tolerance is
+known and detailed in documentation and in the tests}.
 
 \section*{What We Left Out}
 
@@ -763,6 +737,8 @@ include:
   recommend practices that people won't actually adopt. However, it is worth
   noting that software that is widely used and contributed to has and enforces
   the need for good documentation~\cite{gentleman2004}.
+  Numerous resources exist for writing high quality
+  documentation~\cite{karimzadeh2016} and so we do not cover it here.
 
 \end{description}
 
