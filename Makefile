@@ -1,6 +1,7 @@
 LATEX=pdflatex
 BIBTEX=bibtex
 STEM=robust-software
+CHK=robust-checks
 
 all : commands
 
@@ -12,9 +13,11 @@ commands :
 pdf :
 	${LATEX} ${STEM}
 	${BIBTEX} ${STEM}
+	${BIBTEX} ${CHK}
 	${LATEX} ${STEM}
+	${LATEX} ${CHK}
 	${LATEX} ${STEM}
-
+	${LATEX} ${CHK}
 ## build      : build HTML files.
 build : 
 	jekyll build
