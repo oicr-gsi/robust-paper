@@ -52,7 +52,6 @@
 \hline
 \noalign{\global\arrayrulewidth\savedwidth}}
 
-
 % Remove comment for double spacing
 %\usepackage{setspace}
 %\doublespacing
@@ -101,7 +100,6 @@
 \begin{document}
 \vspace*{0.2in}
 
-
 \begin{flushleft}
 {\Large
 \textbf\newline{Ten Simple Rules for Making Research Software More Robust}
@@ -132,8 +130,6 @@ We present ten simple rules to make such software robust enough to run anywhere,
 and inspire confidence in your reproducibility,
 and thereby delight your users and collaborators.
 
-\section*{Notes}
-
 \section*{Author Summary}
 
 Many researchers have found out the hard way that there's a world of difference
@@ -145,31 +141,33 @@ not only accelerates research, but also improves reproducibility.
 
 \section*{Introduction}
 
-Typically, scientific software is developed and used by a single person,
-usually a graduate student or postdoc, and produces the intended results in their
-hands~\cite{prins2015}. 
-But what happens
-when someone else wants to use their software? Everyone with
+Scientific software is typically developed and used by a single person,
+usually a graduate student or postdoc~\cite{prins2015}.
+It may produce the intended results in their hands,
+but what happens when someone else wants to run it? Everyone with
 a few years of experience feels a bit nervous when told to use
-another person's code to analyze their data.
-Often, that software will be undocumented and work in unexpected
-ways (if it works at all).  It will often rely on nonexistent paths or resources,
+another person's code to analyze their data:
+it will often be undocumented,
+work in unexpected ways (if it works at all),
+rely on nonexistent paths or resources,
 be tuned for a single dataset,
 or simply be an older version than was used in published papers.
-The new user is then faced with two unpalatable options:
-hack the existing code to make it work, or start over. Being unable to
+The potential new user is then faced with two unpalatable options:
+hack the existing code to make it work, or start over.
+
+Being unable to
 replicate results is so common that one publication refers to it as "a rite of
 passage"~\cite{baker2016}. 
-
 The root cause of this problem is that most research software
 isn't \emph{robust}. The difference between running and being
 robust is the difference between ``works for me on my machine'' and
 ``works for other people on a cluster I've never used''. The lack of
 robustness also leads to many duplicated efforts,
-slowing the pace of research~\cite{prabhu2011,lawlor2015}.
+which slows the pace of research~\cite{prabhu2011,lawlor2015}.
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
-hundreds of tools to perform the same task. In the Bioinformatics
-Links Directory as of 2016, there are 84 different multiple sequence aligners, 141 tools
+hundreds of tools to perform the same task:
+for example,
+in 2016 the Bioinformatics Links Directory included 84 different multiple sequence aligners, 141 tools
 to analyze transcript expression, and 182 pathway and interaction resources.
 Some of these tools are legitimate efforts to improve the state-of-the-art, but
 often they are difficult to install and run~\cite{stajich2002,Seemann2013}, and are effectively abandoned
@@ -177,42 +175,31 @@ after publication~\cite{nekrutenko2012}.
 
 This problem is not unique to bioinformatics, or even to computing~\cite{baker2016}. 
 Best practices in software engineering specifically aim to increase software
-robustness. However, most bioinformaticians come from related disciplines and
-are trained on-the-job or otherwise informally~\cite{prins2015,atwood2015}. Even
-the existing training programs and initiatives rarely have the time to cover software engineering
-in-depth, especially since the field is so broad and rapidly
-developing~\cite{atwood2015,lawlor2015}. Regardless of whether or not the skills
-and knowledge are taught, developing robust software is not directly rewarded
-in science and funding is difficult to come by~\cite{prins2015}. Some proposed
-solutions to this problem, in addition to restructuring educational programs,
-include hiring dedicated software engineers~\cite{lawlor2015,sanders2008},
+robustness. However, most bioinformaticians learn what they know about software development
+on the job or otherwise informally~\cite{prins2015,atwood2015}.
+Existing training programs and initiatives rarely have the time to cover software engineering
+in depth, especially since the field is so broad and developing so rapidly~\cite{atwood2015,lawlor2015}.
+In addition, making software robust is not directly rewarded
+in science, and funding is difficult to come by~\cite{prins2015}. Some proposed
+solutions to this problem include restructuring educational programs,
+hiring dedicated software engineers~\cite{lawlor2015,sanders2008},
 partnering with private sector or grassroots organizations~\cite{prins2015,ison2016},
 or using specific technical tools like containerization or cloud
 computing~\cite{afgan2016,howe2012}. Each of these requires time and, in some
 cases, institutional change.
 
-You don't need to be a full-time programmer to write robust software. In fact,
+The good news is,
+you don't need to be a professionally-trained programmer to write robust software. In fact,
 some of the best, most reliable pieces of software in many scientific
-communities are written by researchers~\cite{prabhu2011,sanders2008}. 
-The most widely-used software packages tend to adopt strong software
-engineering approaches, have high standards of reproducibility, good testing
-practices, and inter-institutional collaborations that grow into strong user
+communities are written by researchers~\cite{prabhu2011,sanders2008}
+who have adopted strong software
+engineering approaches, have high standards of reproducibility, use good testing
+practices, and foster inter-institutional collaborations that grow into strong user
 bases. In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
 
-That said, not \emph{every} coding effort needs to be engineered to last.
-Code that is used once to answer a specific question related to a specific dataset
-doesn't require comprehensive documentation or flexible configuration,
-and the only sensible way to test it may well be to run it on the dataset in
-question. Exploratory analysis is an iterative process that is developed
-quick and revised often~\cite{lawlor2015,sanders2008}. 
-However, if a script is dusted off and run three or four
-times for slightly different purposes,
-is crucial to a publication or a lab,
-or being passed on to someone else,
-it may be time to make your software more robust.
-
-In particular, robust software:
+So what \emph{is} ``robust'' software?
+In brief, it:
 
 \begin{itemize}
 \item
@@ -230,7 +217,8 @@ In particular, robust software:
   comes with enough tests to show that it actually runs.
 \end{itemize}
 
-These simple rules are also necessary steps toward creating a reusable
+These simple rules don't just ensure that the software will run for other people;
+they are also necessary steps toward creating a reusable
 library that can be shared and reused through a site like CPAN or CRAN.  They are
 generic and can be applied to all languages, libraries, packages,
 documentation styles, and operating systems for both closed-source and
@@ -240,18 +228,19 @@ code with collaborators or as complex as using the software in a
 production analysis environment, increasing the robustness of your
 software decreases headaches all around.
 
-\section{Have a README that explains in a few lines what the software does and what its dependencies are.}
+\section{Have a README that briefly explains what the software does and what its dependencies are.}
 
 The README is the first stop for most new users.
 At a minimum, it needs to get a new user started and point them towards more
 help, if they need it. 
 Numerous guidelines exist on how to write good
-READMEs\cite{Johnson1997,gnustandards}. We summarize the crucial points here.
+READMEs\cite{Johnson1997,gnustandards};
+their key common features are listed below.
 
 \textbf{Explain what the software does:} At the beginning of the README,
 explain what the software does in one or two sentences.
 There's nothing more frustrating
-than spending the time to download and install some software only to
+than downloading and installing something only to
 find out that it doesn't do what you thought it did.
 
 \textbf{List required dependencies:} Often, software depends on
@@ -263,24 +252,25 @@ required packages: either provide the commands necessary to download the
 dependencies; link to the software homepage; or (our preference) use a
 dependency manager. We address dependencies in more detail in rule 5.
 
-\textbf{Provide compile/installation instructions:} If the software needs to be compiled
+\textbf{Provide compilation/installation instructions:}
+If the software needs to be compiled
 or installed, list those instructions in the README. Also
 mention if you recommend they use a pre-compiled binary instead
-through a system such as pip, yum or apt.
+through a system such as pip, yum, or apt.
 
 \textbf{List input and output files}: All possible input and output files
-should be listed in this section. Do the files conform to a particular
-standard, an extension of an existing format, or is it your own
-format? If using a standard format, link to the specification and
+should be listed in this section. Do the files use a particular
+standard, an extension of an existing format, or your own
+format?  If they use a standard format, link to the specification and
 version. If you extend the standard or have your own format, define it
 explicitly, listing all the required fields and acceptable values.
 (You get bonus points if you include a script to convert between
 a standard format and your file format). If there is no rigorous format
-(such as with log files), show an example file, or the first few lines,
-and explain what the sections mean.
+(which is common with log files), show at least a few lines from an
+example file and explain what the sections mean.
 
 Input files and their formats are included in most documentation, but
-intermediate, auxiliary and log files are often missing.
+intermediate, auxiliary, and log files are often missing.
 \emph{All} files should be listed in the README, even those considered self-explanatory. Log
 files are often full of valuable information that can be
 mined for the user's specific purpose. If your users might need to know,
@@ -289,8 +279,8 @@ adapter sequences?'' they should be able to check the README and confidently
 say, ``Yes, it is in the log file''.
 
 \textbf{State attributions and licensing:} Attributions are how you credit
-your main contributors; licenses are how you want others to use and
-credit your software. READMEs are usually available \emph{before}
+your main contributors; licenses are how others may use and
+credit your work. These files should be available \emph{before}
 the software is installed (or even downloaded).
 Leave no
 question in anyone's mind about whether your software can be used
@@ -311,14 +301,14 @@ and the license file.
 Usage information provides the first line of help for both first-time and
 experienced users of command-line applications.
 Ideally, usage is a terse, informative command-line help message that
-guides the user in the correct use of your software. Terseness is
+guides the user in the correct use of the software. Terseness is
 important: usage that extends for multiple screens is a nuisance, especially when
 printed to standard error instead of standard output (where it can
-easily be paged).
+easily be paged).  Long output is also much less likely to be read{\ldots}
 
 Usage should provide all of the information necessary to run the
 software. It is invoked either by running the software without
-any arguments; running the software with incorrect arguments; or by
+any arguments, running it with incorrect arguments, or by
 explicitly choosing a help or usage option.
 More standard command-line behaviours are detailed in \cite{Seemann2013}.
 
@@ -360,15 +350,15 @@ indicates that more than one value can be provided.
 description reminds users of the software's primary function.
 
 \textbf{Most commonly used arguments, a description of each, and the
-default values}: Not all arguments need to appear in the usage, but the most
-commonly used ones should be listed here. Users will rely on this for
-quick reference when working with your software.
+default values}: Not all arguments need to appear in the usage, but those most
+commonly used should be listed. Users will rely on this for
+quick reference when working with the software.
 
-\textbf{Where to find more information}: Whether an email address, web
-site or manual page, there should be an indication where the user can go
-to find more information about the software.
+\textbf{Where to find more information}: Whether it's an email address, web
+site, or manual page, there should be an indication where the user can go
+to find out more about the software.
 
-\textbf{Printed to standard output} : So that it can be piped into
+\textbf{Printed to standard output}: Usage should be displayed on standard output so that it can be piped into
 \texttt{less}, searched with \texttt{grep}, or compared to the previous
 version with \texttt{diff}.
 
@@ -377,18 +367,18 @@ providing incorrect arguments, the program should exit with a non-zero
 code to indicate an error. However, when help is explicitly requested,
 the software should not exit with an error.
 
-\section{Version your releases}
+\section{Version your releases.}
 
 Software evolves over time, with developers adding or removing features as need
 dictates. Making official releases stamps a particular set of features with a
 project-specific identifier so that version can be retrieved for later use. For
 example, if a paper is published, the software should be released at the same
 time so that the results can be reproduced. 
+
 Most software has a version number composed of a decimal number that
 increments as new versions are released. 
-
 There are many different ways
-to construct and interpret the version, but most importantly for us, a
+to construct and interpret this number, but most importantly for us, a
 particular software version run with the same parameters should give
 identical results no matter when it's run. Results include both correct
 output as well as any errors.
@@ -414,15 +404,15 @@ to an official release.
 supplying \texttt{-\/-version} or \texttt{-v} on the command line}. This command should print
 the software name and version number, and it should
 also be \textbf{included in all of the program's output}, particularly debugging
-traces: if someone needs help, it's important that they be able to tell
+traces.  If someone needs help, it's important that they be able to tell
 whoever's helping them which version of the software they're using.
 
 While new releases may make a program better in general,
 they can simultaneously create work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
-A program's authors should therefore \textbf{ensure that every released version
-continues to be available.}
+A program's authors should therefore \textbf{ensure that old released versions
+continue to be available.}
 A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
 commit message or tag to version control, to official releases alongside
@@ -457,10 +447,7 @@ installs. For example, GNU \texttt{sort} is available on almost every
 *nix distribution, but sorts differently depending on locale.
 
 Despite these problems, software developers in research should
-re-use existing software wherever possible and reasonable to avoid
-``reinventing the wheel''. We fully support the reuse of software between
-projects provided three additional guidelines are adhered to.
-
+re-use existing software provided three guidelines are adhered to.
 First, 
 \textbf{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
@@ -476,16 +463,16 @@ dependency management system (see Rule 5).
 
 Finally, to ensure support on as many different operating systems as
 possible, \textbf{use native functions for starting other processes}, such as
-Java's \texttt{Runtime.exec} call, Python's subprocess module, and Perl's system
+Java's \texttt{Runtime.exec} call, Python's \texttt{subprocess} module, and Perl's \texttt{system}
 command, and be sure to capture and report the output of the subprocess's standard error
 to facilitate debugging.
 
 \section{Use a build utility and package manager.}
 
-In all but the simplest of scripts, \textbf{we highly recommend using a build
+In all but the simplest of scripts, \textbf{use a build
 automation utility to compile code and/or manage your software workflow}. The benefits of
-using a build utility like Make, Rake, Maven, Ant or MS Build vastly outweighs the
-drawbacks associated with the learning curve. Most importantly, a build system
+using tools like Make, Rake, Maven, Ant or MS Build vastly outweigh the
+their learning curves. Most importantly, a build system
 lets someone else build your software the same way you would. Most build
 utilities can also be configured to run tests during every build and
 re-generate documentation, and can be hooked into continuous integration,
@@ -494,7 +481,7 @@ cutting releases, and deploying the software to other environments.
 Build utilities rely on any dependencies being present in the environment for a
 successful build, and so developers should
 \textbf{document \emph{all} dependencies, preferably in a machine-readable form}.
-Package managers like apt and yum are available on most *nix systems, and
+Package managers like apt and yum are available on most Unix-like systems, and
 application package managers exist for specific languages like Python (pip),
 Java (Maven/Gradle), and Ruby (RubyGems). These package managers can be used
 together with the build utility to ensure that dependencies are available at
@@ -509,11 +496,11 @@ pygithub>=1.26,<=1.27
 python-social-auth>=0.2.19,<0.3
 \end{verbatim}
 
-This file can be read by pip package manager, which can check that the
-required software is available, and install it if it is not. 
+This file can be read by the pip package manager, which can check that the
+required software is available and install it if it is not. 
 Whatever is used,
 we recommend that developers should \emph{always} install dependencies
-using this mechanism, especially on their personal machines, so that
+using their dependency description, especially on their personal machines, so that
 they're sure it works.
 
 Conversely, developers should
@@ -544,12 +531,11 @@ very unusual circumstances,
 Another reason for this rule is that users may want to try out a new
 package before installing it system-wide on a cluster. Requiring root
 privileges will frustrate such efforts, and thereby reduce uptake of the
-package. Requiring that software be installed under its own user account
-(e.g., that \texttt{packagename} be made a user, and all of the
-package's software be installed in that ``user's'' space 
-(see: Apache Tomcat))
-is similarly
-limiting, and makes side-by-side installation of multiple versions of
+package. Requiring, as Apache Tomcat does, that software be installed
+under its own user account---i.e.,
+that \texttt{packagename} be made a user, and all of the
+package's software be installed in that pseudo-user's space---is similarly limiting,
+and makes side-by-side installation of multiple versions of
 the package more difficult.
 
 Developers should therefore
@@ -590,10 +576,9 @@ This rule applies to reference data sets as well as the user's own
 data: if a user wants to try a new gene identification algorithm using
 a different set of genes as a training set, she should not have to
 edit the software to do so.
-
 A corollary to this rule is
-\textbf{do not require users to navigate to a particular directory to do their work}.
-``Where I have to be'' is just another hard-coded path.
+\textbf{do not require users to navigate to a particular directory to do their work},
+since ``where I have to be'' is just another hard-coded path.
 
 In order to save typing, it is often convenient to allow users to
 specify an input or output \emph{directory}, and then require that there
@@ -614,17 +599,17 @@ filtering,
 tuning,
 random number generation seeds,
 and
-any alternatives that you've built-in,
-e.g.,
-compress results, use a different calculation, verbose output, etc.
+alternatives such as compressing results,
+use a variant algorithm,
+or verbose output.
 
 Providing parameters on the
 command line increases the flexibility and usability of the program. You
-may have determined early in development that 0.58 is an optimal seed for your
-original dataset, but that doesn't mean that is the best seed for every
+may have determined early in development that 0.58 is an optimal cluster threshold for your
+original dataset, but that doesn't mean it is best for every
 case. Being able to change parameters on the fly to determine if and how
 they change the results is important as your software gains more users,
-facilitating exploratory analysis and parameter sweeping.
+as it facilitates exploratory analysis and parameter sweeping.
 \textbf{Choose reasonable defaults where they exist},
 and \textbf{set no defaults at all when there aren't any reasonable ones}.
 
@@ -656,18 +641,18 @@ because the requested directory doesn't exist.
 
 Every package should come with a small test script for users to run
 after installation. Its purpose is not only to check that the software
-is working correctly (although that is extremely helpful), but rather to
-ensure that it will work at all. This test script can also serve as a
+is working correctly (although that is extremely helpful), but also to
+ensure that it works at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, \textbf{this test script must be easy to find and run}. 
+In order to be useful, \textbf{make the test script easy to find and run}. 
 Many build systems will also run unit tests if provided them at compile time.
 If the build system is not amenable to testing, a 
 single file in the project's root directory named \texttt{runtests.sh}
 or something equally obvious is a much better solution than documenting
-test cases and requiring people to copy and paste them into the shell.
+test cases and requiring people to copy and paste them.
 
-Equally, \textbf{the test script's output must be easy to interpret}. Screens
+Equally, \textbf{make the test script's output easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
 output should be simple to understand for non-experts,
 such as one line per test, with the test's name
@@ -677,7 +662,7 @@ fail because of missing dependencies, that fact should be displayed
 once, clearly, rather than once per test, so that users have a clear
 idea of what they need to fix and how much work it's likely to take.
 
-Studies have found that the ease with which people can start making
+Research has shown that the ease with which people can start making
 contributions is a strong predictor of whether they will or not~\cite{steinmacher2015}.
 By making it simpler for outsiders to contribute,
 a test suite of any kind also makes it more likely that they will, and software
@@ -699,7 +684,7 @@ improve performance or runtimes. As a consequence, results can change
 between runs, even when provided with the same data and parameters. By
 its nature, this randomness renders strict reproducibility and therefore
 debugging more difficult. If even the small test set (\#9) produces
-different results, new users may not be able to tell whether the software is
+different results for each run, new users may not be able to tell whether the software is
 working properly. When comparing
 results between versions or after changing parameters, even small
 differences can confuse or muddy the comparison. And especially when
@@ -720,16 +705,10 @@ known and detailed in documentation and in the tests}.
 \section*{What We Left Out}
 
 Any short list of rules for developing robust software will
-necessarily be incomplete.  A few of our more significant omissions
+necessarily be incomplete.   Our more significant omissions
 include:
 
 \begin{description}
-
-\item[\textbf{Services}] The rules we present above are necessary, but
-  not sufficient, for software that needs to interact with services
-  such as database and web servers.  Such software is often stopped
-  and started under automatic control, may need to authenticate, etc.,
-  all of which are out of scope of this paper.
 
 \item[\textbf{Documentation}] We think it is very important for
   developers to document their work, but our experience is that people
@@ -739,6 +718,12 @@ include:
   the need for good documentation~\cite{gentleman2004}.
   Numerous resources exist for writing high quality
   documentation~\cite{karimzadeh2016} and so we do not cover it here.
+
+\item[\textbf{Services}] The rules we present above are necessary, but
+  not sufficient, for software that needs to interact with services
+  such as database and web servers.  Such software is often stopped
+  and started under automatic control, may need to authenticate, etc.,
+  all of which are out of scope of this paper.
 
 \end{description}
 
@@ -752,6 +737,17 @@ between the skill and effort available, and the ease with which
 software can be installed, understood, used, maintained, and extended.
 Following the ten rules we outline here reduce the denominator, and
 thereby enable researchers to build on each other's work more easily.
+
+That said, not \emph{every} coding effort needs to be engineered to
+last.  Code that is used once to answer a specific question related to
+a specific dataset doesn't require comprehensive documentation or
+flexible configuration, and the only sensible way to test it may well
+be to run it on the dataset in question. Exploratory analysis is an
+iterative process that is developed quick and revised
+often~\cite{lawlor2015,sanders2008}.  However, if a script is dusted
+off and run three or four times for slightly different purposes, is
+crucial to a publication or a lab, or being passed on to someone else,
+it may be time to make your software more robust.
 
 \bibliography{robust-software}
 
