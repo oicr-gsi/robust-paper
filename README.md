@@ -4,6 +4,7 @@ Software produced for research, even published software, suffers from a number o
 
 ## News
 
+* 2016-12-06: Reviews are back! See them in issue [#23](https://github.com/oicr-gsi/robust-paper/issues/23)
 * 2016-10-14: Preprint is available on arXiv: https://arxiv.org/abs/1610.04546 
 * 2016-10-14: Submitted to PLoS Computational Biology
 * 2016-09-01: Requested feedback from the community via [tweet](https://twitter.com/morgantaschuk/status/771325372566732800)
