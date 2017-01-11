@@ -509,7 +509,9 @@ packages can be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
 other project due to incompatible libraries, versions, or operating
 systems~\cite{brown2013}. Even introducing libraries in the same programming
-language can rely on software installed in the environment.
+language can rely on software installed in the environment, and the problem
+becomes much more difficult when relying on executables, or even on web
+services.
 
 Despite these problems, software developers in research should
 re-use existing software provided a few guidelines are adhered to.
@@ -518,18 +520,19 @@ First,
 \textbf{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
 it may not be worth the pain of integration. Reuse software that offers some
-measurable improvement to your build environment.
+measurable improvement to your project.
 
 Second, if launching an executable, \textbf{ensure the appropriate software and version is available}.
 Either allow the user to
 configure the exact path to the package, distribute the program with the
 dependent software, or download it during installation using your
-package manager.
+package manager. If the executable requires internet access, check for that
+early in execution.
 
 Third, \textbf{ensure that reused software is robust}. Relying on erratic third
 party libraries or software is a recipe for tears. Prefer software that follows
 good software development practices, is open for support questions, and is
-available from a stable repository using your package manager.
+available from a stable location or repository using your package manager.
 
 Exercise caution especially when transitioning across languages or using
 separate executables, as they tend to be especially sensitive to operating
@@ -742,9 +745,8 @@ include:
 
 \item[\textbf{Services}] The rules we present above are necessary, but
   not sufficient, for software that needs to interact with services
-  such as database and web servers.  Such software is often stopped
-  and started under automatic control, may need to authenticate, etc.,
-  all of which are out of scope of this paper.
+  such as databases and web servers, or coordinates multiple hosts or interfaces, 
+  and is out of scope of this paper.
 
 \end{description}
 
