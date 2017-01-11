@@ -296,8 +296,10 @@ tells readers where to get help,
 and includes links to a CITATION file (explaining how to cite the project)
 and the license file.
 
-\section{Print usage information when launching from the command line that explains the software's features.}
+\section{Tell the user what could be done and what was actually done.}
 
+A robust program should
+\textbf{print usage information when launching from the command line that explains the software's features}.
 Usage information provides the first line of help for both first-time and
 experienced users of command-line applications.
 Ideally, usage is a terse, informative command-line help message that
@@ -339,33 +341,93 @@ For complete documentation, run: info coreutils 'mkdir invocation'
 \end{verbatim}
 \end{small}
 
-\textbf{The syntax for running the program}: This includes the name of the
-program and defines the relative
-location of optional and required flags, arguments and values for execution.
-Arguments in {[}square brackets{]}
-are usually optional. An ellipsis (\ldots e.g. ``{[}OPTION{]}\ldots{}'')
-indicates that more than one value can be provided.
+The key features of this usage message are:
 
-\textbf{Description}: Similar to the README, the
-description reminds users of the software's primary function.
+\begin{itemize}
 
-\textbf{Most commonly used arguments, a description of each, and the
-default values}: Not all arguments need to appear in the usage, but those most
-commonly used should be listed. Users will rely on this for
-quick reference when working with the software.
+\item[\textbf{The syntax for running the program}] This includes the
+  name of the program and defines the relative location of optional
+  and required flags, arguments and values for execution.  Arguments
+  in {[}square brackets{]} are usually optional. An ellipsis (\ldots
+  e.g. ``{[}OPTION{]}\ldots{}'') indicates that more than one value
+  can be provided.
 
-\textbf{Where to find more information}: Whether it's an email address, web
-site, or manual page, there should be an indication where the user can go
-to find out more about the software.
+\item[\textbf{Description}] Similar to the README, the description
+  reminds users of the software's primary function.
 
-\textbf{Printed to standard output}: Usage should be displayed on standard output so that it can be piped into
-\texttt{less}, searched with \texttt{grep}, or compared to the previous
-version with \texttt{diff}.
+\item[\textbf{Most commonly used arguments, a description of each, and
+    the default values}] Not all arguments need to appear in the
+  usage, but those most commonly used should be listed. Users will
+  rely on this for quick reference when working with the software.
 
-\textbf{Exit with an appropriate exit code}: When usage is invoked by
-providing incorrect arguments, the program should exit with a non-zero
-code to indicate an error. However, when help is explicitly requested,
-the software should not exit with an error.
+\item[\textbf{Where to find more information}] Whether it's an email
+  address, web site, or manual page, there should be an indication
+  where the user can go to find out more about the software.
+
+\item[\textbf{Printed to standard output}] Usage should be displayed
+  on standard output so that it can be piped into \texttt{less},
+  searched with \texttt{grep}, or compared to the previous version
+  with \texttt{diff}.
+
+\item[\textbf{Exit with an appropriate exit code}] When usage is
+  invoked by providing incorrect arguments, the program should exit
+  with a non-zero code to indicate an error. However, when help is
+  explicitly requested, the software should not exit with an error.
+
+\end{itemize}
+
+The usage message tells users what the program could do.
+It is equally important for the program to tell users what it actually did.
+Accordingly,
+when the program starts, it should \textbf{echo all parameters and software
+versions to standard out or a log file alongside the results}. This
+feature supports greater reproducibility because any result can be
+replicated with only the previous output files as reference.
+
+(And as a corollary
+if the software is configurable in any way,
+it should \textbf{check that all input values are in a reasonable range at startup}. 
+Few things are as annoying as having a program announce after running for two hours
+that it isn't going to save its results
+because the requested directory doesn't exist.)
+
+\section{Make common operations easy to control.}
+
+Being able to change parameters on the fly to determine if and how
+they change the results is important as your software gains more users,
+as it facilitates exploratory analysis and parameter sweeping.
+Programs should therefore
+\textbf{allow the most commonly changed parameters to be configured from the command line}.
+
+Users will want to change some values more often than others.
+Which ones is software-specific and so cannot be detailed here,
+but a short list includes input and reference files and directories,
+output files and directories,
+filtering parameters,
+random number generation seeds,
+and
+alternatives such as compressing results,
+use a variant algorithm,
+or verbose output.
+
+To make programs even easier to use,
+\textbf{choose reasonable defaults where they exist}
+and \textbf{set no defaults at all when there aren't any reasonable ones}.
+You can set reasonable default values
+as long as any command line arguments
+override those values.
+
+Changeable values should \emph{never} be hard-coded:
+if users have to edit your software in order to run it,
+you have done something wrong.
+Changeable but infrequently-changed values should therefore be stored in configuration files.
+These can be in a standard location,
+e.g. \texttt{.packagerc} in the user's home directory,
+or provided on the command line as an additional argument.
+Configuration files are often created during installation
+to set up such things as server names,
+network drives,
+and other defaults for your lab or institution. 
 
 \section{Version your releases.}
 
@@ -586,56 +648,6 @@ be files with particular names in that directory. This practice, which
 is sometimes called ``convention over configuration'', is used by many
 software frameworks, such as WordPress and Ruby on Rails, and often
 strikes a good balance between adaptability and consistency.
-
-\section{Allow configuration of all useful parameters from the command line.}
-
-Useful parameters are those values that a user will need to modify to suit
-their computer, dataset or application. 
-The full list of useful parameters is software-specific and so cannot be
-detailed here, but a short list includes providing
-input and reference files and directories,
-output files and directories,
-filtering,
-tuning,
-random number generation seeds,
-and
-alternatives such as compressing results,
-use a variant algorithm,
-or verbose output.
-
-Providing parameters on the
-command line increases the flexibility and usability of the program. You
-may have determined early in development that 0.58 is an optimal cluster threshold for your
-original dataset, but that doesn't mean it is best for every
-case. Being able to change parameters on the fly to determine if and how
-they change the results is important as your software gains more users,
-as it facilitates exploratory analysis and parameter sweeping.
-\textbf{Choose reasonable defaults where they exist},
-and \textbf{set no defaults at all when there aren't any reasonable ones}.
-
-You can set reasonable default values
-as long as any command line arguments
-override those values. Configuration files should be used in preference
-to hard-coding the defaults directly. Configuration files can be in a standard
-location, e.g. \texttt{.packagerc} in the user's home directory or
-provided on the command line as an additional argument.
-Only values that are unlikely to
-change between runs belong in the config file, such as dependencies,
-servers, version numbers, network drives, and any other defaults for
-your lab or institution. 
-Use a default configuration file and specify all other parameters on the
-command line.
-
-When the software starts, it should \textbf{echo all parameters and software
-versions to standard out or a log file alongside the results}. This
-feature supports greater reproducibility because any result can be
-replicated with only the previous output files as reference.
-Finally,
-if the software is configurable in any way,
-it should \textbf{check that all input values are in a reasonable range at startup}. 
-Few things are as annoying as having a program announce after running for two hours
-that it isn't going to save its results
-because the requested directory doesn't exist.
 
 \section{Include a small test set that can be run to ensure the software is actually working.}
 
