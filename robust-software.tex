@@ -52,6 +52,11 @@
 \hline
 \noalign{\global\arrayrulewidth\savedwidth}}
 
+\usepackage{color}
+
+\newenvironment{reviewed}
+{ \color{orange} }
+
 % Remove comment for double spacing
 %\usepackage{setspace}
 %\doublespacing
@@ -335,7 +340,7 @@ For complete documentation, run: info coreutils 'mkdir invocation'
 
 The key features of this usage message are:
 
-\begin{itemize}
+\begin{description}
 
 \item[\textbf{The syntax for running the program}] This includes the
   name of the program and defines the relative location of optional
@@ -366,7 +371,7 @@ The key features of this usage message are:
   with a non-zero code to indicate an error. However, when help is
   explicitly requested, the software should not exit with an error.
 
-\end{itemize}
+\end{description}
 
 The usage message tells users what the program could do.
 It is equally important for the program to tell users what it actually did.
