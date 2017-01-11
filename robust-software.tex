@@ -467,25 +467,25 @@ Java's \texttt{Runtime.exec} call, Python's \texttt{subprocess} module, and Perl
 command, and be sure to capture and report the output of the subprocess's standard error
 to facilitate debugging.
 
-\section{Use a build utility and package manager.}
+\section{Rely on build tools and package managers for installation.}
 
-In all but the simplest of scripts, \textbf{use a build
-automation utility to compile code and/or manage your software workflow}. The benefits of
-using tools like Make, Rake, Maven, Ant or MS Build vastly outweigh the
-their learning curves. Most importantly, a build system
-lets someone else build your software the same way you would. Most build
-utilities can also be configured to run tests during every build and
-re-generate documentation, and can be hooked into continuous integration,
-cutting releases, and deploying the software to other environments.
+Programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build
+to compile code, deploy applications, and automate other tasks.
+These tools can also be used to manage runtime environments,
+i.e.,
+to check that the right versions of required packages are installed
+and install or upgrade them if they are not.
 
-Build utilities rely on any dependencies being present in the environment for a
-successful build, and so developers should
-\textbf{document \emph{all} dependencies, preferably in a machine-readable form}.
+The same tools can and should be used to manage runtime environments on users' machines as well.
+Accordingly,
+developed should
+\textbf{document all dependencies in a machine-readable form}.
 Package managers like apt and yum are available on most Unix-like systems, and
 application package managers exist for specific languages like Python (pip),
 Java (Maven/Gradle), and Ruby (RubyGems). These package managers can be used
 together with the build utility to ensure that dependencies are available at
 compile/run time.
+
 For example, it is common for Python projects to include a file called
 \texttt{requirements.txt} that lists the names of required libraries,
 along with version ranges:
@@ -499,7 +499,7 @@ python-social-auth>=0.2.19,<0.3
 This file can be read by the pip package manager, which can check that the
 required software is available and install it if it is not. 
 Whatever is used,
-we recommend that developers should \emph{always} install dependencies
+developers should \emph{always} install dependencies
 using their dependency description, especially on their personal machines, so that
 they're sure it works.
 
