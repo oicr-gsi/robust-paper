@@ -126,8 +126,8 @@ published and otherwise,
 suffers from a number of common problems
 that make it difficult or impossible to run outside the original institution,
 or even off the primary developer's computer.
-We present ten simple rules to make such software robust enough to run anywhere,
-and inspire confidence in your reproducibility,
+We present ten simple rules to make such software robust enough to be run by anyone,
+anywhere,
 and thereby delight your users and collaborators.
 
 \section*{Author Summary}
@@ -189,7 +189,8 @@ computing~\cite{afgan2016,howe2012}. Each of these requires time and, in some
 cases, institutional change.
 
 The good news is,
-you don't need to be a professionally-trained programmer to write robust software. In fact,
+you don't need to be a professionally-trained programmer to write robust software.
+In fact,
 some of the best, most reliable pieces of software in many scientific
 communities are written by researchers~\cite{prabhu2011,sanders2008}
 who have adopted strong software
@@ -199,34 +200,25 @@ bases. In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
 
 So what \emph{is} ``robust'' software?
-In brief, it:
+We implied above that it is software that works for people other than the original author,
+on machines other than its creator's.
+More specifically, we mean that:
 
 \begin{itemize}
 \item
-  works for users other than the original author;
+  it can be installed on more than one computer with relative ease,
 \item
-  is kept under version control;
+  it works as advertised, and
 \item
-  can be installed on more than one computer or account with relative ease;
-\item
-  has well-defined input and output formats;
-\item
-  has documentation that describes what its dependencies are, how to
-  install it, and what the options are; and
-\item
-  comes with enough tests to show that it actually runs.
+  it can be integrated with other tools.
 \end{itemize}
 
-These simple rules don't just ensure that the software will run for other people;
-they are also necessary steps toward creating a reusable
-library that can be shared and reused through a site like CPAN or CRAN.  They are
-generic and can be applied to all languages, libraries, packages,
-documentation styles, and operating systems for both closed-source and
-open-source software.  
-Whether the aim is as simple as sharing the
-code with collaborators or as complex as using the software in a
-production analysis environment, increasing the robustness of your
-software decreases headaches all around.
+Our rules are generic and can be applied to all languages, libraries, packages,
+documentation styles, and operating systems for both closed-source and open-source software.  
+They are also necessary steps toward making computational research reproducible:
+after all,
+if the tools and libraries used to produce a result cannot be run by others,
+they cannot verify or build on published results.
 
 \section{Have a README that briefly explains what the software does and what its dependencies are.}
 
