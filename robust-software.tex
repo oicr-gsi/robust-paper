@@ -498,56 +498,53 @@ best suits the number and expertise of users you anticipate.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others. 
 With a few lines, a call
-is made out to the other program and the results are incorporated into the
+is made out to another library or program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
 needs to be maintained and leverages the work done by the other software.
 
-Unfortunately, reusing software introduces dependencies, which can
-bring their own special pain.  The interface between two software
-packages can also be a source of considerable frustration: all too
+Unfortunately, reusing software (whether software libraries or separate executables)
+introduces dependencies, which can
+bring their own special pain. The interface between two software
+packages can be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
-other project. 
-In addition, every package someone has to install
-before being able to use yours is a
-possible (some would say ``likely'') source of frustration for some
-potential user. The way the second program is invoked can throw up errors.
-The program may not be in the user's path, or it may be an
-older or newer version and produce results different than expected.
-Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explicitly or
-use shell-specific conventions like `*' expansion.
-Even Linux-standard functions available vary slightly between
-installs. For example, GNU \texttt{sort} is available on almost every
-*nix distribution, but sorts differently depending on locale.
+other project due to incompatible libraries, versions, or operating
+systems~\cite{brown2013}. Even introducing libraries in the same programming
+language can rely on software installed in the environment.
 
 Despite these problems, software developers in research should
-re-use existing software provided three guidelines are adhered to.
+re-use existing software provided a few guidelines are adhered to.
+
 First, 
 \textbf{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration.
+it may not be worth the pain of integration. Reuse software that offers some
+measurable improvement to your build environment.
 
-Second, \textbf{ensure the appropriate software and version is available}.
-Early in execution, check whether the dependency is executable and whether the
-version is compatible.
+Second, if launching an executable, \textbf{ensure the appropriate software and version is available}.
 Either allow the user to
 configure the exact path to the package, distribute the program with the
-dependent software, or download it during installation using a
-dependency management system (see Rule 5). 
+dependent software, or download it during installation using your
+package manager.
 
-Finally, to ensure support on as many different operating systems as
-possible, \textbf{use native functions for starting other processes}, such as
-Java's \texttt{Runtime.exec} call, Python's \texttt{subprocess} module, and Perl's \texttt{system}
-command, and be sure to capture and report the output of the subprocess's standard error
-to facilitate debugging.
+Third, \textbf{ensure that reused software is robust}. Relying on erratic third
+party libraries or software is a recipe for tears. Prefer software that follows
+good software development practices, is open for support questions, and is
+available from a stable repository using your package manager.
+
+Exercise caution especially when transitioning across languages or using
+separate executables, as they tend to be especially sensitive to operating
+systems, environments, and locales. 
 
 \section{Rely on build tools and package managers for installation.}
 
-Programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build
-to compile code, deploy applications, and automate other tasks.
+To compile code, deploy applications, and automate other tasks, 
+programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
 These tools can also be used to manage runtime environments,
 i.e.,
 to check that the right versions of required packages are installed
 and install or upgrade them if they are not.
+As mentioned in the previous rule,
+a package manager can mitigate some of the difficulties in software reuse.
 
 The same tools can and should be used to manage runtime environments on users' machines as well.
 Accordingly,
@@ -584,6 +581,7 @@ unknown dependencies is to install on a system administered by someone
 else and see what breaks. As use of virtualization containers becomes more
 widespread, software installation can also be tested on a virtual machine or
 container system like Docker.
+
 
 \section{Do not require root or other special privileges.}
 
