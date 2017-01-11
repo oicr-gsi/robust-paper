@@ -140,7 +140,7 @@ and thereby delight your users and collaborators.
 Many researchers have found out the hard way that there's a world of difference
 between ``works for me on my machine'' and ``works for other people on theirs''.
 Many common challenges can be avoided by following a few simple rules; doing so
-not only accelerates research, but also improves reproducibility.
+not only improves reproducibility, but can accelerate research.
 
 \linenumbers
 
@@ -161,14 +161,15 @@ The potential new user is then faced with two unpalatable options:
 hack the existing code to make it work, or start over.
 
 Being unable to
-replicate results is so common that one publication refers to it as "a rite of
-passage"~\cite{baker2016}. 
+replicate results is so common that one publication refers to it as ``a rite of
+passage''~\cite{baker2016}. 
 The root cause of this problem is that most research software
-isn't \emph{robust}. The difference between running and being
-robust is the difference between ``works for me on my machine'' and
-``works for other people on a cluster I've never used''. The lack of
-robustness also leads to many duplicated efforts,
-which slows the pace of research~\cite{prabhu2011,lawlor2015}.
+is essentially a prototype, and therefore is not 
+\emph{robust}. The lack of
+robustness in published, distributed software
+leads to duplicated efforts with little practical benefit,
+which slows the pace of research~\cite{prabhu2011,lawlor2015}. 
+Not all software needs to be robust enough to run for other 
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
 hundreds of tools to perform the same task:
 for example,
@@ -203,6 +204,9 @@ engineering approaches, have high standards of reproducibility, use good testing
 practices, and foster inter-institutional collaborations that grow into strong user
 bases. In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
+Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
+publish a paper about your software, it should, at minimum, satisfy these
+rules.
 
 So what \emph{is} ``robust'' software?
 We implied above that it is software that works for people other than the original author,
@@ -213,28 +217,27 @@ More specifically, we mean that:
 \item
   it can be installed on more than one computer with relative ease,
 \item
-  it works as advertised, and
+  it works consistently as advertised, and
 \item
   it can be integrated with other tools.
 \end{itemize}
 
 Our rules are generic and can be applied to all languages, libraries, packages,
 documentation styles, and operating systems for both closed-source and open-source software.  
-They are also necessary steps toward making computational research reproducible:
+They are also necessary steps toward making computational research replicable and reproducible:
 after all,
-if the tools and libraries used to produce a result cannot be run by others,
-they cannot verify or build on published results.
+if your tools and libraries cannot be run by others,
+they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}. 
 
-Note: one practice \emph{not} included in the list below is the use of version control.
-We think this is essential to building software of any kind
+Note: practices \emph{not} included in the list below include version control,
+code review, unit testing, and other practices essential to maintainability and
+sustainable software development.
+These elements are essential to building software of any kind
 \cite{wilson2014,wilson2016}.
 However,
-our focus in this short guide is on the software that is built,
+our focus in this short guide is on the software that is already built,
 not on the process used to build it.
-Similarly,
-we do not explicitly discuss code review,
-unit testing,
-and other practices essential to maintainability and sustainable software development.
+
 
 \section{Have a README that briefly explains what the software does and what its dependencies are.}
 
