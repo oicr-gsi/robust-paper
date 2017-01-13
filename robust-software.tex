@@ -101,6 +101,8 @@
 \newcommand{\fixme}[2]{\textsc{\textbf{{#1}: {#2}}}}
 \newcommand{\recommend}[1]{\textit{#1}}
 \newcommand{\withurl}[2]{{#1}\footnote{\texttt{#2}}}
+\newcommand{\rulemajor}[1]{\section{#1}}
+\newcommand{\ruleminor}[1]{\textbf{#1}}
 
 \begin{document}
 \vspace*{0.2in}
@@ -230,17 +232,17 @@ after all,
 if your tools and libraries cannot be run by others,
 they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}. 
 
-Note: practices \emph{not} included in the list below include version control,
-code review, unit testing, and other practices essential to maintainability and
-sustainable software development.
-These elements are essential to building software of any kind
-\cite{wilson2014,wilson2016}.
-However,
-our focus in this short guide is on the software that is already built,
+\rulemajor{Rule 1: Use version control.}
+
+FIXME: placeholder while renumbering.
+
+Our focus in this short guide is on the software that is already built,
 not on the process used to build it.
+However,
+we believe that version control is essential to sustainable software development
+\cite{wilson2014,wilson2016}.
 
-
-\section{Document your code and usage}
+\rulemajor{Rule 2: Document your code and usage}
 
 Numerous resources exist for writing high quality
 documentation~\cite{karimzadeh2016} and so we do not cover it here, except for
@@ -261,21 +263,21 @@ is a good model to emulate.
 
 \begin{description}
 
-\item[\textbf{Explain what the software does.}] 
+\item[\ruleminor{Explain what the software does.}] 
 There's nothing more frustrating
 than downloading and installing something only to
 find out that it doesn't do what you thought it did.
 
-\item[\textbf{List required dependencies.}] Often, software depends on
+\item[\ruleminor{List required dependencies.}] Often, software depends on
 specific versions of libraries, modules, or operating systems. Include the name and
 version number for each dependency or a link to the requirements file. 
-We address dependencies in more detail in rule 5.
+We address dependencies in more detail in Rule~5.
 
-\item[\textbf{Provide compilation/installation instructions:}]
+\item[\ruleminor{Provide compilation/installation instructions:}]
 If the software needs to be compiled
 or installed, list those instructions in the README.
 
-\item[\textbf{List input and output files.}] All possible input and output files
+\item[\ruleminor{List input and output files.}] All possible input and output files
 should be listed in this section. 
 If they use a standard format, link to the specification and
 version. If you extend the standard or have your own format, define it
@@ -291,7 +293,7 @@ mined for the user's specific purpose. If your users might need to know,
 adapter sequences?'' they should be able to check the README and confidently
 say, ``Yes, it is in the log file''.
 
-\item[\textbf{State attributions and licensing.}] Attributions are how you credit
+\item[\ruleminor{State attributions and licensing.}] Attributions are how you credit
 your main contributors; licenses are how others may use and
 credit your work.
 Leave no
@@ -301,7 +303,7 @@ needs to credit you. If your software is not open source, state that clearly.
 \end{description}
 
 In addition to a README, a robust program should
-\textbf{print usage information when launching from the command line that explains the software's features}.
+\ruleminor{print usage information when launching from the command line that explains the software's features}.
 Usage information provides the first line of help for both first-time and
 experienced users of command-line applications. Terseness is
 important: usage that extends for multiple screens is 
@@ -318,31 +320,31 @@ The key features of a usage message are:
 
 \begin{description}
 
-\item[\textbf{The syntax for running the program}] This includes the
+\item[\ruleminor{The syntax for running the program}] This includes the
   name of the program and defines the relative location of optional
   and required flags, arguments and values for execution.  Arguments
   in {[}square brackets{]} are usually optional. An ellipsis (\ldots
   e.g. ``{[}OPTION{]}\ldots{}'') indicates that more than one value
   can be provided.
 
-\item[\textbf{Description}] Similar to the README, the description
+\item[\ruleminor{Primary function}] Similar to the README, the description
   reminds users of the software's primary function.
 
-\item[\textbf{Most commonly used arguments, a description of each, and
+\item[\ruleminor{Most commonly used arguments, a description of each, and
     the default values}] Not all arguments need to appear in the
   usage, but those most commonly used should be listed. Users will
   rely on this for quick reference when working with the software.
 
-\item[\textbf{Where to find more information}] Whether it's an email
+\item[\ruleminor{Where to find more information}] Whether it's an email
   address, web site, or manual page, there should be an indication
   where the user can go to find out more.
 
-\item[\textbf{Printed to standard output}] Usage should be displayed
+\item[\ruleminor{Printed to standard output}] Usage should be displayed
   on standard output so that it can be piped into \texttt{less},
   searched with \texttt{grep}, or compared to the previous version
   with \texttt{diff}.
 
-\item[\textbf{Exit with an appropriate exit code}] When usage is
+\item[\ruleminor{Exit with an appropriate exit code}] When usage is
   invoked by providing incorrect arguments, the program should exit
   with a non-zero code to indicate an error. However, when help is
   explicitly requested, the software should not exit with an error.
@@ -356,13 +358,13 @@ don’t want to recommend practices that people won’t actually adopt. However,
 is worth noting that software that is widely used and contributed to has and
 enforces the need for good documentation~\cite{gentleman2004}.
 
-\section{Make common operations easy to control.}
+\rulemajor{Rule 3: Make common operations easy to control.}
 
 Being able to change parameters on the fly to determine if and how
 they change the results is important as your software gains more users,
 as it facilitates exploratory analysis and parameter sweeping.
 Programs should therefore
-\textbf{allow the most commonly changed parameters to be configured from the command line}.
+\ruleminor{allow the most commonly changed parameters to be configured from the command line}.
 
 Users will want to change some values more often than others.
 Since parameters are software-specific, the appropriate 'tunable' ones cannot be detailed here,
@@ -375,14 +377,14 @@ alternatives such as compressing results,
 use a variant algorithm,
 or verbose output.
 
-\textbf{Check that all input values are in a reasonable range at startup}. 
+\ruleminor{Check that all input values are in a reasonable range at startup}. 
 Few things are as annoying as having a program announce after running for two
 hours that it isn't going to save its results because the requested directory
 doesn't exist.
 
 To make programs even easier to use,
-\textbf{choose reasonable defaults where they exist}
-and \textbf{set no defaults at all when there aren't any reasonable ones}.
+\ruleminor{choose reasonable defaults where they exist}
+and \ruleminor{set no defaults at all when there aren't any reasonable ones}.
 You can set reasonable default values
 as long as any command line arguments
 override those values.
@@ -399,7 +401,7 @@ to set up such things as server names,
 network drives,
 and other defaults for your lab or institution. 
 
-\section{Version your releases.}
+\rulemajor{Rule 4: Version your releases.}
 
 Software evolves over time, with developers adding or removing features as need
 dictates. Making official releases stamps a particular set of features with a
@@ -414,7 +416,7 @@ to construct and interpret this number, but most importantly for us, a
 particular software version run with the same parameters should give
 identical results no matter when it's run. Results include both correct
 output as well as any errors.
-\textbf{Increment your version number every time you release your software to
+\ruleminor{Increment your version number every time you release your software to
 other people}.
 
 \withurl{Semantic versioning}{http://semver.org/} is one of the most common
@@ -432,10 +434,10 @@ for applications that are
 not yet stable or released, and \texttt{-RC} for release candidates prior
 to an official release.
 
-\textbf{The version of your software should be easily available by 
+\ruleminor{The version of your software should be easily available by 
 supplying \texttt{-\/-version} or \texttt{-v} on the command line}. This command should print
 the software name and version number, and it should
-also be \textbf{included in all of the program's output}, particularly debugging
+also be \ruleminor{included in all of the program's output}, particularly debugging
 traces.  If someone needs help, it's important that they be able to tell
 whoever's helping them which version of the software they're using.
 
@@ -443,7 +445,7 @@ While new releases may make a program better in general,
 they can simultaneously create work for someone
 who integrated the old version into their own workflow a year or two ago,
 and won't see any benefits from upgrading.
-A program's authors should therefore \textbf{ensure that old released versions
+A program's authors should therefore \ruleminor{ensure that old released versions
 continue to be available.}
 A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
@@ -452,7 +454,7 @@ code on Bitbucket or GitHub, to depositing into a
 repository like apt, yum, homebrew, CPAN, etc. Choose the method that
 best suits the number and expertise of users you anticipate.
 
-\section{Reuse software (within reason).}
+\rulemajor{Rule 5: Reuse software (within reason).}
 
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others. 
@@ -476,19 +478,19 @@ Despite these problems, software developers in research should
 re-use existing software provided a few guidelines are adhered to.
 
 First, 
-\textbf{make sure that you really need the auxiliary program}. If you are
+\ruleminor{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
 it may not be worth the pain of integration. Reuse software that offers some
 measurable improvement to your project.
 
-Second, if launching an executable, \textbf{ensure the appropriate software and version is available}.
+Second, if launching an executable, \ruleminor{ensure the appropriate software and version is available}.
 Either allow the user to
 configure the exact path to the package, distribute the program with the
 dependent software, or download it during installation using your
 package manager. If the executable requires internet access, check for that
 early in execution.
 
-Third, \textbf{ensure that reused software is robust}. Relying on erratic third
+Third, \ruleminor{ensure that reused software is robust}. Relying on erratic third
 party libraries or software is a recipe for tears. Prefer software that follows
 good software development practices, is open for support questions, and is
 available from a stable location or repository using your package manager.
@@ -497,7 +499,7 @@ Exercise caution especially when transitioning across languages or using
 separate executables, as they tend to be especially sensitive to operating
 systems, environments, and locales. 
 
-\section{Rely on build tools and package managers for installation.}
+\rulemajor{Rule 6: Rely on build tools and package managers for installation.}
 
 To compile code, deploy applications, and automate other tasks, 
 programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
@@ -505,13 +507,13 @@ These tools can also be used to manage runtime environments,
 i.e.,
 to check that the right versions of required packages are installed
 and install or upgrade them if they are not.
-As mentioned in the previous rule,
+As mentioned in Rule~5,
 a package manager can mitigate some of the difficulties in software reuse.
 
 The same tools can and should be used to manage runtime environments on users' machines as well.
 Accordingly,
 developers should
-\textbf{document all dependencies in a machine-readable form}.
+\ruleminor{document all dependencies in a machine-readable form}.
 Package managers like apt and yum are available on most Unix-like systems, and
 application package managers exist for specific languages like Python (pip),
 Java (Maven/Gradle), and Ruby (RubyGems). These package managers can be used
@@ -536,7 +538,7 @@ using their dependency description, especially on their personal machines, so th
 they're sure it works.
 
 Conversely, developers should
-\textbf{avoid depending on scripts and tools which are not available as packages}.
+\ruleminor{avoid depending on scripts and tools which are not available as packages}.
 In many cases, a program's author may not realize that some tool was built locally, and
 doesn't exist elsewhere. At present, the only sure way to discover such
 unknown dependencies is to install on a system administered by someone
@@ -545,7 +547,7 @@ widespread, software installation can also be tested on a virtual machine or
 container system like Docker.
 
 
-\section{Do not require root or other special privileges.}
+\rulemajor{Rule 7: Do not require root or other special privileges to install or run.}
 
 Root (also known as ``superuser'' or ``admin'') is a special account on
 a computer that has (among other things) the power to modify or delete
@@ -559,7 +561,7 @@ are there for a reason: scientific software packages may not
 intentionally be malware, but one small bug or over-eager file-matching
 expression can certainly make them behave as if they were. Outside of
 very unusual circumstances,
-\textbf{packages should not require root privileges to set up or use}.
+\ruleminor{packages should not require root privileges to set up or use}.
 
 Another reason for this rule is that users may want to try out a new
 package before installing it system-wide on a cluster. Requiring root
@@ -572,7 +574,7 @@ and makes side-by-side installation of multiple versions of
 the package more difficult.
 
 Developers should therefore
-\textbf{allow packages to be installed in an arbitrary location},
+\ruleminor{allow packages to be installed in an arbitrary location},
 e.g., under a user's home directory in
 \texttt{\textasciitilde{}/packagename}, or in directories with standard
 names like \texttt{bin}, \texttt{lib}, and \texttt{man} under a chosen
@@ -584,9 +586,9 @@ setting things up as root.
 Testing the ability to install software has traditionally been regarded as difficult,
 since it necessarily alters the machine on which the test is conducted.
 Lightweight virtualization containers like Docker make this much easier as well, 
-or simply \textbf{ask another person to try and build your software}.
+or simply \ruleminor{ask another person to try and build your software before releasing it}.
 
-\section{Eliminate hard-coded paths.}
+\rulemajor{Rule 8: Eliminate hard-coded paths.}
 
 It's easy to write software that reads input from a file called
 \texttt{mydata.csv}, but also very limiting. If a colleague asks you to
@@ -604,13 +606,13 @@ directory as the software, and the folder
 will probably not even exist.
 
 For these reasons, users should be able to
-\textbf{set the names and locations of input and output files as command-line parameters}.
+\ruleminor{set the names and locations of input and output files as command-line parameters}.
 This rule applies to reference data sets as well as the user's own
 data: if a user wants to try a new gene identification algorithm using
 a different set of genes as a training set, she should not have to
 edit the software to do so.
 A corollary to this rule is
-\textbf{do not require users to navigate to a particular directory to do their work},
+\ruleminor{do not require users to navigate to a particular directory to do their work},
 since ``where I have to be'' is just another hard-coded path.
 
 In order to save typing, it is often convenient to allow users to
@@ -620,7 +622,7 @@ is sometimes called ``convention over configuration'', is used by many
 software frameworks, such as WordPress and Ruby on Rails, and often
 strikes a good balance between adaptability and consistency.
 
-\section{Include a small test set that can be run to ensure the software is actually working.}
+\rulemajor{Rule 9: Include a small test set that can be run to ensure the software is actually working.}
 
 Every package should come with a small test script for users to run
 after installation. Its purpose is not only to check that the software
@@ -628,14 +630,14 @@ is working correctly (although that is extremely helpful), but also to
 ensure that it works at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, \textbf{make the test script easy to find and run}. 
+In order to be useful, \ruleminor{make the test script easy to find and run}. 
 Many build systems will also run unit tests if provided them at compile time.
 If the build system is not amenable to testing, a 
 single file in the project's root directory named \texttt{runtests.sh}
 or something equally obvious is a much better solution than documenting
 test cases and requiring people to copy and paste them.
 
-Equally, \textbf{make the test script's output easy to interpret}. Screens
+Equally, \ruleminor{make the test script's output easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
 output should be simple to understand for non-experts,
 such as one line per test, with the test's name
@@ -652,17 +654,17 @@ a test suite of any kind also makes it more likely that they will, and software
 with collaborators stands a better chance of surviving in the busy field of
 scientific software.
 
-\section{Produce identical results when given identical inputs.}
+\rulemajor{Rule 10: Produce identical results when given identical inputs.}
 
 The usage message tells users what the program could do.
 It is equally important for the program to tell users what it actually did.
 Accordingly,
-when the program starts, it should \textbf{echo all parameters and software
+when the program starts, it should \ruleminor{echo all parameters and software
 versions to standard out or a log file alongside the results}. This
 feature supports greater reproducibility because any result can be
 replicated with only the previous output files as reference.
 
-Given a set of parameters and a dataset, \textbf{a particular version of a program
+Given a set of parameters and a dataset, \ruleminor{a particular version of a program
 should produce the same results every time it is run}
 to aid testing, debugging, and reproducibility.
 Even minor changes to code can cause minor changes in output because of floating-point issues,
@@ -686,29 +688,12 @@ Given the size of biological data, it is unreasonable to suggest that
 random algorithms be removed. However, most programs use a pseudo-random
 number generator, which uses a starting seed and an equation to
 approximate random numbers. Setting the seed to a consistent value
-can remove randomness between runs. \textbf{Allow the user to optionally provide
+can remove randomness between runs. \ruleminor{Allow the user to optionally provide
 the random seed as an input parameter}, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
 using clock time), echo it to the output for re-use later. 
-If setting the seed is not possible, \textbf{make sure the acceptable tolerance is
+If setting the seed is not possible, \ruleminor{make sure the acceptable tolerance is
 known and detailed in documentation and in the tests}.
-
-\section*{What We Left Out}
-
-Any short list of rules for developing robust software will
-necessarily be incomplete.   Our more significant omissions
-include:
-
-\begin{description}
-
-
-
-\item[\textbf{Services}] The rules we present above are necessary, but
-  not sufficient, for software that needs to interact with services
-  such as databases and web servers, or coordinates multiple hosts or interfaces, 
-  and is out of scope of this paper.
-
-\end{description}
 
 \section*{Conclusion}
 
