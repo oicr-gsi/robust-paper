@@ -52,6 +52,11 @@
 \hline
 \noalign{\global\arrayrulewidth\savedwidth}}
 
+\usepackage{color}
+
+\newenvironment{reviewed}
+{ \color{orange} }
+
 % Remove comment for double spacing
 %\usepackage{setspace}
 %\doublespacing
@@ -135,7 +140,7 @@ and thereby delight your users and collaborators.
 Many researchers have found out the hard way that there's a world of difference
 between ``works for me on my machine'' and ``works for other people on theirs''.
 Many common challenges can be avoided by following a few simple rules; doing so
-not only accelerates research, but also improves reproducibility.
+not only improves reproducibility, but can accelerate research.
 
 \linenumbers
 
@@ -156,14 +161,15 @@ The potential new user is then faced with two unpalatable options:
 hack the existing code to make it work, or start over.
 
 Being unable to
-replicate results is so common that one publication refers to it as "a rite of
-passage"~\cite{baker2016}. 
+replicate results is so common that one publication refers to it as ``a rite of
+passage''~\cite{baker2016}. 
 The root cause of this problem is that most research software
-isn't \emph{robust}. The difference between running and being
-robust is the difference between ``works for me on my machine'' and
-``works for other people on a cluster I've never used''. The lack of
-robustness also leads to many duplicated efforts,
-which slows the pace of research~\cite{prabhu2011,lawlor2015}.
+is essentially a prototype, and therefore is not 
+\emph{robust}. The lack of
+robustness in published, distributed software
+leads to duplicated efforts with little practical benefit,
+which slows the pace of research~\cite{prabhu2011,lawlor2015}. 
+Not all software needs to be robust enough to run for other 
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
 hundreds of tools to perform the same task:
 for example,
@@ -195,9 +201,13 @@ some of the best, most reliable pieces of software in many scientific
 communities are written by researchers~\cite{prabhu2011,sanders2008}
 who have adopted strong software
 engineering approaches, have high standards of reproducibility, use good testing
-practices, and foster inter-institutional collaborations that grow into strong user
-bases. In the bioinformatics community, Bioconductor and Galaxy follow this
+practices, and foster strong user
+bases through constantly evolving, clearly documented, useful, and useable software.
+In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
+Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
+publish a paper about your software, it should, at minimum, satisfy these
+rules.
 
 So what \emph{is} ``robust'' software?
 We implied above that it is software that works for people other than the original author,
@@ -208,145 +218,105 @@ More specifically, we mean that:
 \item
   it can be installed on more than one computer with relative ease,
 \item
-  it works as advertised, and
+  it works consistently as advertised, and
 \item
   it can be integrated with other tools.
 \end{itemize}
 
 Our rules are generic and can be applied to all languages, libraries, packages,
 documentation styles, and operating systems for both closed-source and open-source software.  
-They are also necessary steps toward making computational research reproducible:
+They are also necessary steps toward making computational research replicable and reproducible:
 after all,
-if the tools and libraries used to produce a result cannot be run by others,
-they cannot verify or build on published results.
+if your tools and libraries cannot be run by others,
+they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}. 
 
-Note: one practice \emph{not} included in the list below is the use of version control.
-We think this is essential to building software of any kind
+Note: practices \emph{not} included in the list below include version control,
+code review, unit testing, and other practices essential to maintainability and
+sustainable software development.
+These elements are essential to building software of any kind
 \cite{wilson2014,wilson2016}.
 However,
-our focus in this short guide is on the software that is built,
+our focus in this short guide is on the software that is already built,
 not on the process used to build it.
-Similarly,
-we do not explicitly discuss code review,
-unit testing,
-and other practices essential to maintainability and sustainable software development.
 
-\section{Have a README that briefly explains what the software does and what its dependencies are.}
 
-The README is the first stop for most new users.
+\section{Document your code and usage}
+
+Numerous resources exist for writing high quality
+documentation~\cite{karimzadeh2016} and so we do not cover it here, except for
+two minimal elements: the README and usage.
+
+The README is the first stop for most new users, usually available even before
+the software is installed.
 At a minimum, it needs to get a new user started and point them towards more
-help, if they need it. 
+help, if they need it. Usage is a terse, informative command-line help message that
+guides the user in the correct use of the software.
+
 Numerous guidelines exist on how to write good
 READMEs\cite{Johnson1997,gnustandards};
-their key common features are listed below.
+their key common features are listed below. 
+The README file for \withurl{khmer}{https://github.com/dib-lab/khmer/blob/master/README.rst}
+is a good model to emulate.
 
-\textbf{Explain what the software does:} At the beginning of the README,
-explain what the software does in one or two sentences.
+
+\begin{description}
+
+\item[\textbf{Explain what the software does.}] 
 There's nothing more frustrating
 than downloading and installing something only to
 find out that it doesn't do what you thought it did.
 
-\textbf{List required dependencies:} Often, software depends on
-specific versions of libraries, modules, or operating systems. 
-This is
-entirely reasonable as long as it is properly documented. Include the name and
-version number for each dependency.  Several methods exist for acquiring
-required packages: either provide the commands necessary to download the
-dependencies; link to the software homepage; or (our preference) use a
-dependency manager. We address dependencies in more detail in rule 5.
+\item[\textbf{List required dependencies.}] Often, software depends on
+specific versions of libraries, modules, or operating systems. Include the name and
+version number for each dependency or a link to the requirements file. 
+We address dependencies in more detail in rule 5.
 
-\textbf{Provide compilation/installation instructions:}
+\item[\textbf{Provide compilation/installation instructions:}]
 If the software needs to be compiled
-or installed, list those instructions in the README. Also
-mention if you recommend they use a pre-compiled binary instead
-through a system such as pip, yum, or apt.
+or installed, list those instructions in the README.
 
-\textbf{List input and output files}: All possible input and output files
-should be listed in this section. Do the files use a particular
-standard, an extension of an existing format, or your own
-format?  If they use a standard format, link to the specification and
+\item[\textbf{List input and output files.}] All possible input and output files
+should be listed in this section. 
+If they use a standard format, link to the specification and
 version. If you extend the standard or have your own format, define it
 explicitly, listing all the required fields and acceptable values.
-(You get bonus points if you include a script to convert between
-a standard format and your file format). If there is no rigorous format
-(which is common with log files), show at least a few lines from an
+If there is no rigorous format, as is common with log files, show at least a
+few lines from an
 example file and explain what the sections mean.
 
-Input files and their formats are included in most documentation, but
-intermediate, auxiliary, and log files are often missing.
-\emph{All} files should be listed in the README, even those considered self-explanatory. Log
+\emph{All} files should be listed, even those considered self-explanatory. Log
 files are often full of valuable information that can be
 mined for the user's specific purpose. If your users might need to know,
 ``Does this program report the percentage of reads trimmed to remove
 adapter sequences?'' they should be able to check the README and confidently
 say, ``Yes, it is in the log file''.
 
-\textbf{State attributions and licensing:} Attributions are how you credit
+\item[\textbf{State attributions and licensing.}] Attributions are how you credit
 your main contributors; licenses are how others may use and
-credit your work. These files should be available \emph{before}
-the software is installed (or even downloaded).
+credit your work.
 Leave no
 question in anyone's mind about whether your software can be used
 commercially, how much modification is permitted, and how other software
 needs to credit you. If your software is not open source, state that clearly.
-Attributions can also contain a list of ``expert'' users
-that can be contacted if new users have problems with the software.
+\end{description}
 
-The README file for \withurl{khmer}{https://github.com/dib-lab/khmer/blob/master/README.rst}
-is a good model:
-it explains the software's purpose,
-tells readers where to get help,
-and includes links to a CITATION file (explaining how to cite the project)
-and the license file.
-
-\section{Tell the user what could be done and what was actually done.}
-
-A robust program should
+In addition to a README, a robust program should
 \textbf{print usage information when launching from the command line that explains the software's features}.
 Usage information provides the first line of help for both first-time and
-experienced users of command-line applications.
-Ideally, usage is a terse, informative command-line help message that
-guides the user in the correct use of the software. Terseness is
-important: usage that extends for multiple screens is a nuisance, especially when
-printed to standard error instead of standard output (where it can
-easily be paged).  Long output is also much less likely to be read{\ldots}
+experienced users of command-line applications. Terseness is
+important: usage that extends for multiple screens is 
+difficult to read or refer to on the fly.
 
-Usage should provide all of the information necessary to run the
-software. It is invoked either by running the software without
+Usage is invoked either by running the software without
 any arguments, running it with incorrect arguments, or by
-explicitly choosing a help or usage option.
+explicitly choosing a help option.
 More standard command-line behaviours are detailed in \cite{Seemann2013}.
 
 Almost all command-line applications use a combination of
 POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
-An example of good usage is GNU's \texttt{mkdir} command, which makes
-new directories:
+The key features of a usage message are:
 
-\begin{small}
-\begin{verbatim}
-$ mkdir --help
-Usage: mkdir [OPTION]... DIRECTORY...
-Create the DIRECTORY(ies), if they do not already exist.
-
-Mandatory arguments to long options are mandatory for short options too.
-  -m, --mode=MODE   set file mode (as in chmod), not a=rwx - umask
-  -p, --parents     no error if existing, make parent directories as needed
-  -v, --verbose     print a message for each created directory
-  -Z, --context=CTX  set the SELinux security context of each created
-                      directory to CTX
-      --help     display this help and exit
-      --version  output version information and exit
-
-Report mkdir bugs to bug-coreutils@gnu.org
-GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
-General help using GNU software: <http://www.gnu.org/gethelp/>
-For complete documentation, run: info coreutils 'mkdir invocation'
-\end{verbatim}
-\end{small}
-
-The key features of this usage message are:
-
-\begin{itemize}
+\begin{description}
 
 \item[\textbf{The syntax for running the program}] This includes the
   name of the program and defines the relative location of optional
@@ -365,7 +335,7 @@ The key features of this usage message are:
 
 \item[\textbf{Where to find more information}] Whether it's an email
   address, web site, or manual page, there should be an indication
-  where the user can go to find out more about the software.
+  where the user can go to find out more.
 
 \item[\textbf{Printed to standard output}] Usage should be displayed
   on standard output so that it can be piped into \texttt{less},
@@ -377,22 +347,14 @@ The key features of this usage message are:
   with a non-zero code to indicate an error. However, when help is
   explicitly requested, the software should not exit with an error.
 
-\end{itemize}
+\end{description}
 
-The usage message tells users what the program could do.
-It is equally important for the program to tell users what it actually did.
-Accordingly,
-when the program starts, it should \textbf{echo all parameters and software
-versions to standard out or a log file alongside the results}. This
-feature supports greater reproducibility because any result can be
-replicated with only the previous output files as reference.
-
-(And as a corollary
-if the software is configurable in any way,
-it should \textbf{check that all input values are in a reasonable range at startup}. 
-Few things are as annoying as having a program announce after running for two hours
-that it isn't going to save its results
-because the requested directory doesn't exist.)
+Documentation beyond the README and usage is up to the developer's discretion.
+We think it is very important for developers to document their work, but our
+experience is that people are unlikely do it during normal development, and we
+don’t want to recommend practices that people won’t actually adopt. However, it
+is worth noting that software that is widely used and contributed to has and
+enforces the need for good documentation~\cite{gentleman2004}.
 
 \section{Make common operations easy to control.}
 
@@ -403,7 +365,7 @@ Programs should therefore
 \textbf{allow the most commonly changed parameters to be configured from the command line}.
 
 Users will want to change some values more often than others.
-Which ones is software-specific and so cannot be detailed here,
+Since parameters are software-specific, the appropriate 'tunable' ones cannot be detailed here,
 but a short list includes input and reference files and directories,
 output files and directories,
 filtering parameters,
@@ -412,6 +374,11 @@ and
 alternatives such as compressing results,
 use a variant algorithm,
 or verbose output.
+
+\textbf{Check that all input values are in a reasonable range at startup}. 
+Few things are as annoying as having a program announce after running for two
+hours that it isn't going to save its results because the requested directory
+doesn't exist.
 
 To make programs even easier to use,
 \textbf{choose reasonable defaults where they exist}
@@ -480,7 +447,7 @@ A program's authors should therefore \textbf{ensure that old released versions
 continue to be available.}
 A number of mechanisms exist for
 controlled release that range from as simple as adding an appropriate
-commit message or tag to version control, to official releases alongside
+commit message or tag to version control~\cite{blischak2016}, to official releases alongside
 code on Bitbucket or GitHub, to depositing into a
 repository like apt, yum, homebrew, CPAN, etc. Choose the method that
 best suits the number and expertise of users you anticipate.
@@ -490,60 +457,60 @@ best suits the number and expertise of users you anticipate.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others. 
 With a few lines, a call
-is made out to the other program and the results are incorporated into the
+is made out to another library or program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
 needs to be maintained and leverages the work done by the other software.
 
-Unfortunately, reusing software introduces dependencies, which can
-bring their own special pain.  The interface between two software
-packages can also be a source of considerable frustration: all too
+Unfortunately, reusing software (whether software libraries or separate executables)
+introduces dependencies, which can
+bring their own special pain. The interface between two software
+packages can be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
-other project. 
-In addition, every package someone has to install
-before being able to use yours is a
-possible (some would say ``likely'') source of frustration for some
-potential user. The way the second program is invoked can throw up errors.
-The program may not be in the user's path, or it may be an
-older or newer version and produce results different than expected.
-Windows users will be frustrated if you invoke \texttt{bash} or \texttt{sh} explicitly or
-use shell-specific conventions like `*' expansion.
-Even Linux-standard functions available vary slightly between
-installs. For example, GNU \texttt{sort} is available on almost every
-*nix distribution, but sorts differently depending on locale.
+other project due to incompatible libraries, versions, or operating
+systems~\cite{brown2013}. Even introducing libraries in the same programming
+language can rely on software installed in the environment, and the problem
+becomes much more difficult when relying on executables, or even on web
+services.
 
 Despite these problems, software developers in research should
-re-use existing software provided three guidelines are adhered to.
+re-use existing software provided a few guidelines are adhered to.
+
 First, 
 \textbf{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration.
+it may not be worth the pain of integration. Reuse software that offers some
+measurable improvement to your project.
 
-Second, \textbf{ensure the appropriate software and version is available}.
-Early in execution, check whether the dependency is executable and whether the
-version is compatible.
+Second, if launching an executable, \textbf{ensure the appropriate software and version is available}.
 Either allow the user to
 configure the exact path to the package, distribute the program with the
-dependent software, or download it during installation using a
-dependency management system (see Rule 5). 
+dependent software, or download it during installation using your
+package manager. If the executable requires internet access, check for that
+early in execution.
 
-Finally, to ensure support on as many different operating systems as
-possible, \textbf{use native functions for starting other processes}, such as
-Java's \texttt{Runtime.exec} call, Python's \texttt{subprocess} module, and Perl's \texttt{system}
-command, and be sure to capture and report the output of the subprocess's standard error
-to facilitate debugging.
+Third, \textbf{ensure that reused software is robust}. Relying on erratic third
+party libraries or software is a recipe for tears. Prefer software that follows
+good software development practices, is open for support questions, and is
+available from a stable location or repository using your package manager.
+
+Exercise caution especially when transitioning across languages or using
+separate executables, as they tend to be especially sensitive to operating
+systems, environments, and locales. 
 
 \section{Rely on build tools and package managers for installation.}
 
-Programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build
-to compile code, deploy applications, and automate other tasks.
+To compile code, deploy applications, and automate other tasks, 
+programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
 These tools can also be used to manage runtime environments,
 i.e.,
 to check that the right versions of required packages are installed
 and install or upgrade them if they are not.
+As mentioned in the previous rule,
+a package manager can mitigate some of the difficulties in software reuse.
 
 The same tools can and should be used to manage runtime environments on users' machines as well.
 Accordingly,
-developed should
+developers should
 \textbf{document all dependencies in a machine-readable form}.
 Package managers like apt and yum are available on most Unix-like systems, and
 application package managers exist for specific languages like Python (pip),
@@ -576,6 +543,7 @@ unknown dependencies is to install on a system administered by someone
 else and see what breaks. As use of virtualization containers becomes more
 widespread, software installation can also be tested on a virtual machine or
 container system like Docker.
+
 
 \section{Do not require root or other special privileges.}
 
@@ -686,6 +654,14 @@ scientific software.
 
 \section{Produce identical results when given identical inputs.}
 
+The usage message tells users what the program could do.
+It is equally important for the program to tell users what it actually did.
+Accordingly,
+when the program starts, it should \textbf{echo all parameters and software
+versions to standard out or a log file alongside the results}. This
+feature supports greater reproducibility because any result can be
+replicated with only the previous output files as reference.
+
 Given a set of parameters and a dataset, \textbf{a particular version of a program
 should produce the same results every time it is run}
 to aid testing, debugging, and reproducibility.
@@ -725,20 +701,12 @@ include:
 
 \begin{description}
 
-\item[\textbf{Documentation}] We think it is very important for
-  developers to document their work, but our experience is that people
-  are unlikely do it during normal development, and we don't want to
-  recommend practices that people won't actually adopt. However, it is worth
-  noting that software that is widely used and contributed to has and enforces
-  the need for good documentation~\cite{gentleman2004}.
-  Numerous resources exist for writing high quality
-  documentation~\cite{karimzadeh2016} and so we do not cover it here.
+
 
 \item[\textbf{Services}] The rules we present above are necessary, but
   not sufficient, for software that needs to interact with services
-  such as database and web servers.  Such software is often stopped
-  and started under automatic control, may need to authenticate, etc.,
-  all of which are out of scope of this paper.
+  such as databases and web servers, or coordinates multiple hosts or interfaces, 
+  and is out of scope of this paper.
 
 \end{description}
 
