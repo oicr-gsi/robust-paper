@@ -234,13 +234,24 @@ they cannot be used to verify your results or as a stepping stone for future wor
 
 \rulemajor{Rule 1: Use version control.}
 
-FIXME: placeholder while renumbering.
-
 Our focus in this short guide is on the software that is already built,
-not on the process used to build it.
-However,
-we believe that version control is essential to sustainable software development
+not on the process used to build it,
+but we believe that version control is essential to sustainable software development
 \cite{wilson2014,wilson2016}.
+In particular,
+developers will struggle to understand what they have actually built,
+what it actually does,
+and what they have actually released
+without some mechanical way to keep track of changes.
+They should therefore
+\ruleminor{put everything created manually into version control as soon as it is created},
+including programs, original field observations, and the source files for papers.
+Files that can be regenerated at need,
+such as the binaries for compiled programs or intermediate files generated during data analysis,
+should not be versioned;
+instead,
+it is often more sensible to use an archiving system for them,
+and store the metadata describing their contents in version control instead~\cite{noble2009}.
 
 \rulemajor{Rule 2: Document your code and usage}
 
