@@ -258,14 +258,15 @@ and store the metadata describing their contents in version control instead~\cit
 How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
 and so here we only cover two minimal types: the README and usage. 
 The README is usually available even before the software is installed, 
-and exists
-to get a new user started and point them towards more
+exists
+to get a new user started, and points them towards more
 help. Usage is a terse, informative command-line help message that
 guides the user in the correct use of the software.
 
 Numerous guidelines exist on how to \ruleminor{write a good
-README file}~\cite{Johnson1997,gnustandards}.
-Some key common features are listed below. 
+README file}~\cite{Johnson1997,gnustandards}. 
+At a minimum, your README should:
+ 
 
 \begin{enumerate}
 
@@ -303,7 +304,7 @@ difficult to read or refer to on the fly.
 Almost all command-line applications use a combination of
 POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
 More standard command-line behaviours are detailed in \cite{Seemann2013}.
-The key features of a usage message include:
+Your software's usage should:
 
 \begin{enumerate}
 
@@ -323,9 +324,7 @@ The key features of a usage message include:
 Usage should be 
 printed to standard output so that it can be 
 combined with other bash utilities like \texttt{grep},
-and it should finish with an appropiate exit code
-depending upon whether it is a response to an error,
-or was explicitly requested.
+and it should finish with an appropiate exit code.
 
 Documentation beyond the README and usage is up to the developer's discretion.
 We think it is very important for developers to document their work, but our
