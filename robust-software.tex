@@ -255,117 +255,82 @@ and store the metadata describing their contents in version control instead~\cit
 
 \rulemajor{Rule 2: Document your code and usage}
 
-Numerous resources exist for writing high quality
-documentation~\cite{karimzadeh2016} and so we do not cover it here, except for
-two minimal elements: the README and usage.
-
-The README is the first stop for most new users, usually available even before
-the software is installed.
-At a minimum, it needs to get a new user started and point them towards more
-help, if they need it. Usage is a terse, informative command-line help message that
+How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
+and so here we only cover two minimal types: the README and usage. 
+The README is usually available even before the software is installed, 
+and exists
+to get a new user started and point them towards more
+help. Usage is a terse, informative command-line help message that
 guides the user in the correct use of the software.
 
-Numerous guidelines exist on how to write good
-READMEs\cite{Johnson1997,gnustandards};
-their key common features are listed below. 
-The README file for \withurl{khmer}{https://github.com/dib-lab/khmer/blob/master/README.rst}
-is a good model to emulate.
+Numerous guidelines exist on how to \ruleminor{write a good
+README file}~\cite{Johnson1997,gnustandards}.
+Some key common features are listed below. 
 
+\begin{enumerate}
 
-\begin{description}
-
-\item[\ruleminor{Explain what the software does.}] 
+\item \textit{Explain what the software does}.
 There's nothing more frustrating
 than downloading and installing something only to
 find out that it doesn't do what you thought it did.
 
-\item[\ruleminor{List required dependencies.}] Often, software depends on
-specific versions of libraries, modules, or operating systems. Include the name and
-version number for each dependency or a link to the requirements file. 
+\item \textit{List required dependencies}.
 We address dependencies in more detail in Rule~5.
 
-\item[\ruleminor{Provide compilation/installation instructions:}]
-If the software needs to be compiled
-or installed, list those instructions in the README.
+\item \textit{Provide compilation or installation instructions}.
 
-\item[\ruleminor{List input and output files.}] All possible input and output files
-should be listed in this section. 
-If they use a standard format, link to the specification and
-version. If you extend the standard or have your own format, define it
-explicitly, listing all the required fields and acceptable values.
-If there is no rigorous format, as is common with log files, show at least a
-few lines from an
-example file and explain what the sections mean.
+\item \textit{List all input and output files},
+even those considered self-explanatory. 
+Link to specifications for standard formats
+and list the required fields and acceptable values in other files.
+If there is no rigorous format, explain what the sections mean.
+These files are often full of valuable information that can be
+mined for the user's specific purpose.
 
-\emph{All} files should be listed, even those considered self-explanatory. Log
-files are often full of valuable information that can be
-mined for the user's specific purpose. If your users might need to know,
-``Does this program report the percentage of reads trimmed to remove
-adapter sequences?'' they should be able to check the README and confidently
-say, ``Yes, it is in the log file''.
+\item \textit{List a few example commands} to get a user started quickly.
 
-\item[\ruleminor{State attributions and licensing.}] Attributions are how you credit
-your main contributors; licenses are how others may use and
-credit your work.
-Leave no
-question in anyone's mind about whether your software can be used
-commercially, how much modification is permitted, and how other software
-needs to credit you. If your software is not open source, state that clearly.
-\end{description}
+\item \textit{State attributions and licensing}. Attributions are how you credit
+your contributors; licenses dictate how others may use and
+need to credit your work.
+\end{enumerate}
 
-In addition to a README, a robust program should
-\ruleminor{print usage information when launching from the command line that explains the software's features}.
-Usage information provides the first line of help for both first-time and
-experienced users of command-line applications. Terseness is
-important: usage that extends for multiple screens is 
+The program should also 
+\ruleminor{print usage information} when launching from the command line.
+Usage provides the first line of help for both new and experienced users. 
+Terseness is important: usage that extends for multiple screens is 
 difficult to read or refer to on the fly.
-
-Usage is invoked either by running the software without
-any arguments, running it with incorrect arguments, or by
-explicitly choosing a help option.
-More standard command-line behaviours are detailed in \cite{Seemann2013}.
 
 Almost all command-line applications use a combination of
 POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
-The key features of a usage message are:
+More standard command-line behaviours are detailed in \cite{Seemann2013}.
+The key features of a usage message include:
 
-\begin{description}
+\begin{enumerate}
 
-\item[\ruleminor{The syntax for running the program}] This includes the
-  name of the program and defines the relative location of optional
-  and required flags, arguments and values for execution.  Arguments
-  in {[}square brackets{]} are usually optional. An ellipsis (\ldots
-  e.g. ``{[}OPTION{]}\ldots{}'') indicates that more than one value
-  can be provided.
+\item \textit{Describe the syntax for running the program}, including the
+  name of the program, the relative location of optional
+  and required flags, other arguments, and values for execution.
 
-\item[\ruleminor{Primary function}] Similar to the README, the description
-  reminds users of the software's primary function.
+\item \textit{Give a short description} to remind users of the software's primary function.
 
-\item[\ruleminor{Most commonly used arguments, a description of each, and
-    the default values}] Not all arguments need to appear in the
-  usage, but those most commonly used should be listed. Users will
-  rely on this for quick reference when working with the software.
+\item \textit{List the most commonly used arguments}, a description of each, and
+    the default values.
 
-\item[\ruleminor{Where to find more information}] Whether it's an email
-  address, web site, or manual page, there should be an indication
-  where the user can go to find out more.
+\item \textit{State where to find more information}.
 
-\item[\ruleminor{Printed to standard output}] Usage should be displayed
-  on standard output so that it can be piped into \texttt{less},
-  searched with \texttt{grep}, or compared to the previous version
-  with \texttt{diff}.
+\end{enumerate}
 
-\item[\ruleminor{Exit with an appropriate exit code}] When usage is
-  invoked by providing incorrect arguments, the program should exit
-  with a non-zero code to indicate an error. However, when help is
-  explicitly requested, the software should not exit with an error.
-
-\end{description}
+Usage should be 
+printed to standard output so that it can be 
+combined with other bash utilities like \texttt{grep},
+and it should finish with an appropiate exit code
+depending upon whether it is a response to an error,
+or was explicitly requested.
 
 Documentation beyond the README and usage is up to the developer's discretion.
 We think it is very important for developers to document their work, but our
-experience is that people are unlikely do it during normal development, and we
-don’t want to recommend practices that people won’t actually adopt. However, it
+experience is that people are unlikely do it during normal development
+However, it
 is worth noting that software that is widely used and contributed to has and
 enforces the need for good documentation~\cite{gentleman2004}.
 
