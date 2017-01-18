@@ -164,14 +164,14 @@ hack the existing code to make it work, or start over.
 
 Being unable to
 replicate results is so common that one publication refers to it as ``a rite of
-passage''~\cite{baker2016}. 
+passage''~\cite{baker2016}.
 The root cause of this problem is that most research software
-is essentially a prototype, and therefore is not 
+is essentially a prototype, and therefore is not
 \emph{robust}. The lack of
 robustness in published, distributed software
 leads to duplicated efforts with little practical benefit,
-which slows the pace of research~\cite{prabhu2011,lawlor2015}. 
-Not all software needs to be robust enough to run for other 
+which slows the pace of research~\cite{prabhu2011,lawlor2015}.
+Not all software needs to be robust enough to run for other
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
 hundreds of tools to perform the same task:
 for example,
@@ -181,7 +181,7 @@ Some of these tools are legitimate efforts to improve the state-of-the-art, but
 often they are difficult to install and run~\cite{stajich2002,Seemann2013}, and are effectively abandoned
 after publication~\cite{nekrutenko2012}.
 
-This problem is not unique to bioinformatics, or even to computing~\cite{baker2016}. 
+This problem is not unique to bioinformatics, or even to computing~\cite{baker2016}.
 Best practices in software engineering specifically aim to increase software
 robustness. However, most bioinformaticians learn what they know about software development
 on the job or otherwise informally~\cite{prins2015,atwood2015}.
@@ -226,11 +226,11 @@ More specifically, we mean that:
 \end{itemize}
 
 Our rules are generic and can be applied to all languages, libraries, packages,
-documentation styles, and operating systems for both closed-source and open-source software.  
+documentation styles, and operating systems for both closed-source and open-source software. 
 They are also necessary steps toward making computational research replicable and reproducible:
 after all,
 if your tools and libraries cannot be run by others,
-they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}. 
+they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}.
 
 \rulemajor{Rule 1: Use version control.}
 
@@ -256,17 +256,16 @@ and store the metadata describing their contents in version control instead~\cit
 \rulemajor{Rule 2: Document your code and usage}
 
 How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
-and so here we only cover two minimal types: the README and usage. 
-The README is usually available even before the software is installed, 
+and so here we only cover two minimal types: the README and usage.
+The README is usually available even before the software is installed,
 exists
 to get a new user started, and points them towards more
 help. Usage is a terse, informative command-line help message that
 guides the user in the correct use of the software.
 
 Numerous guidelines exist on how to \ruleminor{write a good
-README file}~\cite{Johnson1997,gnustandards}. 
+README file}~\cite{Johnson1997,gnustandards}.
 At a minimum, your README should:
- 
 
 \begin{enumerate}
 
@@ -281,7 +280,7 @@ We address dependencies in more detail in Rule~5.
 \item \textit{Provide compilation or installation instructions}.
 
 \item \textit{List all input and output files},
-even those considered self-explanatory. 
+even those considered self-explanatory.
 Link to specifications for standard formats
 and list the required fields and acceptable values in other files.
 If there is no rigorous format, explain what the sections mean.
@@ -295,14 +294,14 @@ your contributors; licenses dictate how others may use and
 need to credit your work.
 \end{enumerate}
 
-The program should also 
+The program should also
 \ruleminor{print usage information} when launching from the command line.
-Usage provides the first line of help for both new and experienced users. 
-Terseness is important: usage that extends for multiple screens is 
+Usage provides the first line of help for both new and experienced users.
+Terseness is important: usage that extends for multiple screens is
 difficult to read or refer to on the fly.
 
 Almost all command-line applications use a combination of
-POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage. 
+POSIX~\cite{posix2016} and GNU~\cite{gnustandards} standards for usage.
 More standard command-line behaviours are detailed in \cite{Seemann2013}.
 Your software's usage should:
 
@@ -321,8 +320,8 @@ Your software's usage should:
 
 \end{enumerate}
 
-Usage should be 
-printed to standard output so that it can be 
+Usage should be
+printed to standard output so that it can be
 combined with other bash utilities like \texttt{grep},
 and it should finish with an appropiate exit code.
 
@@ -352,7 +351,7 @@ alternatives such as compressing results,
 use a variant algorithm,
 or verbose output.
 
-\ruleminor{Check that all input values are in a reasonable range at startup}. 
+\ruleminor{Check that all input values are in a reasonable range at startup}.
 Few things are as annoying as having a program announce after running for two
 hours that it isn't going to save its results because the requested directory
 doesn't exist.
@@ -374,7 +373,7 @@ or provided on the command line as an additional argument.
 Configuration files are often created during installation
 to set up such things as server names,
 network drives,
-and other defaults for your lab or institution. 
+and other defaults for your lab or institution.
 
 \rulemajor{Rule 4: Version your releases.}
 
@@ -382,10 +381,10 @@ Software evolves over time, with developers adding or removing features as need
 dictates. Making official releases stamps a particular set of features with a
 project-specific identifier so that version can be retrieved for later use. For
 example, if a paper is published, the software should be released at the same
-time so that the results can be reproduced. 
+time so that the results can be reproduced.
 
 Most software has a version number composed of a decimal number that
-increments as new versions are released. 
+increments as new versions are released.
 There are many different ways
 to construct and interpret this number, but most importantly for us, a
 particular software version run with the same parameters should give
@@ -409,7 +408,7 @@ for applications that are
 not yet stable or released, and \texttt{-RC} for release candidates prior
 to an official release.
 
-\ruleminor{The version of your software should be easily available by 
+\ruleminor{The version of your software should be easily available by
 supplying \texttt{-\/-version} or \texttt{-v} on the command line}. This command should print
 the software name and version number, and it should
 also be \ruleminor{included in all of the program's output}, particularly debugging
@@ -432,7 +431,7 @@ best suits the number and expertise of users you anticipate.
 \rulemajor{Rule 5: Reuse software (within reason).}
 
 In the spirit of code reuse and interoperability, developers often want
-to reuse software written by others. 
+to reuse software written by others.
 With a few lines, a call
 is made out to another library or program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
@@ -452,7 +451,7 @@ services.
 Despite these problems, software developers in research should
 re-use existing software provided a few guidelines are adhered to.
 
-First, 
+First,
 \ruleminor{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
 it may not be worth the pain of integration. Reuse software that offers some
@@ -472,11 +471,11 @@ available from a stable location or repository using your package manager.
 
 Exercise caution especially when transitioning across languages or using
 separate executables, as they tend to be especially sensitive to operating
-systems, environments, and locales. 
+systems, environments, and locales.
 
 \rulemajor{Rule 6: Rely on build tools and package managers for installation.}
 
-To compile code, deploy applications, and automate other tasks, 
+To compile code, deploy applications, and automate other tasks,
 programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
 These tools can also be used to manage runtime environments,
 i.e.,
@@ -506,7 +505,7 @@ python-social-auth>=0.2.19,<0.3
 \end{verbatim}
 
 This file can be read by the pip package manager, which can check that the
-required software is available and install it if it is not. 
+required software is available and install it if it is not.
 Whatever is used,
 developers should \emph{always} install dependencies
 using their dependency description, especially on their personal machines, so that
@@ -520,7 +519,6 @@ unknown dependencies is to install on a system administered by someone
 else and see what breaks. As use of virtualization containers becomes more
 widespread, software installation can also be tested on a virtual machine or
 container system like Docker.
-
 
 \rulemajor{Rule 7: Do not require root or other special privileges to install or run.}
 
@@ -560,7 +558,7 @@ setting things up as root.
 
 Testing the ability to install software has traditionally been regarded as difficult,
 since it necessarily alters the machine on which the test is conducted.
-Lightweight virtualization containers like Docker make this much easier as well, 
+Lightweight virtualization containers like Docker make this much easier as well,
 or simply \ruleminor{ask another person to try and build your software before releasing it}.
 
 \rulemajor{Rule 8: Eliminate hard-coded paths.}
@@ -605,9 +603,9 @@ is working correctly (although that is extremely helpful), but also to
 ensure that it works at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, \ruleminor{make the test script easy to find and run}. 
+In order to be useful, \ruleminor{make the test script easy to find and run}.
 Many build systems will also run unit tests if provided them at compile time.
-If the build system is not amenable to testing, a 
+If the build system is not amenable to testing, a
 single file in the project's root directory named \texttt{runtests.sh}
 or something equally obvious is a much better solution than documenting
 test cases and requiring people to copy and paste them.
@@ -666,7 +664,7 @@ approximate random numbers. Setting the seed to a consistent value
 can remove randomness between runs. \ruleminor{Allow the user to optionally provide
 the random seed as an input parameter}, thus rendering the program deterministic
 for those cases where it matters. If the seed is set internally (e.g.,
-using clock time), echo it to the output for re-use later. 
+using clock time), echo it to the output for re-use later.
 If setting the seed is not possible, \ruleminor{make sure the acceptable tolerance is
 known and detailed in documentation and in the tests}.
 

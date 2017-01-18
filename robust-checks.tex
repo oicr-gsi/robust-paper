@@ -126,20 +126,11 @@
 
 \begin{easylist}[checklist]
 & Use version control.
+&& Put everything created manually into version control as soon as it is created.
 
-& Document your code and usage
-&& Explain what the software does.
-&& List required dependencies.
-&& Provide compilation/installation instructions.
-&& List input and output files.
-&& State attributions and licensing.
-&& Print usage information when launching from the command line.
-&& Desribe the syntax for running the program.
-&& Explain the software's primary function.
-&& Describe the most commonly used arguments, with a description of each and default values.
-&& Tell users where to find more information.
-&& Print to standard output.
-&& Exit with an appropriate exit code
+& Document your code and usage.
+&& Write a good README file.
+&& Print usage information.
 
 & Make common operations easy to control.
 && Allow the most commonly changed parameters to be configured from the command line.
@@ -149,12 +140,12 @@
 
 & Version your releases.
 && Increment your version number every time you release your software to other people.
-&& Print the version number when given the appropriate flag.
-&& Include the version number in all of the program's output.
+&& Make the version of your software easily available by supplying \texttt{-\/-version} or \texttt{-v} on the command line.
+&& Include the version number in in all of the program's output.
 && Ensure that old released versions continue to be available.
 
 & Reuse software (within reason).
-&& Make sure that you really need auxiliary programs.
+&& Make sure that you really need the auxiliary program.
 && Ensure the appropriate software and version is available.
 && Ensure that reused software is robust.
 
@@ -163,7 +154,7 @@
 && Avoid depending on scripts and tools which are not available as packages.
 
 & Do not require root or other special privileges to install or run.
-&& Packages should not require root privileges to set up or use.
+&& Do not require root privileges to set up or use packages.
 && Allow packages to be installed in an arbitrary location.
 && Ask another person to try and build your software before releasing it.
 
@@ -177,9 +168,9 @@
 
 & Produce identical results when given identical inputs.
 && Echo all parameters and software versions to standard out or a log file alongside the results.
-&& A particular version of a program should produce the same results every time it is run.
+&& Produce the same results each time the same version of the program is run with the same inputs.
 && Allow the user to optionally provide the random seed as an input parameter.
-&& Make sure the acceptable tolerance is known and detailed in documentation and in the tests.
+&& Make sure acceptable tolerances are known and detailed in documentation and tests.
 
 \end{easylist}
 
