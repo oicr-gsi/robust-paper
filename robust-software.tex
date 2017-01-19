@@ -253,6 +253,23 @@ instead,
 it is often more sensible to use an archiving system for them,
 and store the metadata describing their contents in version control instead~\cite{noble2009}.
 
+If you are new to version control,
+it is simplest to treat it as ``a better \withurl{Dropbox}{http://dropbox.com}''
+(or, if you are of a certain age, a better FTP),
+and to use it simply to synchronize files between multiple developers and machines.
+Once you are comfortable working that way,
+you should \ruleminor{use a feature branch workflow}:
+designate one parallel copy (or ``branch'') of the repository as the master,
+and create a new branch from it each time you want to fix a bug or add a new feature.
+This allows work on independent changes to proceed in isolation;
+once the work has been completed and tested,
+it can be merged into the master branch for release.
+
+We also recommend that you \ruleminor{tag your releases}.
+A ``tag'' is a label that marks a particular revision in a repository's history.
+Adding such labels makes it much easier to find desired revisions at a later date,
+and also makes it clear exactly what was released.
+
 \rulemajor{Rule 2: Document your code and usage}
 
 How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
