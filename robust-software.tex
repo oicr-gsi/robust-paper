@@ -171,9 +171,10 @@ is essentially a prototype, and therefore is not
 robustness in published, distributed software
 leads to duplicated efforts with little practical benefit,
 which slows the pace of research~\cite{prabhu2011,lawlor2015}.
-Not all software needs to be robust enough to run for other
+Not all software needs to be robust enough to run for other people,
+but software that is published and distributed to the community should be.
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
-hundreds of tools to perform the same task:
+hundreds of tools that perform similar tasks:
 for example,
 in 2016 the Bioinformatics Links Directory included 84 different multiple sequence aligners, 141 tools
 to analyze transcript expression, and 182 pathway and interaction resources.
@@ -234,9 +235,7 @@ they cannot be used to verify your results or as a stepping stone for future wor
 
 \rulemajor{Rule 1: Use version control.}
 
-Our focus in this short guide is on the software that is already built,
-not on the process used to build it,
-but we believe that version control is essential to sustainable software development
+Version control is essential to sustainable software development
 \cite{wilson2014,wilson2016}.
 In particular,
 developers will struggle to understand what they have actually built,
@@ -256,7 +255,7 @@ and store the metadata describing their contents in version control instead~\cit
 If you are new to version control,
 it is simplest to treat it as ``a better \withurl{Dropbox}{http://dropbox.com}''
 (or, if you are of a certain age, a better FTP),
-and to use it simply to synchronize files between multiple developers and machines.
+and to use it simply to synchronize files between multiple developers and machines~\cite{blischak2016}.
 Once you are comfortable working that way,
 you should \ruleminor{use a feature branch workflow}:
 designate one parallel copy (or ``branch'') of the repository as the master,
@@ -264,11 +263,6 @@ and create a new branch from it each time you want to fix a bug or add a new fea
 This allows work on independent changes to proceed in isolation;
 once the work has been completed and tested,
 it can be merged into the master branch for release.
-
-We also recommend that you \ruleminor{tag your releases}.
-A ``tag'' is a label that marks a particular revision in a repository's history.
-Adding such labels makes it much easier to find desired revisions at a later date,
-and also makes it clear exactly what was released.
 
 \rulemajor{Rule 2: Document your code and usage}
 
@@ -445,7 +439,7 @@ code on Bitbucket or GitHub, to depositing into a
 repository like apt, yum, homebrew, CPAN, etc. Choose the method that
 best suits the number and expertise of users you anticipate.
 
-\rulemajor{Rule 5: Reuse software (within reason).}
+\rulemajor{Rule 5: Reuse software (within reason)}
 
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others.
@@ -624,8 +618,12 @@ In order to be useful, \ruleminor{make the test script easy to find and run}.
 Many build systems will also run unit tests if provided them at compile time.
 If the build system is not amenable to testing, a
 single file in the project's root directory named \texttt{runtests.sh}
-or something equally obvious is a much better solution than documenting
-test cases and requiring people to copy and paste them.
+or something equally obvious is a 
+good solution that lets new users build their analysis from a working script.
+For example, with its distribution, 
+HISAT2 includes a full set of very small files,
+and a 'Getting Started with HISAT2' section in its manual 
+that leads you through the entire data lifecycle~\cite{pertea2016}.
 
 Equally, \ruleminor{make the test script's output easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
