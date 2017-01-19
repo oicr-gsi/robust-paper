@@ -28,8 +28,7 @@
 > 
 > I am not sure of the best name for the property the authors are aiming at, but it seems some combination of robustness, maintainability, quality, predictability - essentially better software.
 
-Thanks for the feedback. We have clarified and condensed our definition of 'robust' software in the introduction, in particular removing the reference to version control.
-
+Thanks for the feedback. We have clarified and condensed our definition of 'robust' software in the introduction, and have made version control a full rule.
 
 >     Documentation and maintainability.
 > 
@@ -42,7 +41,7 @@ Thanks for the feedback. We have clarified and condensed our definition of 'robu
 a> uthor. If software does not have adequate documentation, it will be
 > harder to maintain (either by the original author or by others).
 
-We've promoted documentation to a full rule (rule #1 in fact).
+We've promoted documentation to a full rule.
 
 >    Good software development practice
 > 
@@ -64,8 +63,7 @@ We've promoted documentation to a full rule (rule #1 in fact).
 > good software engineering practice deserves to be a rule, or at least
 > called out.
 
- We've added a paragraph to the introduction to mention code quality, maintainability, unit tests, and version control as important but out of scope.
-
+We've added a paragraph to the introduction to mention code quality, maintainability, unit tests, and version control as important but out of scope.
 
 > Reproducibility
 > 
