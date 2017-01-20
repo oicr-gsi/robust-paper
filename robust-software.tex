@@ -54,9 +54,6 @@
 
 \usepackage{color}
 
-\newenvironment{reviewed}
-{ \color{orange} }
-
 % Remove comment for double spacing
 %\usepackage{setspace}
 %\doublespacing
@@ -103,7 +100,7 @@
 \newcommand{\withurl}[2]{{#1}\footnote{\texttt{#2}}}
 \newcommand{\rulemajor}[1]{\section{#1}}
 \newcommand{\ruleminor}[1]{\textbf{#1}}
-
+\newcommand{\reviewed}[1]{{\color{black}#1}}
 \begin{document}
 \vspace*{0.2in}
 
@@ -166,13 +163,11 @@ Being unable to
 replicate results is so common that one publication refers to it as ``a rite of
 passage''~\cite{baker2016}.
 The root cause of this problem is that most research software
-is essentially a prototype, and therefore is not
+\reviewed{ is essentially a prototype, and therefore is not
 \emph{robust}. The lack of
 robustness in published, distributed software
-leads to duplicated efforts with little practical benefit,
+leads to duplicated efforts with little practical benefit,}
 which slows the pace of research~\cite{prabhu2011,lawlor2015}.
-Not all software needs to be robust enough to run for other people,
-but software that is published and distributed to the community should be.
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
 hundreds of tools that perform similar tasks:
 for example,
@@ -204,16 +199,17 @@ some of the best, most reliable pieces of software in many scientific
 communities are written by researchers~\cite{prabhu2011,sanders2008}
 who have adopted strong software
 engineering approaches, have high standards of reproducibility, use good testing
-practices, and foster strong user
-bases through constantly evolving, clearly documented, useful, and useable software.
+practices, and foster 
+\reviewed{strong user
+bases through constantly evolving, clearly documented, useful, and useable software.}
 In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
-Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
+\reviewed{Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
 publish a paper about your software, it should, at minimum, satisfy these
-rules.
+rules.}
 
 So what \emph{is} ``robust'' software?
-We implied above that it is software that works for people other than the original author,
+\reviewed{We implied above that it is software that works for people other than the original author,
 on machines other than its creator's.
 More specifically, we mean that:
 
@@ -231,9 +227,9 @@ documentation styles, and operating systems for both closed-source and open-sour
 They are also necessary steps toward making computational research replicable and reproducible:
 after all,
 if your tools and libraries cannot be run by others,
-they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}.
+they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}.}
 
-\rulemajor{Rule 1: Use version control.}
+\reviewed{\rulemajor{Rule 1: Use version control.}
 
 Version control is essential to sustainable software development
 \cite{wilson2014,wilson2016}.
@@ -262,9 +258,9 @@ designate one parallel copy (or ``branch'') of the repository as the master,
 and create a new branch from it each time you want to fix a bug or add a new feature.
 This allows work on independent changes to proceed in isolation;
 once the work has been completed and tested,
-it can be merged into the master branch for release.
+it can be merged into the master branch for release.}
 
-\rulemajor{Rule 2: Document your code and usage}
+\reviewed{\rulemajor{Rule 2: Document your code and usage}
 
 How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
 and so here we only cover two minimal types: the README and usage.
@@ -298,7 +294,7 @@ If there is no rigorous format, explain what the sections mean.
 These files are often full of valuable information that can be
 mined for the user's specific purpose.
 
-\item \textit{List a few example commands} to get a user started quickly.
+\reviewed{\item \textit{List a few example commands} to get a user started quickly.}
 
 \item \textit{State attributions and licensing}. Attributions are how you credit
 your contributors; licenses dictate how others may use and
@@ -341,7 +337,7 @@ We think it is very important for developers to document their work, but our
 experience is that people are unlikely do it during normal development
 However, it
 is worth noting that software that is widely used and contributed to has and
-enforces the need for good documentation~\cite{gentleman2004}.
+enforces the need for good documentation~\cite{gentleman2004}.}
 
 \rulemajor{Rule 3: Make common operations easy to control.}
 
@@ -444,20 +440,21 @@ best suits the number and expertise of users you anticipate.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others.
 With a few lines, a call
-is made out to another library or program and the results are incorporated into the
+is made out to \reviewed{another library or program} and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
 needs to be maintained and leverages the work done by the other software.
 
-Unfortunately, reusing software (whether software libraries or separate executables)
+Unfortunately, reusing software \reviewed{(whether software libraries or separate executables)}
 introduces dependencies, which can
 bring their own special pain. The interface between two software
 packages can be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
-other project due to incompatible libraries, versions, or operating
+other project 
+\reviewed{due to incompatible libraries, versions, or operating
 systems~\cite{brown2013}. Even introducing libraries in the same programming
 language can rely on software installed in the environment, and the problem
 becomes much more difficult when relying on executables, or even on web
-services.
+services.}
 
 Despite these problems, software developers in research should
 re-use existing software provided a few guidelines are adhered to.
@@ -465,12 +462,13 @@ re-use existing software provided a few guidelines are adhered to.
 First,
 \ruleminor{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration. Reuse software that offers some
-measurable improvement to your project.
+it may not be worth the pain of integration. \reviewed{Reuse software that offers some
+measurable improvement to your project.}
 
-Second, if launching an executable, \ruleminor{ensure the appropriate software and version is available}.
+Second, \reviewed{if launching an executable,}
+\ruleminor{ensure the appropriate software and version is available}.
 Either allow the user to
-configure the exact path to the package, distribute the program with the
+configure the exact path to the package, \reviewed{distribute the program with the
 dependent software, or download it during installation using your
 package manager. If the executable requires internet access, check for that
 early in execution.
@@ -482,18 +480,18 @@ available from a stable location or repository using your package manager.
 
 Exercise caution especially when transitioning across languages or using
 separate executables, as they tend to be especially sensitive to operating
-systems, environments, and locales.
+systems, environments, and locales.}
 
 \rulemajor{Rule 6: Rely on build tools and package managers for installation.}
 
-To compile code, deploy applications, and automate other tasks,
+\reviewed{To compile code, deploy applications, and automate other tasks,
 programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
 These tools can also be used to manage runtime environments,
 i.e.,
 to check that the right versions of required packages are installed
 and install or upgrade them if they are not.
 As mentioned in Rule~5,
-a package manager can mitigate some of the difficulties in software reuse.
+a package manager can mitigate some of the difficulties in software reuse.}
 
 The same tools can and should be used to manage runtime environments on users' machines as well.
 Accordingly,
@@ -608,22 +606,24 @@ strikes a good balance between adaptability and consistency.
 
 \rulemajor{Rule 9: Include a small test set that can be run to ensure the software is actually working.}
 
-Every package should come with a small test script for users to run
+Every package should come with a set of tests for users to run
 after installation. Its purpose is not only to check that the software
 is working correctly (although that is extremely helpful), but also to
 ensure that it works at all. This test script can also serve as a
 working example of how to run the software.
 
-In order to be useful, \ruleminor{make the test script easy to find and run}.
+In order to be useful, \ruleminor{make the tests easy to find and run}.
 Many build systems will also run unit tests if provided them at compile time.
-If the build system is not amenable to testing, a
-single file in the project's root directory named \texttt{runtests.sh}
-or something equally obvious is a 
-good solution that lets new users build their analysis from a working script.
+\reviewed{For users, or
+if the build system is not amenable to testing, 
+provide a working script
+in the project's root directory named \texttt{runtests.sh}
+or something equally obvious. 
+This lets new users build their analysis from a working script.
 For example, with its distribution, 
 HISAT2 includes a full set of very small files,
 and a 'Getting Started with HISAT2' section in its manual 
-that leads you through the entire data lifecycle~\cite{pertea2016}.
+that leads you through the entire data lifecycle~\cite{pertea2016}.}
 
 Equally, \ruleminor{make the test script's output easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
@@ -644,13 +644,13 @@ scientific software.
 
 \rulemajor{Rule 10: Produce identical results when given identical inputs.}
 
-The usage message tells users what the program could do.
+\reviewed{The usage message tells users what the program could do.
 It is equally important for the program to tell users what it actually did.
 Accordingly,
 when the program starts, it should \ruleminor{echo all parameters and software
 versions to standard out or a log file alongside the results}. This
 feature supports greater reproducibility because any result can be
-replicated with only the previous output files as reference.
+replicated with only the previous output files as reference.}
 
 Given a set of parameters and a dataset, \ruleminor{a particular version of a program
 should produce the same results every time it is run}
