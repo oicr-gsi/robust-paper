@@ -1,3 +1,12 @@
+Dear Editor and Reviewers,
+
+Please find attached our revised paper for "Ten Simple Rules for Making Research Software More Robust". We have taken all reviewer comments into account in this revision and have produced a stronger paper. Each of the reviewer's concerns is addressed in-line below. Attached is also a version of the document with changes highlighted in orange.
+
+Thank you and best regards,
+
+Greg Wilson & Morgan Taschuk
+
+
 > Reviewer 1
 > 
 > This manuscript provides rules aimed at novice programmers to help
@@ -12,7 +21,7 @@
 
 >  Robustness
 >
->The rules are framed in terms of increasing robustness.
+> The rules are framed in terms of increasing robustness.
 >
 > The piece starts out defining robustness in terms of portability,
 > specifically outside the programmer's own environment - but then goes
@@ -30,7 +39,7 @@
 
 Thanks for the feedback. We have clarified and condensed our definition of 'robust' software in the introduction, and have made version control a full rule.
 
->     Documentation and maintainability.
+> Documentation and maintainability.
 > 
 > I find the relegation of documentation to an additional note rather
 > than a rule surprising. It's also telling the authors don't call out
@@ -38,10 +47,10 @@ Thanks for the feedback. We have clarified and condensed our definition of 'robu
 > conclusions). If software is not thrown away, it frequently needs to
 > be updated - e.g. to accomodate changes in input file types. This
 > maintenance task often falls on people who are not the original
-a> uthor. If software does not have adequate documentation, it will be
+> author. If software does not have adequate documentation, it will be
 > harder to maintain (either by the original author or by others).
 
-We've promoted documentation to a full rule.
+We've promoted documentation to a full rule by merging the README and Usage rules into one and explicitly mentioning other types of documentation with appropriate references.
 
 >    Good software development practice
 > 
@@ -63,7 +72,7 @@ We've promoted documentation to a full rule.
 > good software engineering practice deserves to be a rule, or at least
 > called out.
 
-We've added a paragraph to the introduction to mention code quality, maintainability, unit tests, and version control as important but out of scope.
+Thanks for the feedback. We are focusing mostly on software that is preparing to be published or otherwise distributed, and so discussing the details of program flow and execution are out of scope. We do mention other good software engineering practices, such as source control, testing, and versioning as an introductory taste of software engineering.
 
 > Reproducibility
 > 
@@ -108,7 +117,7 @@ We consider usage to be part of the documentation, but a section of this rule re
 > public releases (which is important) but also as a matter of good
 > practice even for software not intended to be released.
 
-We think it's important too, but it's a tough sell in some crowds. We've added a reference to another educational article, "A Quick Introduction to Version Control with Git and GitHub".
+We think it's important too, but it's a tough sell in some crowds. Version control is its own rule now, and we've added a reference to another educational article, "A Quick Introduction to Version Control with Git and GitHub".
 
 > Reuse software
 > 
@@ -126,7 +135,7 @@ We think it's important too, but it's a tough sell in some crowds. We've added a
 > I think general advice to 'take care when calling external programs'
 > may be more appropriate.
 
-We've re-written this section more mindful of the package manager rule to follow and more explicitly pushing back against using external executables and services.
+We've re-written this section more mindful of the package manager rule to follow and more explicitly pushing back against using external executables and services. We also include web services now for consideration.
 
 > built utility / package manager
 > 
@@ -144,8 +153,8 @@ We believe we have addressed the discrepencies between these two rules with our 
 > I certainly wouldn't contradict this but I wonder why it's called
 > out. There are many possible inadvisable things we've all seen in years of programming, but maybe this could be combined with advice about running external programs (4) or making the software runnable outside a default user environment (7)
 
-(Greg, you have something for this? My motivation is painful experience.)
-..................
+With the increasing torrent of 'big data', more and more calculations are outsourced into high performance compute clusters or cloud environments. When spawning jobs across tens to thousands of machines that may or may not share any storage, and likely only gives their users privileges in their own space, a requirement for needing root to install a package severely limits its reuse and distribution. Other people without administrative access to their machines are also cut off from using such software. Mostly, we've been bitten by this often enough to feel strongly that it should be its own rule. 
+
 
 > Eliminate hard-coded paths
 > 
@@ -156,9 +165,6 @@ We believe we have addressed the discrepencies between these two rules with our 
 > Configuration from command line
 > 
 > Good advice, but could be combined with 7, as they are both about configuration.
-
-................
-
 > Include a small test set
 > 
 > Good advice, but there is no advice about including software unit
@@ -181,9 +187,6 @@ If you call external services, then according to the (new!) guideline in "Reuse 
 
 In addition, software that doesn't produce identical results is much more difficult to test. Depending on the amount of variation, it can be nearly impossible.
 
-..................
-(Greg, any other changes you want to make here?)
-
 > What we left out
 > 
 > As mentioned above, documentation is important, and some of the
@@ -194,7 +197,7 @@ We merged all mentions of documentation into the first rule.
 > For services, I am not sure why authentication is mentioned, even in
 > passing. It doesn't really pertain to robustness per se.
 
-This reference has been removed.
+With the other changes, this section has been removed.
 
 
 > Reviewer 3
@@ -205,8 +208,7 @@ This reference has been removed.
 > 
 > I recommend the publication of this paper but would request the addition or additional emphasis on one point which is not called out as a rule but which is mentioned in passing in several places within the paper. In particular I am referring to the recommendation to put all software into a source control system. As this is an opinion paper, I do not think this is a necessary change for publication (in my opinion it’s a vital rule, that is just my opinion) but it is referenced in several places and in particular the author’s definition of “robust software” includes “...is kept under version control”. As this is an issue frequently ignored or addressed “too late” by graduate students I would like to see this get additional emphasis, even if it is not promoted to being a full rule.
 
-..............
-
+We added Rule #1, which is version control.
 
 > The remainder of my comments are meant to provide (hopefully) useful feedback to the authors in the line of suggestions that may enhance the manuscript.
 > 
@@ -220,15 +222,15 @@ We reviewed all the sections you mentioned. In general, we believe that most of 
 
 > For example rule 8 combines putting parameters on the command line with echoing all parameters to the log file to support reproducibility and provenance. 
 
-................
+We've moved these recommendations around so that they fit better into their major rule than they did before.
 
 > Similarly rule 5 covers both automating the build process and automating the deployment and installation. 
 
-..............
+We've clarified this section to focus mostly on build automation and dependency acquisition.
 
 > Rule 4 also tends to stuff multiple rules (bolded) into one rule (( limit dependencies, ensure dependencies are available) these 2 are closely related), with “ use native functions” which is a very different idea and not what I would expect from a ‘reuse’ rule. 
 
-We removed this last 'native functions' rule and replaced it with something more appropriate.
+We removed this last 'native functions' rule and replaced it with a more appropriate discussion of robust dependencies.
 
 > Finally the ‘What we left out’ section implicitly defines an additional rule (documentation). In this particular case there could have been a single rule (Document your code and usage) that could encompass the points of both Rules 1 and 2 (Readme, usage) as well as the points from ‘What we left out’.
 
@@ -236,4 +238,8 @@ We combined all mentions of documentation into a single rule.
 
 > In rule 8, I would tend to suggest generalizing the rule somewhat to suggest externalizing parameters rather than necessarily requiring them to be available as command line options. For example if a configuration file is used to provide all parameter values, this could accomplish the task of separating the parameters out from the code as well as providing a record of the values used for a run as they describe through echoing parameters to a log file.
 
-....
+This section has been re-written to take your concerns into account.
+
+---
+
+Thank you again for your time and effort.
