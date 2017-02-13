@@ -100,7 +100,6 @@
 \newcommand{\withurl}[2]{{#1}\footnote{\texttt{#2}}}
 \newcommand{\rulemajor}[1]{\section{#1}}
 \newcommand{\ruleminor}[1]{\textbf{#1}}
-\newcommand{\reviewed}[1]{{\color{black}#1}}
 \begin{document}
 \vspace*{0.2in}
 
@@ -141,7 +140,7 @@ between ``works for me on my machine'' and ``works for other people on theirs''.
 Many common challenges can be avoided by following a few simple rules; doing so
 not only improves reproducibility, but can accelerate research.
 
-\linenumbers
+% \linenumbers
 
 \section*{Introduction}
 
@@ -163,10 +162,10 @@ Being unable to
 replicate results is so common that one publication refers to it as ``a rite of
 passage''~\cite{baker2016}.
 The root cause of this problem is that most research software
-\reviewed{ is essentially a prototype, and therefore is not
+is essentially a prototype, and therefore is not
 \emph{robust}. The lack of
 robustness in published, distributed software
-leads to duplicated efforts with little practical benefit,}
+leads to duplicated efforts with little practical benefit,
 which slows the pace of research~\cite{prabhu2011,lawlor2015}.
 Bioinformatics software repositories \cite{ison2016,brazas2012} catalogue dozens to
 hundreds of tools that perform similar tasks:
@@ -200,16 +199,16 @@ communities are written by researchers~\cite{prabhu2011,sanders2008}
 who have adopted strong software
 engineering approaches, have high standards of reproducibility, use good testing
 practices, and foster 
-\reviewed{strong user
-bases through constantly evolving, clearly documented, useful, and useable software.}
+strong user
+bases through constantly evolving, clearly documented, useful, and useable software.
 In the bioinformatics community, Bioconductor and Galaxy follow this
 path~\cite{gentleman2004,afgan2016}.
-\reviewed{Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
+Not all scientific software needs to be robust~\cite{varoquaux2015}, but if you
 publish a paper about your software, it should, at minimum, satisfy these
-rules.}
+rules.
 
 So what \emph{is} ``robust'' software?
-\reviewed{We implied above that it is software that works for people other than the original author,
+We implied above that it is software that works for people other than the original author,
 on machines other than its creator's.
 More specifically, we mean that:
 
@@ -227,9 +226,9 @@ documentation styles, and operating systems for both closed-source and open-sour
 They are also necessary steps toward making computational research replicable and reproducible:
 after all,
 if your tools and libraries cannot be run by others,
-they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}.}
+they cannot be used to verify your results or as a stepping stone for future work~\cite{brown2013}.
 
-\reviewed{\rulemajor{Rule 1: Use version control.}
+\rulemajor{Rule 1: Use version control.}
 
 Version control is essential to sustainable software development
 \cite{wilson2014,wilson2016}.
@@ -258,9 +257,9 @@ designate one parallel copy (or ``branch'') of the repository as the master,
 and create a new branch from it each time you want to fix a bug or add a new feature.
 This allows work on independent changes to proceed in isolation;
 once the work has been completed and tested,
-it can be merged into the master branch for release.}
+it can be merged into the master branch for release.
 
-\reviewed{\rulemajor{Rule 2: Document your code and usage}
+\rulemajor{Rule 2: Document your code and usage}
 
 How to write high quality documentation has been described elsewhere~\cite{karimzadeh2016}
 and so here we only cover two minimal types: the README and usage.
@@ -290,11 +289,10 @@ We address dependencies in more detail in Rule~5.
 even those considered self-explanatory.
 Link to specifications for standard formats
 and list the required fields and acceptable values in other files.
-If there is no rigorous format, explain what the sections mean.
-These files are often full of valuable information that can be
-mined for the user's specific purpose.
+If there is no rigorous definition for a format, explain its parts
+as clearly as possible in plain English.
 
-\reviewed{\item \textit{List a few example commands} to get a user started quickly.}
+\item \textit{List a few example commands} to get a user started quickly.
 
 \item \textit{State attributions and licensing}. Attributions are how you credit
 your contributors; licenses dictate how others may use and
@@ -337,7 +335,7 @@ We think it is very important for developers to document their work, but our
 experience is that people are unlikely do it during normal development
 However, it
 is worth noting that software that is widely used and contributed to has and
-enforces the need for good documentation~\cite{gentleman2004}.}
+enforces the need for good documentation~\cite{gentleman2004}.
 
 \rulemajor{Rule 3: Make common operations easy to control.}
 
@@ -440,21 +438,21 @@ best suits the number and expertise of users you anticipate.
 In the spirit of code reuse and interoperability, developers often want
 to reuse software written by others.
 With a few lines, a call
-is made out to \reviewed{another library or program} and the results are incorporated into the
+is made out to another library or program and the results are incorporated into the
 primary script. Using popular projects reduces the amount of code that
 needs to be maintained and leverages the work done by the other software.
 
-Unfortunately, reusing software \reviewed{(whether software libraries or separate executables)}
+Unfortunately, reusing software (whether software libraries or separate executables)
 introduces dependencies, which can
 bring their own special pain. The interface between two software
 packages can be a source of considerable frustration: all too
 often, support requests descend into debugging errors produced by the
 other project 
-\reviewed{due to incompatible libraries, versions, or operating
+due to incompatible libraries, versions, or operating
 systems~\cite{brown2013}. Even introducing libraries in the same programming
 language can rely on software installed in the environment, and the problem
 becomes much more difficult when relying on executables, or even on web
-services.}
+services.
 
 Despite these problems, software developers in research should
 re-use existing software provided a few guidelines are adhered to.
@@ -462,13 +460,13 @@ re-use existing software provided a few guidelines are adhered to.
 First,
 \ruleminor{make sure that you really need the auxiliary program}. If you are
 executing GNU sort instead of figuring out how to sort lists in Python,
-it may not be worth the pain of integration. \reviewed{Reuse software that offers some
-measurable improvement to your project.}
+it may not be worth the pain of integration. Reuse software that offers some
+measurable improvement to your project.
 
-Second, \reviewed{if launching an executable,}
+Second, if launching an executable,
 \ruleminor{ensure the appropriate software and version is available}.
 Either allow the user to
-configure the exact path to the package, \reviewed{distribute the program with the
+configure the exact path to the package, distribute the program with the
 dependent software, or download it during installation using your
 package manager. If the executable requires internet access, check for that
 early in execution.
@@ -480,18 +478,18 @@ available from a stable location or repository using your package manager.
 
 Exercise caution especially when transitioning across languages or using
 separate executables, as they tend to be especially sensitive to operating
-systems, environments, and locales.}
+systems, environments, and locales.
 
 \rulemajor{Rule 6: Rely on build tools and package managers for installation.}
 
-\reviewed{To compile code, deploy applications, and automate other tasks,
+To compile code, deploy applications, and automate other tasks,
 programmers routinely use build tools like Make, Rake, Maven, Ant or MS Build.
 These tools can also be used to manage runtime environments,
 i.e.,
 to check that the right versions of required packages are installed
 and install or upgrade them if they are not.
 As mentioned in Rule~5,
-a package manager can mitigate some of the difficulties in software reuse.}
+a package manager can mitigate some of the difficulties in software reuse.
 
 The same tools can and should be used to manage runtime environments on users' machines as well.
 Accordingly,
@@ -599,9 +597,9 @@ since ``where I have to be'' is just another hard-coded path.
 
 In order to save typing, it is often convenient to allow users to
 specify an input or output \emph{directory}, and then require that there
-be files with particular names in that directory. This practice, which
-is sometimes called ``convention over configuration'', is used by many
-software frameworks, such as WordPress and Ruby on Rails, and often
+be files with particular names in that directory. This practice is an
+example of ``convention over configuration'', a principle is used by
+software frameworks such as WordPress and Ruby on Rails that often
 strikes a good balance between adaptability and consistency.
 
 \rulemajor{Rule 9: Include a small test set that can be run to ensure the software is actually working.}
@@ -614,7 +612,7 @@ working example of how to run the software.
 
 In order to be useful, \ruleminor{make the tests easy to find and run}.
 Many build systems will also run unit tests if provided them at compile time.
-\reviewed{For users, or
+For users, or
 if the build system is not amenable to testing, 
 provide a working script
 in the project's root directory named \texttt{runtests.sh}
@@ -623,7 +621,7 @@ This lets new users build their analysis from a working script.
 For example, with its distribution, 
 HISAT2 includes a full set of very small files,
 and a 'Getting Started with HISAT2' section in its manual 
-that leads you through the entire data lifecycle~\cite{pertea2016}.}
+that leads you through the entire data lifecycle~\cite{pertea2016}.
 
 Equally, \ruleminor{make the test script's output easy to interpret}. Screens
 full of correlation coefficients do not qualify: instead, the script's
@@ -644,13 +642,12 @@ scientific software.
 
 \rulemajor{Rule 10: Produce identical results when given identical inputs.}
 
-\reviewed{The usage message tells users what the program could do.
+The usage message tells users what the program could do.
 It is equally important for the program to tell users what it actually did.
 Accordingly,
 when the program starts, it should \ruleminor{echo all parameters and software
-versions to standard out or a log file alongside the results}. This
-feature supports greater reproducibility because any result can be
-replicated with only the previous output files as reference.}
+versions to standard out or a log file alongside the results} to increase
+the reproducibility of that step.
 
 Given a set of parameters and a dataset, \ruleminor{a particular version of a program
 should produce the same results every time it is run}
@@ -705,6 +702,164 @@ off and run three or four times for slightly different purposes, is
 crucial to a publication or a lab, or being passed on to someone else,
 it may be time to make your software more robust.
 
-\bibliography{robust-software}
+\begin{thebibliography}{10}
+
+\bibitem{prins2015}
+Prins P, de~Ligt J, Tarasov A, Jansen RC, Cuppen E, Bourne PE.
+\newblock Toward effective software solutions for big biology.
+\newblock Nature Biotechnology. 2015;33(7):686--687.
+\newblock doi:{10.1038/nbt.3240}.
+
+\bibitem{baker2016}
+Baker M.
+\newblock 1,500 scientists lift the lid on reproducibility.
+\newblock Nature. 2016;533(7604):452--454.
+\newblock doi:{10.1038/533452a}.
+
+\bibitem{prabhu2011}
+Prabhu P, Jablin TB, Raman A, Zhang Y, Huang J, Kim H, et~al.
+\newblock A Survey of the Practice of Computational Science.
+\newblock In: State of the Practice Reports. SC '11. New York, NY, USA: ACM;
+  2011. p. 19:1--19:12.
+
+\bibitem{lawlor2015}
+Lawlor B, Walsh P.
+\newblock Engineering bioinformatics: building reliability, performance and
+  productivity into bioinformatics software.
+\newblock Bioengineered. 2015;6(4).
+\newblock doi:{10.1080/21655979.2015.1050162}.
+
+\bibitem{ison2016}
+Ison J, Rapacki K, Ménager H, Kalaš M, Rydza E, Chmura P, et~al.
+\newblock Tools and data services registry: a community effort to document
+  bioinformatics resources.
+\newblock Nucleic Acids Research. 2016;44(D1):D38--D47.
+\newblock doi:{10.1093/nar/gkv1116}.
+
+\bibitem{brazas2012}
+Brazas MD, Yim D, Yeung W, Ouellette BFF.
+\newblock A decade of web server updates at the bioinformatics links directory:
+  2003-–2012.
+\newblock Nucleic Acids Research. 2012;doi:{10.1093/nar/gks632}.
+
+\bibitem{stajich2002}
+Stajich JE, Block D, Boulez K, Brenner SE, Chervitz SA, Dagdigian C, et~al.
+\newblock The Bioperl Toolkit: Perl Modules for the Life Sciences.
+\newblock Genome Research. 2002;12(10):1611--1618.
+\newblock doi:{10.1101/gr.361602}.
+
+\bibitem{Seemann2013}
+Seemann T.
+\newblock Ten recommendations for creating usable bioinformatics command line
+  software.
+\newblock GigaScience. 2013;2(1):15.
+\newblock doi:{10.1186/2047-217X-2-15}.
+
+\bibitem{nekrutenko2012}
+Nekrutenko A, Taylor J.
+\newblock Next-generation sequencing data interpretation: enhancing
+  reproducibility and accessibility.
+\newblock Nature ReviewsGenetics. 2012;13(9):667--72.
+\newblock doi:{10.1038/nrg3305}.
+
+\bibitem{atwood2015}
+Atwood TK, Bongcam-Rudloff E, Brazas ME, Corpas M, Gaudet P, Lewitter F, et~al.
+\newblock GOBLET: The Global Organisation for Bioinformatics Learning,
+  Education and Training.
+\newblock PLoS Computational Biology. 2015;doi:{10.1371/journal.pcbi.1004143}.
+
+\bibitem{sanders2008}
+Sanders R, Kelly D.
+\newblock Dealing with Risk in Scientific Software Development.
+\newblock Software, IEEE. 2008;25(4):21--28.
+\newblock doi:{10.1109/ms.2008.84}.
+
+\bibitem{afgan2016}
+Afgan E, Baker D, van~den Beek M, Blankenberg D, Bouvier D, Čech M, et~al.
+\newblock The Galaxy platform for accessible, reproducible and collaborative
+  biomedical analyses: 2016 update.
+\newblock Nucleic Acids Research. 2016;44(W1):W3--W10.
+\newblock doi:{10.1093/nar/gkw343}.
+
+\bibitem{howe2012}
+Howe B.
+\newblock Virtual Appliances, Cloud Computing, and Reproducible Research.
+\newblock Computing in Science Engineering. 2012;14(4):36--41.
+\newblock doi:{10.1109/MCSE.2012.62}.
+
+\bibitem{gentleman2004}
+Gentleman RC, Carey VJ, Bates DM, Bolstad B, Dettling M, Dudoit S, et~al.
+\newblock Bioconductor: open software development for computational biology and
+  bioinformatics.
+\newblock Genome Biology. 2004;5(10):1--16.
+\newblock doi:{10.1186/gb-2004-5-10-r80}.
+
+\bibitem{varoquaux2015}
+Varoquaux G. Software for reproducible science: let’s not have a
+  misunderstanding; 2015.
+\newblock
+  \url{http://gael-varoquaux.info/programming/software-for-reproducible-science-lets-not-have-a-misunderstanding.html}.
+
+\bibitem{brown2013}
+Brown CT. Replication, reproduction, and remixing in research software; 2013.
+\newblock \url{http://ivory.idyll.org/blog/research-software-reuse.html}.
+
+\bibitem{wilson2014}
+Wilson G, Aruliah DA, Brown CT, Hong NPC, Davis M, Guy RT, et~al.
+\newblock Best Practices for Scientific Computing.
+\newblock PLoS Biology. 2014;12(1):e1001745.
+\newblock doi:{10.1371/journal.pbio.1001745}.
+
+\bibitem{wilson2016}
+Wilson G, Bryan J, Cranston K, Kitzes J, Nederbragt L, Teal TK.
+\newblock Good Enough Practices in Scientific Computing.
+\newblock arxivorg. 2016;abs/1609.00037.
+
+\bibitem{noble2009}
+Noble WS.
+\newblock {A Quick Guide to Organizing Computational Biology Projects}.
+\newblock PLoS Computational Biology. 2009;5(7).
+\newblock doi:{10.1371/journal.pcbi.1000424}.
+
+\bibitem{blischak2016}
+Blischak JD, Davenport ER, Wilson G.
+\newblock A Quick Introduction to Version Control with Git and GitHub.
+\newblock PLOS Computational Biology. 2016;12(1):1--18.
+\newblock doi:{10.1371/journal.pcbi.1004668}.
+
+\bibitem{karimzadeh2016}
+Karimzadeh M, Hoffman MM. Creating great documentation for bioinformatics
+  software; 2016.
+\newblock \url{http://hdl.handle.net/1807/73111}.
+
+\bibitem{Johnson1997}
+Johnson M.
+\newblock Building a Better ReadMe.
+\newblock Technical Communication. 1997;44(1):28--36.
+
+\bibitem{gnustandards}
+{\relax Free Software Foundation}. GNU Coding Standards; 2016.
+\newblock \url{https://www.gnu.org/prep/standards/standards.html}.
+
+\bibitem{posix2016}
+{\relax The IEEE}, {\relax The Open Group}. The Open Group Base Specifications
+  Issue 7 IEEE Std 1003.1-2008. 12. Utility Conventions; 2016.
+\newblock
+  \url{http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html}.
+
+\bibitem{pertea2016}
+Pertea M, Kim D, Pertea GM, Leek JT, Salzberg SL.
+\newblock Transcript-level expression analysis of RNA-seq experiments with
+  HISAT, StringTie and Ballgown.
+\newblock Nature Protocols. 2016;11(9):1650--1667.
+
+\bibitem{steinmacher2015}
+Steinmacher I, Silva MAG, Gerosa MA, Redmiles DF.
+\newblock A systematic literature review on the barriers faced by newcomers to
+  open source software projects.
+\newblock Information and Software Technology. 2015;59:67 -- 85.
+\newblock doi:{http://dx.doi.org/10.1016/j.infsof.2014.11.001}.
+
+\end{thebibliography}
 
 \end{document}
