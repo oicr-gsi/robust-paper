@@ -1,7 +1,8 @@
-LATEX=pdflatex
+LATEX=pdflatex 
 BIBTEX=bibtex
-STEM=robust-software
+ROBU=robust-software
 CHK=robust-checks
+FINAL=Robust-Paper_PLOS_CopyEdit
 
 all : commands
 
@@ -11,12 +12,24 @@ commands :
 
 ## pdf        : re-generate PDF
 pdf :
-	${LATEX} ${STEM}
-	${BIBTEX} ${STEM}
-	${LATEX} ${STEM}
-	${LATEX} ${STEM}
-	${LATEX} ${CHK}
-	${LATEX} ${CHK}
+	${LATEX} ${ROBU}
+	${BIBTEX} ${ROBU}
+	${LATEX} ${ROBU}
+	${LATEX} -output-directory=dist ${ROBU}
+	${LATEX} -jobname=S1_Checklist ${CHK}
+	${LATEX} -jobname=S1_Checklist -output-directory=dist ${CHK}
+
+## final      : generate PLOS-compliant tex file
+final :
+	${LATEX} ${ROBU}
+	${BIBTEX} ${ROBU}
+	${LATEX} ${ROBU}
+	${LATEX} ${ROBU}
+	@cp robust-software.tex ${FINAL}.tex
+	#replace the external bibliography with the contents from the bbl file
+	@sed -e '/\\bibliography{${ROBU}}/ {' -e 'r ${ROBU}.bbl' -e 'd' -e '}' -i ${FINAL}.tex
+	${LATEX} ${FINAL}
+	${LATEX} -output-directory=dist ${FINAL}
 
 ## build      : build HTML files.
 build : 
@@ -34,3 +47,4 @@ clean :
 	@find . -name '*.log' -exec rm {} \;
 	@find . -name '*.out' -exec rm {} \;
 	@find . -name .DS_Store -exec rm {} \;
+	@find . -maxdepth 1 -name '*.pdf' -exec rm {} \; #only remove pdfs from root dir, not subdirs
