@@ -98,7 +98,7 @@
 \newcommand{\fixme}[2]{\textsc{\textbf{{#1}: {#2}}}}
 \newcommand{\recommend}[1]{\textit{#1}}
 \newcommand{\withurl}[2]{{#1}\footnote{\texttt{#2}}}
-\newcommand{\rulemajor}[1]{\section{#1}}
+\newcommand{\rulemajor}[1]{\section*{#1}}
 \newcommand{\ruleminor}[1]{\textbf{#1}}
 \begin{document}
 \vspace*{0.2in}
@@ -242,7 +242,7 @@ metadata describing their contents in version control
 instead~\cite{noble2009}.
 
 If you are new to version control, it is simplest to treat it as ``a
-better \withurl{Dropbox}{http://dropbox.com}'' (or, if you are of a
+better Dropbox'' (or, if you are of a
 certain age, a better FTP), and to use it simply to synchronize files
 between multiple developers and machines~\cite{blischak2016}.  Once
 you are comfortable working that way, you should \ruleminor{use a
@@ -393,7 +393,7 @@ correct output as well as any errors.  \ruleminor{Increment your
 version number every time you release your software to other
 people}.
 
-\withurl{Semantic versioning}{http://semver.org/} is one of the most
+Semantic versioning~\cite{semver} is one of the most
 common types of versioning for open-source software. Version numbers
 take the form of \emph{MAJOR.MINOR{[}.PATCH{]}}, e.g., 0.2.6.  Changes
 in the major version number herald significant changes in the software
@@ -686,6 +686,11 @@ often~\cite{lawlor2015,sanders2008}.  However, if a script is dusted
 off and run three or four times for slightly different purposes, is
 crucial to a publication or a lab, or being passed on to someone else,
 it may be time to make your software more robust.
+
+\section*{Supporting information}
+
+\emph{S1 Checklist. Robust software checklist.} A checklist summarizing these ten simple rules to apply to your own
+software.
 
 \begin{thebibliography}{10}
 
