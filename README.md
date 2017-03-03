@@ -16,7 +16,7 @@ Reviewers say: "This is a very strong manuscript that should be read by everyone
 ## The Paper
 
 * Preprint: https://arxiv.org/abs/1610.04546v2
-* Download the checklist: https://github.com/oicr-gsi/robust-paper/blob/master/robust-checks.pdf
+* Download the checklist: https://github.com/oicr-gsi/robust-paper/blob/master/dist/S1_Checklist.pdf
 
 ## Dependencies
 
@@ -25,9 +25,18 @@ Reviewers say: "This is a very strong manuscript that should be read by everyone
 
 ## Build
 
-The paper is written in LaTeX and can be built using `make`;
+Create the pdf using `make`;
 
     make pdf
+
+When ready to submit to PLOS, generate a single tex file with bibliography with 
+
+    make final
+
+Other make commands:
+* make commands : get the full list of make commands
+* make clean    : remove auxiliary files from the directory
+
  
 ## Contact
  
