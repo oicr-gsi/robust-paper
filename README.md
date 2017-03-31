@@ -37,6 +37,10 @@ Other make commands:
 * make commands : get the full list of make commands
 * make clean    : remove auxiliary files from the directory
 
+## Acknowledgements
+
+Thank you to all of our pre- and post-print reviewers. A short list is available on our [Acknowledgements](ACKNOWLEDGEMENTS.md) page.
+ 
  
 ## Contact
  
