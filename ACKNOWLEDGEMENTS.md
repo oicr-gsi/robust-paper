@@ -1,4 +1,4 @@
-The authors thank the following people who gave feedback on our pre-print manuscript through Twitter, email, and Github:
+The authors thank the following people who gave feedback on our manuscript through Twitter, email, Github, and formal reviews:
 
 * Jonathan Petters (jon_petters)
 * Stuart Watt (morungos)
@@ -16,3 +16,5 @@ The authors thank the following people who gave feedback on our pre-print manusc
 * C. Titus Brown (ctitusbrown)
 * Aurélien Grosdidier (aurelg)
 * Hilmar Lapp (hlapp)
+* Ted Liefeld
+* Chris Mungall
