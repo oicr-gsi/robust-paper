@@ -6,7 +6,8 @@ Reviewers say: "This is a very strong manuscript that should be read by everyone
 
 ## News
 
-* 2017-02-10: Accepted for publication at PLoS Computational Biology!
+* 2017-04-13: Final copy up at PLoS Computational Biology: https://doi.org/10.1371/journal.pcbi.1005412
+* 2017-02-10: Accepted for publication at PLoS Computational Biology.
 * 2017-01-19: The paper is resubmitted and the arXiv version has been updated: https://arxiv.org/abs/1610.04546v2. 
 * 2016-12-06: Reviews are back! See them in issue [#23](https://github.com/oicr-gsi/robust-paper/issues/23)
 * 2016-10-14: Preprint is available on arXiv: https://arxiv.org/abs/1610.04546v1
@@ -15,8 +16,9 @@ Reviewers say: "This is a very strong manuscript that should be read by everyone
 
 ## The Paper
 
-* Preprint: https://arxiv.org/abs/1610.04546v2
+* Published: https://doi.org/10.1371/journal.pcbi.1005412
 * Download the checklist: https://github.com/oicr-gsi/robust-paper/blob/master/dist/S1_Checklist.pdf
+* Preprint: https://arxiv.org/abs/1610.04546v2
 
 ## Dependencies
 
